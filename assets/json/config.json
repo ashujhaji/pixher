@@ -1,0 +1,961 @@
+{
+  "exchange": [
+    {
+      "name": "NSE",
+      "order": [
+        {
+          "name": "RO",
+          "label": "Regular",
+          "description": "A regular order is an order placed during the market hours or the pre-market hours.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "BO",
+          "label": "Bracket",
+          "description": "Bracket order (BO) is a type of order where you can enter a new position (intraday only) along with a target/exit and a stop-loss order.",
+          "icon": "assets/images/ic_bo.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "CO",
+          "label": "Cover",
+          "description": "A Cover Order is an order which is placed along with a compulsory Stop Loss Order",
+          "icon": "assets/images/ic_co.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": false
+        },
+        {
+          "name": "AMO",
+          "label": "After Market",
+          "description": "This facility is available for people who can't actively track the markets from 9:15 AM to 3:30 PM.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        }
+      ],
+      "isTwentyDepthEnable": true,
+      "isDprEnable": false,
+      "products": [
+        {
+          "name": "CNC",
+          "label": "No, execute as a long term order",
+          "description": "You hold the shares in your demat\nfor a duration of two days or more.",
+          "icon": "assets/images/ic_delivery.png"
+        },
+        {
+          "name": "MIS",
+          "label": "Yes, execute as an intraday order",
+          "description": "A buy order must be sold on the same day and vice-versa before markets close.",
+          "icon": "assets/images/ic_intraday.png"
+        }
+      ]
+    },
+    {
+      "name": "BSE",
+      "order": [
+        {
+          "name": "RO",
+          "label": "Regular",
+          "description": "A regular order is an order placed during the market hours or the pre-market hours.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "BO",
+          "label": "Bracket",
+          "description": "Bracket order (BO) is a type of order where you can enter a new position (intraday only) along with a target/exit and a stop-loss order.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "CO",
+          "label": "Cover",
+          "description": "A Cover Order is an order which is placed along with a compulsory Stop Loss Order",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": false
+        },
+        {
+          "name": "AMO",
+          "label": "After Market",
+          "description": "This facility is available for people who can't actively track the markets from 9:15 AM to 3:30 PM.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        }
+      ],
+      "isTwentyDepthEnable": true,
+      "isDprEnable": false,
+      "products": [
+        {
+          "name": "CNC",
+          "label": "No, execute as a long term order",
+          "description": "You hold the shares in your demat\nfor a duration of two days or more.",
+          "icon": "assets/images/ic_delivery.png"
+        },
+        {
+          "name": "MIS",
+          "label": "Yes, execute as an intraday order",
+          "description": "A buy order must be sold on the same day and vice-versa before markets close.",
+          "icon": "assets/images/ic_intraday.png"
+        }
+      ]
+    },
+    {
+      "name": "CDS",
+      "order": [
+        {
+          "name": "RO",
+          "label": "Regular",
+          "description": "A regular order is an order placed during the market hours or the pre-market hours.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "BO",
+          "label": "Bracket",
+          "description": "Bracket order (BO) is a type of order where you can enter a new position (intraday only) along with a target/exit and a stop-loss order.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "CO",
+          "label": "Cover",
+          "description": "A Cover Order is an order which is placed along with a compulsory Stop Loss Order",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": false
+        },
+        {
+          "name": "AMO",
+          "label": "After market",
+          "icon": "assets/images/ic_regular.png",
+          "description": "This facility is available for people who can't actively track the markets from 9:15 AM to 3:30 PM.",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true,
+                "mis": true,
+                "nrml": true,
+                "cnc": false
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true,
+                "mis": true,
+                "nrml": true,
+                "cnc": false
+              }
+            }
+          ],
+          "stoploss_enable": true
+        }
+      ],
+      "isTwentyDepthEnable": true,
+      "isDprEnable": false,
+      "products": [
+        {
+          "name": "NRML",
+          "label": "No, execute as a carry forward order",
+          "description": "You hold the shares in your demat\nfor a duration of two days or more.",
+          "icon": "assets/images/ic_delivery.png"
+        },
+        {
+          "name": "MIS",
+          "label": "Yes, execute as an intraday order",
+          "description": "A buy order must be sold on the same day and vice-versa before markets close.",
+          "icon": "assets/images/ic_intraday.png"
+        }
+      ]
+    },
+    {
+      "name": "MCX",
+      "order": [
+        {
+          "name": "RO",
+          "label": "Regular",
+          "description": "A regular order is an order placed during the market hours or the pre-market hours.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "BO",
+          "label": "Bracket",
+          "description": "Bracket order (BO) is a type of order where you can enter a new position (intraday only) along with a target/exit and a stop-loss order.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "CO",
+          "label": "Cover",
+          "description": "A Cover Order is an order which is placed along with a compulsory Stop Loss Order",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": false
+        },
+        {
+          "name": "AMO",
+          "label": "After market",
+          "description": "This facility is available for people who can't actively track the markets from 9:15 AM to 3:30 PM.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        }
+      ],
+      "isTwentyDepthEnable": true,
+      "isDprEnable": false,
+      "products": [
+        {
+          "name": "NRML",
+          "label": "No, execute as a carry forward order",
+          "description": "You hold the shares in your demat\nfor a duration of two days or more.",
+          "icon": "assets/images/ic_delivery.png"
+        },
+        {
+          "name": "MIS",
+          "label": "Yes, execute as an intraday order",
+          "description": "A buy order must be sold on the same day and vice-versa before markets close.",
+          "icon": "assets/images/ic_intraday.png"
+        }
+      ]
+    },
+    {
+      "name": "NFO",
+      "order": [
+        {
+          "name": "RO",
+          "label": "Regular",
+          "description": "Regular MIS orders allow you to trade intraday using leverage.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "BO",
+          "label": "Bracket",
+          "description": "Bracket order (BO) is a type of order where you can enter a new position (intraday only) along with a target/exit and a stop-loss order.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        },
+        {
+          "name": "CO",
+          "label": "Cover",
+          "description": "A Cover Order is an order which is placed along with a compulsory Stop Loss Order",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "icon": "assets/images/ic_limit_price.png",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "icon": "assets/images/ic_market_price.png",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": false
+        },
+        {
+          "name": "AMO",
+          "label": "After market",
+          "description": "This facility is available for people who can't actively track the markets from 9:15 AM to 3:30 PM.",
+          "icon": "assets/images/ic_regular.png",
+          "types": [
+            {
+              "name": "MARKET",
+              "label": "Market",
+              "description": "A market order allows you to buy or sell a stock at the best available price. If you're placing a buy market order, you want to buy a specified quantity of stock from the exchange at any price available.",
+              "disables": {
+                "triggerPrice": false,
+                "price": false,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            },
+            {
+              "name": "LIMIT",
+              "label": "Limit",
+              "description": " A limit order allows you to buy or sell a stock at the price you have set or a better price.",
+              "disables": {
+                "triggerPrice": false,
+                "price": true,
+                "discQty": true,
+                "qty": true,
+                "stoploss": false,
+                "target": false,
+                "trailingStoploss": false,
+                "ioc": true
+              }
+            }
+          ],
+          "stoploss_enable": true
+        }
+      ],
+      "isTwentyDepthEnable": true,
+      "isDprEnable": false,
+      "products": [
+        {
+          "name": "NRML",
+          "label": "No, execute as a carry forward order",
+          "description": "You hold the shares in your position\nuntil it will squared-off.",
+          "icon": "assets/images/ic_delivery.png"
+        },
+        {
+          "name": "MIS",
+          "label": "Yes, execute as an intraday order",
+          "description": "A buy order must be sold on the same day and vice-versa before markets close.",
+          "icon": "assets/images/ic_intraday.png"
+        }
+      ]
+    }
+  ],
+  "min_disclosed_qty": {
+    "NSE": 10,
+    "NFO": 10,
+    "BSE": 10,
+    "BFO": 10,
+    "CDS": 10,
+    "MCX": 25
+  },
+  "exchange_status": [
+    {
+      "exchange": "NSE",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:15",
+      "end_time": "15:30"
+    },
+    {
+      "exchange": "BSE",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:15",
+      "end_time": "15:30"
+    },
+    {
+      "exchange": "NFO",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:15",
+      "end_time": "15:30"
+    },
+    {
+      "exchange": "BFO",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:15",
+      "end_time": "15:30"
+    },
+    {
+      "exchange": "MCX",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:00",
+      "end_time": "23:55"
+    },
+    {
+      "exchange": "CDS",
+      "active_days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "start_time": "09:00",
+      "end_time": "17:00"
+    }
+  ],
+  "gttEnable": true,
+  "CDSL_URLS":{
+    "EDIS":"http://mockedis.cdslindia.com/EDIS/VerifyDIS/",
+    "EPLEDGE":"https://mockedis.cdslindia.com:9001/APIServices/pledgeapi/pledgesetup",
+    "GENARATE_TIPIN":"https://edis.cdslindia.com/home/generatepin"
+  },
+  "allowedNetbanking":{
+    "ANDB": "ANDB",
+    "UTIB": "UTIB",
+    "BARB": "BARB_R",
+    "BKID": "BKID",
+    "MAHB": "MAHB",
+    "CSBK": "CSBK",
+    "CBIN": "CBIN",
+    "CIUB": "CIUB",
+    "DCBL": "DCBL",
+    "DEUT": "DEUT",
+    "DLXB": "DLXB",
+    "FDRL": "FDRL",
+    "HDFC": "HDFC",
+    "ICIC": "ICIC",
+    "IBKL": "IBKL",
+    "IDIB": "IDIB",
+    "INDB": "INDB",
+    "JAKA": "JAKA",
+    "KARB": "KARB",
+    "KVBL": "KVBL",
+    "KKBK": "KKBK",
+    "LAVB": "LAVB_R",
+    "RATN": "RATN",
+    "SRCB": "SRCB",
+    "SBIN": "SBIN",
+    "TMBL": "TMBL",
+    "UBIN": "CORP",
+    "YESB": "YESB"
+  }
+}
