@@ -4,9 +4,9 @@ import 'package:pixer/screens/stories.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/home/home.dart';
+import 'screens/playground.dart';
 import 'theme/theme.dart';
 import 'theme/theme_provider.dart';
-import 'util/routes.dart' as route;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,6 +79,15 @@ class _MyAppState extends State<MyApp> {
                                 category: ((args.isNotEmpty) ? args[0] : null),
                                 currentPage: (args.length >= 2) ? args[1] : 0,
                               ),
+                          settings: RouteSettings(name: settings.name));
+                    }
+                  case PlaygroundPage.tag:
+                    {
+                      return MaterialPageRoute(
+                          builder: (context) => PlaygroundPage(
+                            dimensions: ((args.isNotEmpty) ? args[0] : null),
+                            template: (args.length >= 2) ? args[1] : null,
+                          ),
                           settings: RouteSettings(name: settings.name));
                     }
                 }

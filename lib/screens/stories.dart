@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pixer/screens/playground.dart';
 
 import '../model/categories.dart';
 import '../model/template.dart';
@@ -121,7 +122,11 @@ class _StoriesPageState extends State<StoriesPage>
           ),
         ),
         onTap: () {
-          //Navigator.of(context).pushNamed(SignupPage.TAG);
+          Navigator.of(context).pushNamed(PlaygroundPage.tag,
+          arguments: [
+            widget.category?.templateDimension,
+            templates[widget.currentPage],
+          ]);
         },
       ),
     );
