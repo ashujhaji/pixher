@@ -16,16 +16,51 @@ class ImageWidget extends StatefulWidget {
 
 class _ImageWidgetState extends State<ImageWidget> {
   File? file;
+  bool enableControls = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     if (file != null) {
-      return Image.file(
-        file!,
-        fit: BoxFit.cover,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+      return Stack(
+        children: [
+          InteractiveViewer(
+            child: Image.file(
+              file!,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+            ),
+            constrained: false,
+            boundaryMargin: const EdgeInsets.all(100),
+            minScale: 0.5,
+            maxScale: 2,
+            onInteractionEnd: (details) {
+              setState(() {
+                enableControls = !enableControls;
+              });
+            },
+          ),
+          Visibility(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                margin: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(2),
+                child: const Icon(
+                  FeatherIcons.x,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.black45,
+                ),
+              ),
+            ),
+            visible: enableControls,
+          ),
+        ],
       );
     }
     return DottedBorder(
