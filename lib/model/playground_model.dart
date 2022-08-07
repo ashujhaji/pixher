@@ -298,6 +298,50 @@ Widget playgroundWidget(BuildContext context, int templateId,
           //padding: const EdgeInsets.all(20),
         );
       }
+    case 71:
+      {
+        return Container(
+          color: const Color(0xfff8f1f1),
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  child: PhysicalModel(
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 10, bottom: 25),
+                      child: ImageWidget(),
+                    ),
+                    color: Colors.white,
+                    elevation: 8,
+                  ),
+                  margin: const EdgeInsets.only(
+                      top: 30, left: 30, right: 30, bottom: 15),
+                ),
+                flex: 1,
+              ),
+              Expanded(
+                child: Container(
+                  child: PhysicalModel(
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 10, bottom: 25),
+                      child: ImageWidget(),
+                    ),
+                    color: Colors.white,
+                    elevation: 8,
+                  ),
+                  margin: const EdgeInsets.only(
+                      top: 10, left: 30, right: 30, bottom: 30),
+                ),
+                flex: 1,
+              ),
+            ],
+          ),
+          //padding: const EdgeInsets.all(20),
+        );
+      }
     default:
       {
         return Container();
