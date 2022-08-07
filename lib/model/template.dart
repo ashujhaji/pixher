@@ -19,6 +19,7 @@ class Template {
     this.featuredMedia,
     this.tags,
     this.isNew = false,
+    this.assetImage,
   });
 
   int? id;
@@ -31,6 +32,7 @@ class Template {
   String? featuredMedia;
   List<dynamic>? tags;
   bool isNew;
+  String? assetImage;
 
   factory Template.fromJson(Map<String, dynamic> json) => Template(
         id: json["id"],
@@ -44,5 +46,11 @@ class Template {
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
         isNew:
             DateTime.now().difference(DateTime.parse(json["date"])).inDays < 2,
+        assetImage: _imageUrlFromHtml(json['content']['rendered']),
       );
+
+  static String? _imageUrlFromHtml(String html) {
+    final srcReg = RegExp('(?<=src=")[^"]*');
+    return srcReg.stringMatch(html).toString();
+  }
 }

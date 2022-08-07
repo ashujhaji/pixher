@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/pixer/pixer/BuildConfig.java
- com.pixer.pixer.BuildConfig

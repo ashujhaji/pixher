@@ -7,8 +7,10 @@ import 'package:image_picker/image_picker.dart';
 
 class ImageWidget extends StatefulWidget {
   Function? animationCallback;
+  Color? opacity;
 
-  ImageWidget({Key? key, this.animationCallback}) : super(key: key);
+  ImageWidget({Key? key, this.animationCallback, this.opacity})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ImageWidgetState();
@@ -25,11 +27,17 @@ class _ImageWidgetState extends State<ImageWidget> {
       return Stack(
         children: [
           InteractiveViewer(
-            child: Image.file(
-              file!,
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.15),
+                BlendMode.srcOver,
+              ),
+              child: Image.file(
+                file!,
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
             ),
             constrained: false,
             boundaryMargin: const EdgeInsets.all(100),
@@ -41,6 +49,12 @@ class _ImageWidgetState extends State<ImageWidget> {
               });
             },
           ),
+          /*Visibility(
+            child: Container(
+              color: widget.opacity,
+            ),
+            visible: widget.opacity != null,
+          ),*/
           Visibility(
             child: Align(
               alignment: Alignment.topRight,

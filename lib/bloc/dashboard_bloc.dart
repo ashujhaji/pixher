@@ -6,12 +6,12 @@ import '../model/categories.dart';
 import '../model/template.dart';
 import '../repository/dashboard_repo.dart';
 
-class DashboardEvent extends Equatable {
+class DashboardEvent {
   @override
   List<Object?> get props => [];
 }
 
-class DashboardState extends Equatable {
+class DashboardState {
   @override
   List<Object?> get props => [];
 }
