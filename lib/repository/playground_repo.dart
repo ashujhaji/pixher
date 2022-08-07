@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -31,7 +32,21 @@ class PlaygroundRepo {
     List<int>? gifData = generateGIF(images);
     final Directory temp = await getTemporaryDirectory();
     final file =
-        await File('${temp.path}/images/' + "img.mov").writeAsBytes(gifData!);
+    await File('${temp.path}/images/' + "img.mov").writeAsBytes(gifData!);
+    return file;
+  }
+
+  Future<File?> captureScreen(GlobalKey repaintKey) async {
+    RenderRepaintBoundary boundary =
+    repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    final image = await boundary.toImage(pixelRatio: 3.0);
+    final byteData =
+    await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData == null) return null;
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    final Directory temp = await getTemporaryDirectory();
+    final file =
+    await File('${temp.path}/images/' + "img.png").writeAsBytes(pngBytes);
     return file;
   }
 
@@ -46,7 +61,7 @@ class PlaygroundRepo {
   Future<Uint8List?> _capturePngToUint8List(GlobalKey repaintKey) async {
     // renderBoxKey is the global key of my RepaintBoundary
     RenderRepaintBoundary boundary =
-        repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
 
     // pixelratio allows you to render it at a higher resolution than the actual widget in the application.
     ui.Image image = await boundary.toImage(pixelRatio: 2.0);

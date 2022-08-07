@@ -26,8 +26,14 @@ class StartRecordingEvent extends PlaygroundEvent {
   StartRecordingEvent(this.controller, this.onAnimationChanged, this.repaintKey);
 }
 
+class CaptureScreenEvent extends PlaygroundEvent {
+  late GlobalKey repaintKey;
+
+  CaptureScreenEvent(this.repaintKey);
+}
+
 class FileSavedState extends PlaygroundState {
-  late File file;
+  late File? file;
   FileSavedState(this.file);
 }
 
@@ -41,6 +47,9 @@ class PlaygroundBloc extends Bloc<PlaygroundEvent, PlaygroundState> {
     if (event is StartRecordingEvent) {
       final file =
           await repo.startRecording(event.controller, event.onAnimationChanged, event.repaintKey);
+      yield FileSavedState(file);
+    }else if(event is CaptureScreenEvent){
+      final file = await repo.captureScreen(event.repaintKey);
       yield FileSavedState(file);
     }
   }

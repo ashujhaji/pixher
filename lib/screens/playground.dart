@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/model/playground_model.dart';
+import 'package:share_extend/share_extend.dart';
 import '../bloc/playground_bloc.dart';
 import '../model/template.dart';
 import '../repository/playground_repo.dart';
@@ -61,13 +62,19 @@ class _PlaygroundState extends State<PlaygroundPage>
               actions: [
                 IconButton(
                   onPressed: () {
-                    BlocProvider.of<PlaygroundBloc>(context).add(
-                      StartRecordingEvent(controller, (value) {
-                        setState(() {
-                          controller.value = value;
-                        });
-                      }, _repaintKey),
-                    );
+                    if(playground.animated){
+                      BlocProvider.of<PlaygroundBloc>(context).add(
+                        StartRecordingEvent(controller, (value) {
+                          setState(() {
+                            controller.value = value;
+                          });
+                        }, _repaintKey),
+                      );
+                    }else{
+                      BlocProvider.of<PlaygroundBloc>(context).add(
+                        CaptureScreenEvent(_repaintKey),
+                      );
+                    }
                   },
                   icon: const Icon(FeatherIcons.share),
                 ),
@@ -99,8 +106,9 @@ class _PlaygroundState extends State<PlaygroundPage>
         },
         listener: (context, state) {
           if (state is FileSavedState) {
-            print(state.file.path);
+            if(state.file == null) return;
             file = state.file;
+            ShareExtend.share(file!.path, "file");
           }
         },
       ),

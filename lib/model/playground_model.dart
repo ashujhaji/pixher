@@ -254,6 +254,50 @@ Widget playgroundWidget(BuildContext context, int templateId,
           //padding: const EdgeInsets.all(20),
         );
       }
+
+    case 67:
+      {
+        return Container(
+          color: Colors.white.withOpacity(0.9),
+          child: Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 120),
+                child: Align(
+                  child: TextWidget(
+                    hint: 'Wish you growth with healthy\n& happiness',
+                    textStyle: GoogleFonts.roboto(
+                        color: const Color(0xffe3cfc3),
+                        fontSize: 16,
+                        letterSpacing: 2.2),
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 120,
+                  bottom: 270,
+                  left: 50,
+                  right: 50,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
+                    child: ImageWidget(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          //padding: const EdgeInsets.all(20),
+        );
+      }
     default:
       {
         return Container();
