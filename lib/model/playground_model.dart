@@ -191,6 +191,69 @@ Widget playgroundWidget(BuildContext context, int templateId,
           //padding: const EdgeInsets.all(20),
         );
       }
+    case 61:
+      {
+        return Container(
+          color: Colors.white.withOpacity(0.9),
+          child: Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  padding: const EdgeInsets.only(top: 200, left: 60),
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.width,
+                  child: RotationTransition(
+                    turns: const AlwaysStoppedAnimation(5 / 360),
+                    child: ImageWidget(),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                    padding: const EdgeInsets.only(bottom: 190, right: 60),
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width,
+                    child: RotationTransition(
+                      turns: const AlwaysStoppedAnimation(345 / 360),
+                      child: ImageWidget(),
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 145),
+                child: Align(
+                  child: TextWidget(
+                    hint: 'Ashutosh Jha',
+                    textStyle: GoogleFonts.gideonRoman(
+                      color: Colors.black.withOpacity(0.7),
+                      fontSize: 20,
+                    ),
+                  ),
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 60, bottom: 110),
+                child: Align(
+                  child: TextWidget(
+                    hint: 'With all \nthe best wishes',
+                    textStyle: GoogleFonts.gideonRoman(
+                      color: Colors.black.withOpacity(0.7),
+                      fontSize: 12,
+                    ),
+                  ),
+                  alignment: Alignment.bottomRight,
+                ),
+              ),
+            ],
+          ),
+          //padding: const EdgeInsets.all(20),
+        );
+      }
     default:
       {
         return Container();
