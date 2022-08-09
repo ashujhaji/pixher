@@ -14,6 +14,7 @@ class DashboardRepo {
   List<Category> categories = [];
 
   Future<List<Category>?> fetchCategories() async {
+    if(categories.isNotEmpty) return categories;
     http.Response response = await _apiProvider.getCategories();
     if (ResponseHandler.of(response) != null) {
       return categoryFromJson(response.body)

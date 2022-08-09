@@ -11,12 +11,13 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   PageController? _pageController;
   int _currentPage = 0;
 
   @override
   void initState() {
+    _pageController = PageController(initialPage: 0,keepPage: true);
     super.initState();
   }
 
@@ -68,4 +69,8 @@ class _HomePageState extends State<HomePage> {
     _pageController?.dispose();
     super.dispose();
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

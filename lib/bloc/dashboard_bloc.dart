@@ -39,6 +39,7 @@ class TemplatesFetchedState extends DashboardState {
   TemplatesFetchedState(this._category, this._templates);
 
   List<Template>? get templates => _templates;
+
   Category get category => _category;
 }
 
@@ -53,9 +54,15 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       final data = await repo.fetchCategories();
       yield CategoriesFetchedState(data);
     } else if (event is FetchTemplatesByCategory) {
-      final data =
-          await repo.fetchTemplatesByCategory(event.category.id.toString());
-      yield TemplatesFetchedState(event.category,data);
+      var data;
+      if (event.category.templates == null) {
+        data =
+            await repo.fetchTemplatesByCategory(event.category.id.toString());
+      } else {
+        data = event.category.templates;
+      }
+
+      yield TemplatesFetchedState(event.category, data);
     }
   }
 }

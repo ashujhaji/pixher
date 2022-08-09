@@ -8,8 +8,15 @@ import 'package:image_picker/image_picker.dart';
 class ImageWidget extends StatefulWidget {
   Function? animationCallback;
   Color? opacity;
+  ValueChanged<File>? onFileChanged;
+  ColorFilter? filter;
 
-  ImageWidget({Key? key, this.animationCallback, this.opacity})
+  ImageWidget(
+      {Key? key,
+      this.animationCallback,
+      this.opacity,
+      this.onFileChanged,
+      this.filter})
       : super(key: key);
 
   @override
@@ -28,10 +35,12 @@ class _ImageWidgetState extends State<ImageWidget> {
         children: [
           InteractiveViewer(
             child: ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.15),
-                BlendMode.srcOver,
-              ),
+              colorFilter: widget.filter == null
+                  ? ColorFilter.mode(
+                      Colors.black.withOpacity(0.15),
+                      BlendMode.srcOver,
+                    )
+                  : widget.filter!,
               child: Image.file(
                 file!,
                 fit: BoxFit.cover,
@@ -58,18 +67,25 @@ class _ImageWidgetState extends State<ImageWidget> {
           Visibility(
             child: Align(
               alignment: Alignment.topRight,
-              child: Container(
-                margin: const EdgeInsets.all(4),
-                padding: const EdgeInsets.all(2),
-                child: const Icon(
-                  FeatherIcons.x,
-                  color: Colors.white,
-                  size: 20,
+              child: InkWell(
+                child: Container(
+                  margin: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(2),
+                  child: const Icon(
+                    FeatherIcons.x,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.black45,
+                  ),
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.black45,
-                ),
+                onTap: () {
+                  setState(() {
+                    file = null;
+                  });
+                },
               ),
             ),
             visible: enableControls,
@@ -81,30 +97,33 @@ class _ImageWidgetState extends State<ImageWidget> {
       dashPattern: const [8, 4],
       strokeWidth: 1,
       color: theme.disabledColor,
-      child: Container(
-        color: theme.disabledColor.withOpacity(0.4),
-        alignment: Alignment.center,
-        child: IconButton(
-          onPressed: () {
-            imgFromGallery().then((xFile) {
-              if (xFile != null) {
-                setState(() {
-                  file = File(xFile.path);
-                });
-                if (widget.animationCallback != null) {
-                  widget.animationCallback!();
-                }
-              }
-            }).onError((error, stackTrace) {
-              debugPrint(error.toString());
-            });
-          },
-          icon: const Icon(
+      child: InkWell(
+        child: Container(
+          color: theme.disabledColor.withOpacity(0.4),
+          alignment: Alignment.center,
+          child: const Icon(
             FeatherIcons.plusSquare,
             color: Colors.black45,
             size: 40,
           ),
         ),
+        onTap: () {
+          imgFromGallery().then((xFile) {
+            if (xFile != null) {
+              setState(() {
+                file = File(xFile.path);
+              });
+              if (widget.animationCallback != null) {
+                widget.animationCallback!();
+              }
+              if (widget.onFileChanged != null) {
+                widget.onFileChanged!(file!);
+              }
+            }
+          }).onError((error, stackTrace) {
+            debugPrint(error.toString());
+          });
+        },
       ),
     );
   }

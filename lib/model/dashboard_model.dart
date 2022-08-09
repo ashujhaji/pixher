@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
+import '../screens/home/create.dart';
 import '../screens/home/dashboard.dart';
 
 
@@ -17,7 +18,7 @@ class TabBarModel {
     return [
       TabBarModel(
           page: const DashboardPage(), title: 'Home', icon: FeatherIcons.home),
-      TabBarModel(page: Container(), title: 'Create', icon: FeatherIcons.plusCircle),
+      TabBarModel(page: const CreatePage(), title: 'Create', icon: FeatherIcons.plusCircle),
       TabBarModel(
           page: Container(), title: 'Plans', icon: FeatherIcons.user)
     ];

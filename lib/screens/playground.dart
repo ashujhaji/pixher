@@ -25,7 +25,7 @@ class _PlaygroundState extends State<PlaygroundPage>
     with SingleTickerProviderStateMixin {
   final PlaygroundRepo _repo = PlaygroundRepo();
   late Playground playground;
-  late Animation<double> animation;
+  late List<Animation<double>> animation;
   late AnimationController controller;
   late GlobalKey _repaintKey;
   bool isRendering = false;
@@ -37,12 +37,12 @@ class _PlaygroundState extends State<PlaygroundPage>
     playground = Playground.getParamsFromKey(widget.template!.id, this);
     if (playground.animated) {
       controller = playground.animationController!;
-      animation = playground.animation!
-        ..addListener(() {
-          setState(() {
-            // The state that has changed here is the animation object’s value.
-          });
+      animation = playground.animation!;
+      for (Animation anim in animation) {
+        anim.addListener(() {
+          setState(() {});
         });
+      }
       controller.forward();
     }
   }
@@ -62,7 +62,7 @@ class _PlaygroundState extends State<PlaygroundPage>
               actions: [
                 IconButton(
                   onPressed: () {
-                    if(playground.animated){
+                    if (playground.animated) {
                       BlocProvider.of<PlaygroundBloc>(context).add(
                         StartRecordingEvent(controller, (value) {
                           setState(() {
@@ -70,7 +70,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                           });
                         }, _repaintKey),
                       );
-                    }else{
+                    } else {
                       BlocProvider.of<PlaygroundBloc>(context).add(
                         CaptureScreenEvent(_repaintKey),
                       );
@@ -92,8 +92,10 @@ class _PlaygroundState extends State<PlaygroundPage>
                               child: playgroundWidget(
                                 context,
                                 widget.template!.id!,
-                                value: playground.animated ? animation.value : 0.0,
+                                animations:
+                                    playground.animated ? animation : null,
                                 assetUrl: widget.template?.assetImage,
+                                animated: playground.animated,
                               ),
                             ),
                             key: _repaintKey,
@@ -106,7 +108,7 @@ class _PlaygroundState extends State<PlaygroundPage>
         },
         listener: (context, state) {
           if (state is FileSavedState) {
-            if(state.file == null) return;
+            if (state.file == null) return;
             file = state.file;
             ShareExtend.share(file!.path, "file");
           }

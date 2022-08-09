@@ -7,7 +7,7 @@ class TextWidget extends StatefulWidget {
   final String hint;
   final TextAlign textAlign;
 
-  TextWidget({
+  const TextWidget({
     Key? key,
     this.animationCallback,
     this.textStyle,
@@ -22,7 +22,7 @@ class TextWidget extends StatefulWidget {
 class _TextWidgetState extends State<TextWidget> {
   bool enableControls = false;
   bool _isEditingText = false;
-  String initialText = 'Text Here';
+  String initialText = '';
   late TextEditingController _editingController;
 
   @override
@@ -76,7 +76,7 @@ class _TextWidgetState extends State<TextWidget> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              widget.hint,
+              initialText.isNotEmpty ? initialText : widget.hint,
               style: widget.textStyle,
               textAlign: widget.textAlign,
             ),

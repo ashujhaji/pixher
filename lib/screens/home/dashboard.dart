@@ -112,13 +112,16 @@ class _DashboardPageState extends State<DashboardPage> {
           callForTemplate(list[index]);
         }
         return ListTile(
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 5,
+          ),
           title: Text(
             list[index].name.toString(),
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: SizedBox(
-            height: 170,
+            height: 220,
             child: list[index].templates == null
                 ? _templatePlaceholderWidget(context)
                 : _templateWidget(context, list[index]),
@@ -126,6 +129,7 @@ class _DashboardPageState extends State<DashboardPage> {
         );
       },
       itemCount: list.length,
+      physics: const BouncingScrollPhysics(),
     );
   }
 
