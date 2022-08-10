@@ -6,13 +6,16 @@ class TextWidget extends StatefulWidget {
   final TextStyle? textStyle;
   final String hint;
   final TextAlign textAlign;
+  late EdgeInsetsGeometry edgeInsetsGeometry;
 
-  const TextWidget({
+  TextWidget({
     Key? key,
     this.animationCallback,
     this.textStyle,
     this.hint = 'Text Here',
     this.textAlign = TextAlign.center,
+    this.edgeInsetsGeometry =
+        const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
   }) : super(key: key);
 
   @override
@@ -46,9 +49,9 @@ class _TextWidgetState extends State<TextWidget> {
         controller: _editingController,
         style: widget.textStyle,
         textAlign: widget.textAlign,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+          contentPadding: widget.edgeInsetsGeometry,
           border: InputBorder.none,
         ),
       );
@@ -74,7 +77,7 @@ class _TextWidgetState extends State<TextWidget> {
         },
         child: DottedBorder(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: widget.edgeInsetsGeometry,
             child: Text(
               initialText.isNotEmpty ? initialText : widget.hint,
               style: widget.textStyle,

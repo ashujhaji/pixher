@@ -1,5 +1,6 @@
 const Map<String, List<double>> templateDimensions = {
-  'ig_story': [1080, 1920]
+  'ig_story': [1080, 1920],
+  'ig_post':[1080, 1350],
 };
 
 class TemplateDimension{

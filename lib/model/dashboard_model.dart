@@ -18,7 +18,7 @@ class TabBarModel {
     return [
       TabBarModel(
           page: const DashboardPage(), title: 'Home', icon: FeatherIcons.home),
-      TabBarModel(page: const CreatePage(), title: 'Create', icon: FeatherIcons.plusCircle),
+      TabBarModel(page: const CreatePage(), title: 'Create', icon: FeatherIcons.hash),
       TabBarModel(
           page: Container(), title: 'Plans', icon: FeatherIcons.user)
     ];

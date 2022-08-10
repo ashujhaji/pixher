@@ -118,6 +118,37 @@ class Playground {
             animationController: controller,
           );
         }
+      case 125:
+        {
+          AnimationController controller = AnimationController(
+              duration: const Duration(milliseconds: 1500),
+              vsync: tickerProvider);
+          Animation<double> imgOne = Tween<double>(begin: 1, end: 0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(
+                0,
+                0.65,
+                curve: Curves.easeInOut,
+              ),
+            ),
+          );
+          Animation<double> imgTwo = Tween<double>(begin: 1, end: 0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(
+                0.65,
+                1,
+                curve: Curves.easeInOut,
+              ),
+            ),
+          );
+          return Playground(
+            animated: true,
+            animation: [imgOne, imgTwo],
+            animationController: controller,
+          );
+        }
       default:
         {
           return Playground();
@@ -691,7 +722,10 @@ Widget playgroundWidget(BuildContext context, int templateId,
           color: Colors.white,
           child: Stack(
             children: [
-              CachedNetworkImage(imageUrl: assetUrl.toString()),
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
               Positioned(
                 top: 80,
                 left: 25,
@@ -772,7 +806,10 @@ Widget playgroundWidget(BuildContext context, int templateId,
           child: Stack(
             fit: StackFit.expand,
             children: [
-              CachedNetworkImage(imageUrl: assetUrl.toString()),
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
               Column(
                 children: [
                   const SizedBox(
@@ -864,19 +901,252 @@ Widget playgroundWidget(BuildContext context, int templateId,
       {
         return Container(
           color: Colors.white,
-          child: ClipOval(
-            child: ImageWidget(
-              filter: ColorFilter.mode(
-                Colors.black.withOpacity(1),
-                BlendMode.saturation,
-              ),
-            ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width - 70,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: ClipOval(
+                  child: ImageWidget(
+                    filter: ColorFilter.mode(
+                      Colors.black.withOpacity(1),
+                      BlendMode.saturation,
+                    ),
+                  ),
+                ),
+              )
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
           ),
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 160,
-            bottom: 160,
+        );
+      }
+    case 125:
+      {
+        return Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: (MediaQuery.of(context).size.width / 3 - 10) *
+                              animations![1].value,
+                        ),
+                        child: ImageWidget(),
+                      ),
+                      flex: 1,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width *
+                              animations[0].value,
+                        ),
+                        child: ImageWidget(),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                flex: 5,
+              ),
+              Expanded(
+                child: AnimatedOpacity(
+                  opacity: 1 - animations[0].value,
+                  duration: const Duration(seconds: 3),
+                  child: Column(
+                    children: [
+                      TextWidget(
+                        textStyle: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 22,
+                        ),
+                        hint: 'New\nCollection',
+                        edgeInsetsGeometry: EdgeInsets.zero,
+                      ),
+                      TextWidget(
+                        textStyle: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                        hint: 'Spring/Summer',
+                        edgeInsetsGeometry: EdgeInsets.zero,
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                ),
+                flex: 3,
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width *
+                              animations[0].value,
+                        ),
+                        child: ImageWidget(),
+                      ),
+                      flex: 2,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          right: (MediaQuery.of(context).size.width / 3 - 10) *
+                              animations[1].value,
+                        ),
+                        child: ImageWidget(),
+                      ),
+                      flex: 1,
+                    ),
+                  ],
+                ),
+                flex: 5,
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+        );
+      }
+    case 128:
+      {
+        return Container(
+          color: const Color(0xfff2ead0),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 40,
+                      top: 40,
+                    ),
+                    child: TextWidget(
+                      textStyle: GoogleFonts.exo2(
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      hint: 'New arrivals',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 40,
+                    ),
+                    child: TextWidget(
+                      textStyle: GoogleFonts.mavenPro(
+                        color: Colors.black.withOpacity(0.7),
+                        fontSize: 12,
+                      ),
+                      hint: 'Discount up to 60% on all items',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(150),
+                          bottomRight: Radius.circular(150),
+                        ),
+                        child: ImageWidget(),
+                      ),
+                      margin:
+                          const EdgeInsets.only(top: 40, bottom: 20, right: 50),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }
+    case 131:
+      {
+        return Container(
+          color: const Color(0xffebe6e0),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  child: TextWidget(
+                    textStyle: GoogleFonts.taviraj(
+                      color: const Color(0xff6f4930).withOpacity(0.8),
+                      fontSize: 110,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    hint: 'SALE',
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  padding: const EdgeInsets.all(20),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  color: Colors.white,
+                  child: ImageWidget(),
+                  padding: const EdgeInsets.all(10),
+                  /*width: 250,
+                  height: 230,*/
+                  margin: const EdgeInsets.only(
+                      left: 60, right: 60, top: 115, bottom: 80),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  child: RotationTransition(
+                    turns: const AlwaysStoppedAnimation(340 / 360),
+                    child: TextWidget(
+                      textStyle: GoogleFonts.ruthie(
+                        color: Colors.black,
+                        fontSize: 28,
+                      ),
+                      hint: 'elegance is beauty\nthat never fades',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  padding: const EdgeInsets.only(bottom: 80,right: 50),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: TextWidget(
+                      textStyle: GoogleFonts.roboto(
+                        color: Colors.black.withOpacity(0.6),
+                        fontSize: 14,
+                      ),
+                      hint: 'www.mywebsite.com',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  )),
+            ],
           ),
         );
       }
