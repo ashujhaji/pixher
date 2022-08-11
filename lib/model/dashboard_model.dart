@@ -12,15 +12,4 @@ class TabBarModel {
   Widget? activeIcon;
 
   TabBarModel({this.page, this.title, this.icon, this.activeIcon});
-
-  static List<TabBarModel> getTabBarItems(
-      {BuildContext? context, Function? tabClickHandler}) {
-    return [
-      TabBarModel(
-          page: const DashboardPage(), title: 'Home', icon: FeatherIcons.home),
-      TabBarModel(page: const CreatePage(), title: 'Create', icon: FeatherIcons.hash),
-      TabBarModel(
-          page: Container(), title: 'Plans', icon: FeatherIcons.user)
-    ];
-  }
 }

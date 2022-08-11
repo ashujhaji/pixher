@@ -1,7 +1,10 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/model/playground_model.dart';
+import 'package:pixer/screens/home/home.dart';
+import 'package:pixer/util/events.dart';
 import 'package:share_extend/share_extend.dart';
 import '../bloc/playground_bloc.dart';
 import '../model/template.dart';
@@ -103,13 +106,42 @@ class _PlaygroundState extends State<PlaygroundPage>
                         ),
                       )
                     : const CircularProgressIndicator()
-                : Image.file(file!),
+                : Center(
+                    child: Image.file(file!),
+                  ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                if (playground.animated) {
+                  BlocProvider.of<PlaygroundBloc>(context).add(
+                    StartRecordingEvent(controller, (value) {
+                      setState(() {
+                        controller.value = value;
+                      });
+                    }, _repaintKey, generateHashtag: true),
+                  );
+                } else {
+                  BlocProvider.of<PlaygroundBloc>(context).add(
+                    CaptureScreenEvent(_repaintKey, generateHashtag: true),
+                  );
+                }
+              },
+              child: const Icon(
+                FeatherIcons.hash,
+              ),
+            ),
           );
         },
         listener: (context, state) {
           if (state is FileSavedState) {
             if (state.file == null) return;
             file = state.file;
+            if (state.generateHashtag) {
+              EventBusHelper.instance
+                  .getEventBus()
+                  .fire(GenerateHashtagEvent(state.file));
+              Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
+              return;
+            }
             ShareExtend.share(file!.path, "file");
           }
         },

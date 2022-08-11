@@ -5,7 +5,18 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
-      primarySwatch: Colors.lightGreen,
+      primarySwatch: const MaterialColor(0xffa61651, {
+        50: Color.fromRGBO(166, 22, 81, .1),
+        100: Color.fromRGBO(166, 22, 81, .2),
+        200: Color.fromRGBO(166, 22, 81, .3),
+        300: Color.fromRGBO(166, 22, 81, .4),
+        400: Color.fromRGBO(166, 22, 81, .5),
+        500: Color.fromRGBO(166, 22, 81, .6),
+        600: Color.fromRGBO(166, 22, 81, .7),
+        700: Color.fromRGBO(166, 22, 81, .8),
+        800: Color.fromRGBO(166, 22, 81, .9),
+        900: Color.fromRGBO(166, 22, 81, 1),
+      }),
       primaryColor: isDarkTheme ? Colors.black : Colors.white,
       backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
       indicatorColor:
@@ -19,7 +30,17 @@ class Styles {
       hoverColor:
           isDarkTheme ? const Color(0xff3A3A3B) : const Color(0xff4285F4),
       focusColor:
-          isDarkTheme ? const Color(0xff0B2512) : const Color(0xffA8DAB5),
+          isDarkTheme ? const Color(0xff0B2512) : const Color(0xffa61651),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Color(0xffa61651),
+        foregroundColor: Colors.white,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
+        elevation: 5,
+        selectedItemColor: isDarkTheme ? Colors.white : const Color(0xffa61651),
+        unselectedItemColor: Colors.grey.withOpacity(0.8),
+      ),
       disabledColor: Colors.grey,
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: isDarkTheme ? Colors.white : Colors.black,
@@ -45,19 +66,22 @@ class Styles {
             headline2: Theme.of(context).textTheme.headline2?.copyWith(
                 inherit: true,
                 fontSize: 28.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
                 fontFamily: 'Lato',
                 height: 1.2),
             headline3: Theme.of(context).textTheme.headline3?.copyWith(
                 inherit: true,
                 fontSize: 22.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
                 fontFamily: 'Lato',
                 height: 1.2),
             headline4: Theme.of(context).textTheme.headline4?.copyWith(
                 inherit: true,
                 fontSize: 18.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
                 fontFamily: 'Lato',
                 height: 1.2),
             headline5: Theme.of(context).textTheme.headline5?.copyWith(
@@ -69,19 +93,22 @@ class Styles {
             headline6: Theme.of(context).textTheme.headline6?.copyWith(
                 inherit: true,
                 fontSize: 14.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.6),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.6),
                 fontFamily: 'Lato',
                 height: 1.2),
             subtitle1: Theme.of(context).textTheme.subtitle1?.copyWith(
                 inherit: true,
                 fontSize: 12.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
                 fontFamily: 'Lato',
                 height: 1.4),
             subtitle2: Theme.of(context).textTheme.subtitle2?.copyWith(
                 inherit: true,
                 fontSize: 14.0,
-                color: isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
+                color:
+                    isDarkTheme ? Colors.white : Colors.black.withOpacity(0.8),
                 fontFamily: 'Lato',
                 height: 1.4),
             bodyText1: Theme.of(context).textTheme.bodyText1?.copyWith(
