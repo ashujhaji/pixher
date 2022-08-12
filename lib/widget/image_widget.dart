@@ -10,22 +10,26 @@ class ImageWidget extends StatefulWidget {
   Color? opacity;
   ValueChanged<File>? onFileChanged;
   ColorFilter? filter;
+  File? file;
 
   ImageWidget(
       {Key? key,
       this.animationCallback,
       this.opacity,
       this.onFileChanged,
-      this.filter})
+      this.filter,
+      this.file,})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ImageWidgetState();
+  State<StatefulWidget> createState() => _ImageWidgetState(file);
 }
 
 class _ImageWidgetState extends State<ImageWidget> {
   File? file;
   bool enableControls = false;
+
+  _ImageWidgetState(this.file);
 
   @override
   Widget build(BuildContext context) {

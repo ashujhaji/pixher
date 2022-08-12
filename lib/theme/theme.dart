@@ -17,7 +17,7 @@ class Styles {
         800: Color.fromRGBO(166, 22, 81, .9),
         900: Color.fromRGBO(166, 22, 81, 1),
       }),
-      primaryColor: isDarkTheme ? Colors.black : Colors.white,
+      primaryColor: const Color(0xffa61651),
       backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
       indicatorColor:
           isDarkTheme ? const Color(0xff0E1D36) : const Color(0xffCBDCF8),

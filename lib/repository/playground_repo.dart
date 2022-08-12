@@ -45,8 +45,11 @@ class PlaygroundRepo {
     if (byteData == null) return null;
     Uint8List pngBytes = byteData.buffer.asUint8List();
     final Directory temp = await getTemporaryDirectory();
-    final file =
-    await File('${temp.path}/images/' + "img.png").writeAsBytes(pngBytes);
+    final file = File('${temp.path}/images/' + "img.png");
+    if(!file.existsSync()){
+      file.create(recursive: true);
+    }
+    file.writeAsBytes(pngBytes);
     return file;
   }
 
