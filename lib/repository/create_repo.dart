@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../data/api/api_provider.dart';
 import '../data/api/response_handler.dart';
+import '../model/caption.dart';
 import '../model/hashtags.dart';
 
 class CreateRepo {
@@ -14,7 +15,7 @@ class CreateRepo {
     final List<String> list = [];
 
     final ImageLabelerOptions options =
-        ImageLabelerOptions(confidenceThreshold: 0.5);
+        ImageLabelerOptions(confidenceThreshold: 0.7);
     final imageLabeler = ImageLabeler(options: options);
     final labels = await imageLabeler.processImage(InputImage.fromFile(image));
 
@@ -44,5 +45,22 @@ class CreateRepo {
       }
     }
     return res;
+  }
+
+  Future<String> getRandomCaption(List<String> tags) async {
+    String query = '';
+    String caption = '';
+    for(int i=0; i<tags.length ; i++){
+      query +='option$i=${tags[i]}';
+    }
+    http.Response response =
+        await _apiProvider.getRandomCaption(query);
+    if (ResponseHandler.of(response) != null) {
+      final data = captionResponseFromJson(response.body);
+      if(data.isNotEmpty){
+        caption += '${data[0].q.toString()}\n-${data[0].a.toString()}';
+      }
+    }
+    return caption;
   }
 }

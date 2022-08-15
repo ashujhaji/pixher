@@ -39,6 +39,7 @@ class _CreatePageState extends State<CreatePage> {
     RegExp("#[a-zA-Z]+"):
         const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)
   };
+  String defaultCaption = 'write your caption here';
   bool switchState = false;
 
   @override
@@ -195,9 +196,15 @@ class _CreatePageState extends State<CreatePage> {
             loading = true;
             BlocProvider.of<CreateBloc>(context)
                 .add(FetchTagsEvent(state.labels));
+            BlocProvider.of<CreateBloc>(context)
+                .add(FetchCaption(state.labels));
           } else if (state is TagsFetched) {
             loading = false;
             tags.addAll(state.tags);
+          } else if (state is CaptionFetched) {
+            if (state.caption.isNotEmpty) {
+              defaultCaption = state.caption.toString();
+            }
           }
         },
       ),
@@ -361,7 +368,7 @@ class _CreatePageState extends State<CreatePage> {
               vertical: 0,
             ),
             title: Text(
-              editing ? 'Post it on instagram now' : 'Suggest me a caption',
+              editing ? 'Post it on instagram now' : 'Suggest me random caption',
               style: Theme.of(context)
                   .textTheme
                   .headline6
@@ -407,8 +414,7 @@ class _CreatePageState extends State<CreatePage> {
                   return;
                 }
                 tags.removeWhere((key, value) => value == false);
-                textEditingController?.text =
-                    'myusername  write your caption here'
+                textEditingController?.text = 'myusername  $defaultCaption'
                     '\n.'
                     '\n.'
                     '\n.'

@@ -41,6 +41,18 @@ class TagsFetched extends CreateState {
   TagsFetched(this.tags);
 }
 
+class FetchCaption extends CreateEvent {
+  List<String> tags;
+
+  FetchCaption(this.tags);
+}
+
+class CaptionFetched extends CreateState {
+  String caption;
+
+  CaptionFetched(this.caption);
+}
+
 class CreateBloc extends Bloc<CreateEvent, CreateState> {
   CreateRepo repo;
 
@@ -57,6 +69,9 @@ class CreateBloc extends Bloc<CreateEvent, CreateState> {
         final tags = await repo.getTags(label);
         yield TagsFetched(tags);
       }
+    }else if(event is FetchCaption){
+      final data = await repo.getRandomCaption(event.tags);
+      yield CaptionFetched(data);
     }
   }
 }
