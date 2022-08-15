@@ -36,7 +36,7 @@ class LabelState extends CreateState {
 }
 
 class TagsFetched extends CreateState {
-  String tags;
+  Map<String, bool> tags;
 
   TagsFetched(this.tags);
 }
@@ -50,6 +50,7 @@ class CreateBloc extends Bloc<CreateEvent, CreateState> {
   Stream<CreateState> mapEventToState(CreateEvent event) async* {
     if (event is GenerateLabelEvent) {
       final lables = await repo.getLabels(event.file);
+      print(lables);
       yield LabelState(lables);
     } else if (event is FetchTagsEvent) {
       for (String label in event.labels) {

@@ -29,9 +29,16 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     bottomNavigationItems = [
-      TabBarModel(page: dashboardPage, title: 'Home', icon: FeatherIcons.home),
-      TabBarModel(page: createPage, title: 'Create', icon: FeatherIcons.hash),
-      TabBarModel(page: Container(), title: 'Plans', icon: FeatherIcons.user)
+      TabBarModel(page: dashboardPage, title: 'Pick', icon: FeatherIcons.smartphone),
+      TabBarModel(
+        page: createPage,
+        title: '',
+        icon: FeatherIcons.hash,
+        activeIcon: Image.asset(
+          'assets/images/hashtag.png',
+        ),
+      ),
+      TabBarModel(page: Container(), title: 'Plan', icon: FeatherIcons.calendar)
     ];
     _pageController = PageController(initialPage: 0, keepPage: true);
     eventbus = EventBusHelper.instance
@@ -56,19 +63,74 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
+      extendBodyBehindAppBar: true,
+      /*appBar: AppBar(
         centerTitle: true,
         title: const Text('Pixher'),
         toolbarHeight: 44,
         leading:
             IconButton(onPressed: () {}, icon: const Icon(FeatherIcons.menu)),
+      ),*/
+      body: SafeArea(
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          children: bottomNavigationItems.map((item) => item.page!).toList(),
+        ),
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        children: bottomNavigationItems.map((item) => item.page!).toList(),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+        child: BottomNavigationBar(
+          elevation: 10,
+          type: BottomNavigationBarType.fixed,
+          items: bottomNavigationItems.map((item) {
+            final index = bottomNavigationItems.indexOf(item);
+            return BottomNavigationBarItem(
+              icon: index == 1
+                  ? FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                        _pageController?.animateToPage(index,
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeInOut);
+                      },
+                      backgroundColor: const Color(0xff282828),
+                      child: Image.asset(
+                        'assets/images/hashtag.png',
+                        height: 35,
+                      ),
+                    )
+                  : (_currentPage == index && item.activeIcon != null)
+                      ? item.activeIcon!
+                      : Icon(
+                          item.icon,
+                          size: 20,
+                        ),
+              label: item.title,
+            );
+          }).toList(),
+          currentIndex: _currentPage,
+          /*selectedItemColor: theme.APP_COLOR,
+              unselectedItemColor: theme.iconColor.withOpacity(0.6),*/
+          showUnselectedLabels: true,
+          backgroundColor: Theme.of(context).backgroundColor,
+          onTap: (index) {
+            setState(() {
+              _currentPage = index;
+            });
+            _pageController?.animateToPage(index,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut);
+          },
+        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+
+      /* BottomNavigationBar(
         elevation: 10,
         type: BottomNavigationBarType.fixed,
         items: bottomNavigationItems.map((item) {
@@ -91,7 +153,7 @@ class _HomePageState extends State<HomePage>
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut);
         },
-      ),
+      ),*/
     );
   }
 

@@ -60,26 +60,49 @@ class _PlaygroundState extends State<PlaygroundPage>
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
+            extendBodyBehindAppBar: true,
             appBar: AppBar(
               toolbarHeight: 40,
-              actions: [
-                IconButton(
+              backgroundColor: Colors.transparent,
+              leading: Container(
+                margin: const EdgeInsets.only(left: 10),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black45,
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    if (playground.animated) {
-                      BlocProvider.of<PlaygroundBloc>(context).add(
-                        StartRecordingEvent(controller, (value) {
-                          setState(() {
-                            controller.value = value;
-                          });
-                        }, _repaintKey),
-                      );
-                    } else {
-                      BlocProvider.of<PlaygroundBloc>(context).add(
-                        CaptureScreenEvent(_repaintKey),
-                      );
-                    }
+                    Navigator.of(context).pop();
                   },
-                  icon: const Icon(FeatherIcons.share),
+                ),
+              ),
+              actions: [
+                Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black45,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      if (playground.animated) {
+                        BlocProvider.of<PlaygroundBloc>(context).add(
+                          StartRecordingEvent(controller, (value) {
+                            setState(() {
+                              controller.value = value;
+                            });
+                          }, _repaintKey),
+                        );
+                      } else {
+                        BlocProvider.of<PlaygroundBloc>(context).add(
+                          CaptureScreenEvent(_repaintKey),
+                        );
+                      }
+                    },
+                    icon: const Icon(FeatherIcons.share),
+                    iconSize: 18,
+                  ),
                 ),
               ],
             ),

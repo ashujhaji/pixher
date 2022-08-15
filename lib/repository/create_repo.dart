@@ -14,7 +14,7 @@ class CreateRepo {
     final List<String> list = [];
 
     final ImageLabelerOptions options =
-        ImageLabelerOptions(confidenceThreshold: 0.7);
+        ImageLabelerOptions(confidenceThreshold: 0.5);
     final imageLabeler = ImageLabeler(options: options);
     final labels = await imageLabeler.processImage(InputImage.fromFile(image));
 
@@ -26,23 +26,23 @@ class CreateRepo {
     return list;
   }
 
-  Future<String> getTags(String tag) async {
-    Set<String> res = {};
+  Future<Map<String, bool>> getTags(String tag) async {
+    Map<String, bool> res = {};
     http.Response response = await _apiProvider.getRelevantTags(tag);
     if (ResponseHandler.of(response) != null) {
       final sections = hashtagFromJson(response.body).data;
-      if (sections == null) return '';
+      if (sections == null) return {};
       for (var element1 in sections) {
         if (element1.layoutContent != null) {
           for (var element2 in element1.layoutContent!) {
             RegExp regex = RegExp("#[a-zA-Z]+");
             regex.allMatches(element2.caption.toString()).forEach((element) {
-              res.add(element.group(0).toString() + " ");
+              res[element.group(0).toString()] = false;
             });
           }
         }
       }
     }
-    return res.join(" ");
+    return res;
   }
 }

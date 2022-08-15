@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
-      primarySwatch: const MaterialColor(0xffa61651, {
-        50: Color.fromRGBO(166, 22, 81, .1),
-        100: Color.fromRGBO(166, 22, 81, .2),
-        200: Color.fromRGBO(166, 22, 81, .3),
-        300: Color.fromRGBO(166, 22, 81, .4),
-        400: Color.fromRGBO(166, 22, 81, .5),
-        500: Color.fromRGBO(166, 22, 81, .6),
-        600: Color.fromRGBO(166, 22, 81, .7),
-        700: Color.fromRGBO(166, 22, 81, .8),
-        800: Color.fromRGBO(166, 22, 81, .9),
-        900: Color.fromRGBO(166, 22, 81, 1),
+      primarySwatch: const MaterialColor(0xff811eff, {
+        50: Color.fromRGBO(129, 30, 225, .1),
+        100: Color.fromRGBO(129, 30, 225, .2),
+        200: Color.fromRGBO(129, 30, 225, .3),
+        300: Color.fromRGBO(129, 30, 225, .4),
+        400: Color.fromRGBO(129, 30, 225, .5),
+        500: Color.fromRGBO(129, 30, 225, .6),
+        600: Color.fromRGBO(129, 30, 225, .7),
+        700: Color.fromRGBO(129, 30, 225, .8),
+        800: Color.fromRGBO(129, 30, 225, .9),
+        900: Color.fromRGBO(129, 30, 225, 1),
       }),
-      primaryColor: const Color(0xffa61651),
+      primaryColor: const Color(0xff811eff),
       backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
       indicatorColor:
           isDarkTheme ? const Color(0xff0E1D36) : const Color(0xffCBDCF8),
@@ -30,15 +30,15 @@ class Styles {
       hoverColor:
           isDarkTheme ? const Color(0xff3A3A3B) : const Color(0xff4285F4),
       focusColor:
-          isDarkTheme ? const Color(0xff0B2512) : const Color(0xffa61651),
+          isDarkTheme ? const Color(0xff0B2512) : const Color(0xff811eff),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Color(0xffa61651),
+        backgroundColor: Color(0xff811eff),
         foregroundColor: Colors.white,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
         elevation: 5,
-        selectedItemColor: isDarkTheme ? Colors.white : const Color(0xffa61651),
+        selectedItemColor: isDarkTheme ? Colors.white : const Color(0xff811eff),
         unselectedItemColor: Colors.grey.withOpacity(0.8),
       ),
       disabledColor: Colors.grey,

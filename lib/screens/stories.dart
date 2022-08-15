@@ -118,7 +118,9 @@ class _StoriesPageState extends State<StoriesPage>
               color: Theme.of(context).primaryColor),
           child: Text(
             'Use this template',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline6?.copyWith(
+              color: Colors.white
+            ),
           ),
         ),
         onTap: () {
