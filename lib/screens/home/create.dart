@@ -12,7 +12,9 @@ import 'package:pixer/bloc/create_bloc.dart';
 import 'package:pixer/repository/create_repo.dart';
 import 'package:pixer/widget/expanded_section.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../theme/theme_preference.dart';
 import '../../widget/CustomShimmerWidget.dart';
 
 class CreatePage extends StatefulWidget {
@@ -41,10 +43,15 @@ class _CreatePageState extends State<CreatePage> {
   };
   String defaultCaption = 'write your caption here';
   bool switchState = false;
+  SharedPreferences? preferences;
 
   @override
   void initState() {
     _repo = CreateRepo();
+    SharedPreferences.getInstance().then((pref) {
+      preferences = pref;
+      switchState = pref.getBool(DarkThemePreference.CAPTION_ENABLE) ?? false;
+    });
     super.initState();
   }
 
@@ -195,15 +202,15 @@ class _CreatePageState extends State<CreatePage> {
           if (state is LabelState) {
             loading = true;
             BlocProvider.of<CreateBloc>(context)
-                .add(FetchTagsEvent(state.labels));
-            BlocProvider.of<CreateBloc>(context)
                 .add(FetchCaption(state.labels));
+            BlocProvider.of<CreateBloc>(context)
+                .add(FetchTagsEvent(state.labels));
           } else if (state is TagsFetched) {
             loading = false;
             tags.addAll(state.tags);
           } else if (state is CaptionFetched) {
             if (state.caption.isNotEmpty) {
-              defaultCaption = state.caption.toString();
+              _repo.captionList = state.caption.toString();
             }
           }
         },
@@ -368,7 +375,9 @@ class _CreatePageState extends State<CreatePage> {
               vertical: 0,
             ),
             title: Text(
-              editing ? 'Post it on instagram now' : 'Suggest me random caption',
+              editing
+                  ? 'Post it on instagram now'
+                  : 'Suggest me random caption',
               style: Theme.of(context)
                   .textTheme
                   .headline6
@@ -399,6 +408,8 @@ class _CreatePageState extends State<CreatePage> {
                           setState(() {
                             switchState = value;
                           });
+                          preferences?.setBool(
+                              DarkThemePreference.CAPTION_ENABLE, value);
                         },
                         activeColor: Theme.of(context).unselectedWidgetColor,
                         thumbColor: switchState
@@ -414,7 +425,8 @@ class _CreatePageState extends State<CreatePage> {
                   return;
                 }
                 tags.removeWhere((key, value) => value == false);
-                textEditingController?.text = 'myusername  $defaultCaption'
+                textEditingController?.text =
+                    'myusername  ${switchState ? _repo.captionList : defaultCaption}'
                     '\n.'
                     '\n.'
                     '\n.'

@@ -10,6 +10,7 @@ import '../model/hashtags.dart';
 
 class CreateRepo {
   final _apiProvider = ApiProvider();
+  String? captionList;
 
   Future<List<String>> getLabels(File image) async {
     final List<String> list = [];
@@ -23,7 +24,6 @@ class CreateRepo {
       final String text = label.label;
       list.add(text);
     }
-
     return list;
   }
 
