@@ -364,7 +364,7 @@ class _CreatePageState extends State<CreatePage> {
             horizontal: 10,
           ),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.4),
+            color: Theme.of(context).primaryColor.withOpacity(0.5),
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: Theme.of(context).primaryColor),
           ),
@@ -440,25 +440,10 @@ class _CreatePageState extends State<CreatePage> {
                   editing = true;
                 });
               },
-              icon: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 800),
-                transitionBuilder: (child, anim) => FadeTransition(
-                  opacity: child.key == const ValueKey('icon1')
-                      ? Tween<double>(begin: 1, end: 0.75).animate(anim)
-                      : Tween<double>(begin: 0.75, end: 1).animate(anim),
-                  child: FadeTransition(opacity: anim, child: child),
-                ),
-                child: !editing
-                    ? const Icon(
-                        Icons.chevron_right,
-                        key: ValueKey('icon1'),
-                        size: 28,
-                      )
-                    : const Icon(
-                        Icons.done,
-                        key: ValueKey('icon2'),
-                        size: 28,
-                      ),
+              icon: const Icon(
+                Icons.chevron_right,
+                key: ValueKey('icon1'),
+                size: 28,
               ),
             ),
           ),

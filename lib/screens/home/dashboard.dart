@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/bloc/dashboard_bloc.dart';
 
 import '../../model/categories.dart';
@@ -21,32 +22,47 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          DashboardBloc(InitialState(), _repo)..add(FetchDashboardCategories()),
-      child: BlocConsumer<DashboardBloc, DashboardState>(
-        builder: (context, state) {
-          if (_repo.categories != null) {
-            return _categoriesList(context, _repo.categories, (category) {
-              BlocProvider.of<DashboardBloc>(context)
-                  .add(FetchTemplatesByCategory(category));
-            });
-          }
-          return _placeholderWidget(context);
-        },
-        listener: (context, state) {
-          if (state is CategoriesFetchedState) {
-            if (state.categories != null) {
-              _repo.categories = state.categories!;
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 40,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(FeatherIcons.menu),
+        ),
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'Pixher',
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        centerTitle: true,
+      ),
+      body: BlocProvider(
+        create: (context) => DashboardBloc(InitialState(), _repo)
+          ..add(FetchDashboardCategories()),
+        child: BlocConsumer<DashboardBloc, DashboardState>(
+          builder: (context, state) {
+            if (_repo.categories != null) {
+              return _categoriesList(context, _repo.categories, (category) {
+                BlocProvider.of<DashboardBloc>(context)
+                    .add(FetchTemplatesByCategory(category));
+              });
             }
-          } else if (state is TemplatesFetchedState) {
-            state.category.templates = state.templates;
-          }
-        },
-        buildWhen: (context, state) {
-          return state is CategoriesFetchedState ||
-              state is TemplatesFetchedState;
-        },
+            return _placeholderWidget(context);
+          },
+          listener: (context, state) {
+            if (state is CategoriesFetchedState) {
+              if (state.categories != null) {
+                _repo.categories = state.categories!;
+              }
+            } else if (state is TemplatesFetchedState) {
+              state.category.templates = state.templates;
+            }
+          },
+          buildWhen: (context, state) {
+            return state is CategoriesFetchedState ||
+                state is TemplatesFetchedState;
+          },
+        ),
       ),
     );
   }
