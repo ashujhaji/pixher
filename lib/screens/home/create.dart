@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pixer/bloc/create_bloc.dart';
-import 'package:pixer/repository/create_repo.dart';
-import 'package:pixer/widget/expanded_section.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../bloc/create_bloc.dart';
+import '../../repository/create_repo.dart';
+import '../../widget/expanded_section.dart';
 import '../../theme/theme_preference.dart';
 import '../../widget/CustomShimmerWidget.dart';
 
@@ -219,7 +219,7 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   Widget _placeholderWidget(BuildContext context) {
-    return CircularProgressIndicator();
+    //return CircularProgressIndicator();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [

@@ -1,4 +1,4 @@
-package com.pixer.pixer
+package com.pixher.android
 
 import io.flutter.embedding.android.FlutterActivity
 

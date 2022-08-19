@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "792119893110",
+    "project_id": "pixher-9ff50",
+    "storage_bucket": "pixher-9ff50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792119893110:android:65d8d668c52cd543081357",
+        "android_client_info": {
+          "package_name": "com.pixher.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792119893110-996evjtpmu8p9qai99i5qd7f4smrjnur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPgD9mjXbwZA-x55nGxSkSlQLdes7srR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792119893110-996evjtpmu8p9qai99i5qd7f4smrjnur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
