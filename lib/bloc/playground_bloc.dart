@@ -23,16 +23,24 @@ class StartRecordingEvent extends PlaygroundEvent {
   late AnimationController controller;
   late GlobalKey repaintKey;
   bool generateHashtag;
+  String fileName;
 
-  StartRecordingEvent(this.controller, this.onAnimationChanged, this.repaintKey,
-      {this.generateHashtag = false});
+  StartRecordingEvent(
+    this.controller,
+    this.onAnimationChanged,
+    this.repaintKey, {
+    this.generateHashtag = false,
+    this.fileName = 'img',
+  });
 }
 
 class CaptureScreenEvent extends PlaygroundEvent {
   late GlobalKey repaintKey;
   bool generateHashtag;
+  String fileName;
 
-  CaptureScreenEvent(this.repaintKey, {this.generateHashtag = false});
+  CaptureScreenEvent(this.repaintKey,
+      {this.generateHashtag = false, this.fileName = 'img'});
 }
 
 class FileSavedState extends PlaygroundState {
@@ -51,11 +59,11 @@ class PlaygroundBloc extends Bloc<PlaygroundEvent, PlaygroundState> {
   Stream<PlaygroundState> mapEventToState(PlaygroundEvent event) async* {
     if (event is StartRecordingEvent) {
       final file = await repo.startRecording(
-          event.controller, event.onAnimationChanged, event.repaintKey);
-      yield FileSavedState(file,event.generateHashtag);
+          event.controller, event.onAnimationChanged, event.repaintKey,fileName: event.fileName);
+      yield FileSavedState(file, event.generateHashtag);
     } else if (event is CaptureScreenEvent) {
-      final file = await repo.captureScreen(event.repaintKey);
-      yield FileSavedState(file,event.generateHashtag);
+      final file = await repo.captureScreen(event.repaintKey,fileName: event.fileName);
+      yield FileSavedState(file, event.generateHashtag);
     }
   }
 }

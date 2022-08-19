@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pixer/screens/stories.dart';
@@ -20,6 +21,8 @@ void main() async {
   const MyApp myApp = MyApp(
     initialRoute: HomePage.tag,
   );
+
+  Firebase.initializeApp();
 
   runApp(myApp);
 }

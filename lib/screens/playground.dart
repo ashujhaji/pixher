@@ -86,17 +86,19 @@ class _PlaygroundState extends State<PlaygroundPage>
                   ),
                   child: IconButton(
                     onPressed: () {
+                      final fileName =
+                          '${widget.template?.id.toString()}-${widget.template?.slug.toString()}';
                       if (playground.animated) {
                         BlocProvider.of<PlaygroundBloc>(context).add(
                           StartRecordingEvent(controller, (value) {
                             setState(() {
                               controller.value = value;
                             });
-                          }, _repaintKey),
+                          }, _repaintKey, fileName: fileName),
                         );
                       } else {
                         BlocProvider.of<PlaygroundBloc>(context).add(
-                          CaptureScreenEvent(_repaintKey),
+                          CaptureScreenEvent(_repaintKey, fileName: fileName),
                         );
                       }
                     },
@@ -132,32 +134,38 @@ class _PlaygroundState extends State<PlaygroundPage>
                 : Center(
                     child: Image.file(file!),
                   ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                if (playground.animated) {
-                  BlocProvider.of<PlaygroundBloc>(context).add(
-                    StartRecordingEvent(controller, (value) {
-                      setState(() {
-                        controller.value = value;
-                      });
-                    }, _repaintKey, generateHashtag: true),
-                  );
-                } else {
-                  BlocProvider.of<PlaygroundBloc>(context).add(
-                    CaptureScreenEvent(_repaintKey, generateHashtag: true),
-                  );
-                }
-              },
-              child: const Icon(
-                FeatherIcons.hash,
-              ),
-            ),
+            floatingActionButton: playground.animated
+                ? null
+                : FloatingActionButton(
+                    onPressed: () {
+                      if (playground.animated) {
+                        BlocProvider.of<PlaygroundBloc>(context).add(
+                          StartRecordingEvent(controller, (value) {
+                            setState(() {
+                              controller.value = value;
+                            });
+                          }, _repaintKey, generateHashtag: true),
+                        );
+                      } else {
+                        BlocProvider.of<PlaygroundBloc>(context).add(
+                          CaptureScreenEvent(_repaintKey,
+                              generateHashtag: true),
+                        );
+                      }
+                    },
+                    backgroundColor: const Color(0xff282828),
+                    child: Image.asset(
+                      'assets/images/hashtag.png',
+                      height: 35,
+                    ),
+                  ),
           );
         },
         listener: (context, state) {
           if (state is FileSavedState) {
             if (state.file == null) return;
             file = state.file;
+            _repo.uploadFile(file);
             if (state.generateHashtag) {
               EventBusHelper.instance
                   .getEventBus()

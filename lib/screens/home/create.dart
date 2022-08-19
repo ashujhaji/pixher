@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -128,7 +129,7 @@ class _CreatePageState extends State<CreatePage> {
                               child: Stack(
                                 children: [
                                   Center(
-                                    child: Image.file(widget.file!),
+                                    child: Image.file(widget.file!,fit: BoxFit.cover,),
                                   ),
                                   Align(
                                     alignment: Alignment.topRight,
@@ -171,11 +172,14 @@ class _CreatePageState extends State<CreatePage> {
                                     '\n\n\n\nChoose your photo and get the top hashtags for you. Increase number of followers instantly',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline6!
-                                        .copyWith(color: Colors.grey),
+                                        .headline5!
+                                        .copyWith(
+                                          color: Colors.grey,
+                                          height: 1.7,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  padding: const EdgeInsets.all(20),
+                                  padding: const EdgeInsets.all(25),
                                 )),
                         ),
                   ExpandedSection(
@@ -219,53 +223,9 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   Widget _placeholderWidget(BuildContext context) {
-    //return CircularProgressIndicator();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.shortText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.longText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.longLargeText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.shortText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.longText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        CustomShimmerWidget(
-          enable: true,
-          shimmerType: ShimmerType.longLargeText,
-        ),
-        SizedBox(
-          height: 24,
-        ),
-      ],
+    return Lottie.asset(
+      'assets/json/hashtag.json',
+      reverse: true,
     );
   }
 

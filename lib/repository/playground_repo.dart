@@ -2,14 +2,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 
 class PlaygroundRepo {
-  Future<File> startRecording(AnimationController controller,
-      ValueChanged<double> onAnimationChanged, GlobalKey repaintKey) async {
+  Future<File> startRecording(
+    AnimationController controller,
+    ValueChanged<double> onAnimationChanged,
+    GlobalKey repaintKey, {
+    String fileName = 'img',
+  }) async {
     double t = 0;
     int i = 1;
     onAnimationChanged(0);
@@ -31,22 +37,22 @@ class PlaygroundRepo {
 
     List<int>? gifData = generateGIF(images);
     final Directory temp = await getTemporaryDirectory();
-    final file =
-    await File('${temp.path}/images/' + "img.mov").writeAsBytes(gifData!);
+    final file = await File('${temp.path}/images/' + "$fileName.mov")
+        .writeAsBytes(gifData!);
     return file;
   }
 
-  Future<File?> captureScreen(GlobalKey repaintKey) async {
+  Future<File?> captureScreen(GlobalKey repaintKey,
+      {String fileName = 'img'}) async {
     RenderRepaintBoundary boundary =
-    repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+        repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
     final image = await boundary.toImage(pixelRatio: 3.0);
-    final byteData =
-    await image.toByteData(format: ui.ImageByteFormat.png);
+    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     if (byteData == null) return null;
     Uint8List pngBytes = byteData.buffer.asUint8List();
     final Directory temp = await getTemporaryDirectory();
-    final file = File('${temp.path}/images/' + "img.png");
-    if(!file.existsSync()){
+    final file = File('${temp.path}/images/' + "$fileName.png");
+    if (!file.existsSync()) {
       file.create(recursive: true);
     }
     file.writeAsBytes(pngBytes);
@@ -64,7 +70,7 @@ class PlaygroundRepo {
   Future<Uint8List?> _capturePngToUint8List(GlobalKey repaintKey) async {
     // renderBoxKey is the global key of my RepaintBoundary
     RenderRepaintBoundary boundary =
-    repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+        repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
 
     // pixelratio allows you to render it at a higher resolution than the actual widget in the application.
     ui.Image image = await boundary.toImage(pixelRatio: 2.0);
@@ -72,5 +78,32 @@ class PlaygroundRepo {
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
 
     return pngBytes;
+  }
+
+  Future<UploadTask?> uploadFile(File? file) async {
+    return null;
+    if (file == null) {
+      return null;
+    }
+
+    UploadTask uploadTask;
+
+    // Create a Reference to the file
+    final fileName = file.path.split('/').last;
+    Reference ref =
+        FirebaseStorage.instance.ref().child('assets').child(fileName);
+
+    final metadata = SettableMetadata(
+      contentType: 'image/${fileName.split('.').last}',
+      customMetadata: {'picked-file-path': file.path},
+    );
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(file, metadata);
+    }
+
+    return Future.value(uploadTask);
   }
 }
