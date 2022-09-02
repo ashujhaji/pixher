@@ -1150,6 +1150,85 @@ Widget playgroundWidget(BuildContext context, int templateId,
           ),
         );
       }
+    case 143:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(imageUrl: assetUrl.toString()),
+              Stack(
+                children: [
+                  Positioned(
+                      top: 55.0,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: TextWidget(
+                          textStyle: GoogleFonts.slabo13px(
+                              color: Colors.black.withOpacity(0.7), fontSize: 16),
+                          hint: 'WE ARE GETTING MARRIED',
+                        ),
+                      ),
+                  ),
+                  Positioned(
+                    top: 345.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: TextWidget(
+                        textStyle: GoogleFonts.ooohBaby(
+                            color: Colors.black, fontSize: 26),
+                        hint: 'Marceline & Jonathan',
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 415.0,
+                    left: 40,
+                    right: 40,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: TextWidget(
+                        textStyle: GoogleFonts.slabo13px(
+                            color: Colors.black.withOpacity(0.8), fontSize: 16),
+                        hint: 'We\'d love your presence to be a part of our big day!',
+                      ),
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.only(
+                          bottom: 45, right: 63, left: 67, top: 125),
+                      height: MediaQuery.of(context).size.width,
+                      child: RotationTransition(
+                        turns: const AlwaysStoppedAnimation(359 / 360),
+                        child: Container(
+                          color: Colors.white,
+                          child: ImageWidget(),
+                          //elevation: 5,
+                        ),
+                      ),
+                  ),
+                  Positioned(
+                    top: 520,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: TextWidget(
+                        textStyle: GoogleFonts.slabo13px(
+                            color: Colors.black, fontSize: 14),
+                        hint: 'FRIDAY, 09.09.2022\n123 Anywhere St. Any City, ST 12345',
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      }
     default:
       {
         return Container();

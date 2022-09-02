@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/model/dashboard_model.dart';
+import 'package:pixer/screens/home/more.dart';
 
+import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
 import 'create.dart';
 import 'dashboard.dart';
@@ -24,21 +26,23 @@ class _HomePageState extends State<HomePage>
   late List<TabBarModel> bottomNavigationItems;
   DashboardPage dashboardPage = const DashboardPage();
   CreatePage createPage = CreatePage();
+  MorePage morePage = MorePage();
   late StreamSubscription eventbus;
 
   @override
   void initState() {
     bottomNavigationItems = [
-      TabBarModel(page: dashboardPage, title: 'Pick', icon: FeatherIcons.smartphone),
       TabBarModel(
-        page: createPage,
+          page: dashboardPage, title: 'Pick', icon: FeatherIcons.smartphone),
+      TabBarModel(
+        page: Container(),
         title: '',
         icon: FeatherIcons.hash,
         activeIcon: Image.asset(
           'assets/images/hashtag.png',
         ),
       ),
-      TabBarModel(page: Container(), title: 'Plan', icon: FeatherIcons.calendar)
+      TabBarModel(page: morePage, title: 'About', icon: FeatherIcons.grid)
     ];
     _pageController = PageController(initialPage: 0, keepPage: true);
     eventbus = EventBusHelper.instance
@@ -46,12 +50,13 @@ class _HomePageState extends State<HomePage>
         .on<GenerateHashtagEvent>()
         .listen((event) {
       if (event.file != null) {
-        _pageController?.animateToPage(1,
+        /*_pageController?.animateToPage(1,
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut);
         setState(() {
           _currentPage = 1;
-        });
+        });*/
+        Navigator.of(context).push(_openCreate());
         createPage.getLabels(event.file!);
       }
     });
@@ -92,12 +97,13 @@ class _HomePageState extends State<HomePage>
               icon: index == 1
                   ? FloatingActionButton(
                       onPressed: () {
-                        setState(() {
+                        /*setState(() {
                           _currentPage = index;
                         });
                         _pageController?.animateToPage(index,
                             duration: const Duration(milliseconds: 200),
-                            curve: Curves.easeInOut);
+                            curve: Curves.easeInOut);*/
+                        Navigator.of(context).push(_openCreate());
                       },
                       backgroundColor: const Color(0xff282828),
                       child: Image.asset(
@@ -155,6 +161,33 @@ class _HomePageState extends State<HomePage>
         },
       ),*/
     );
+  }
+
+  Route _openCreate() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            createPage,
+        transitionDuration: const Duration(milliseconds: 500),
+        reverseTransitionDuration: const Duration(milliseconds: 500),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var screenSIze = MediaQuery.of(context).size;
+          var centerCircleClipper =
+          Offset(screenSIze.width / 2, screenSIze.height - 60);
+
+          double beginRadius = 0.0;
+          double endRadius = screenSIze.height * 1.2;
+
+          var radiusTween = Tween(begin: beginRadius, end: endRadius);
+          var radiusTweenAnimation = animation.drive(radiusTween);
+
+          return ClipPath(
+            child: child,
+            clipper: CircleTransitionClipper(
+              radius: radiusTweenAnimation.value,
+              center: centerCircleClipper,
+            ),
+          );
+        });
   }
 
   @override

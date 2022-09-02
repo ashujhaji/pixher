@@ -90,6 +90,18 @@ class _CreatePageState extends State<CreatePage> {
       child: BlocConsumer<CreateBloc, CreateState>(
         builder: (context, state) {
           return Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 40,
+              automaticallyImplyLeading: false,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(FeatherIcons.x),
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -129,7 +141,10 @@ class _CreatePageState extends State<CreatePage> {
                               child: Stack(
                                 children: [
                                   Center(
-                                    child: Image.file(widget.file!,fit: BoxFit.cover,),
+                                    child: Image.file(
+                                      widget.file!,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   Align(
                                     alignment: Alignment.topRight,
