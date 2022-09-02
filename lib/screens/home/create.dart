@@ -91,16 +91,24 @@ class _CreatePageState extends State<CreatePage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              toolbarHeight: 40,
+              elevation: 0,
               automaticallyImplyLeading: false,
               actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(FeatherIcons.x),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(FeatherIcons.x,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey.withOpacity(0.5)
+                  ),
                 ),
               ],
+              backgroundColor: Colors.transparent,
             ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(10),
@@ -208,7 +216,7 @@ class _CreatePageState extends State<CreatePage> {
               ),
             ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+                FloatingActionButtonLocation.centerFloat,
             floatingActionButton: Visibility(
               child: _floatingButton(context),
               visible: tags.values.any(
@@ -310,14 +318,9 @@ class _CreatePageState extends State<CreatePage> {
                   'https://gravatar.com/avatar/5cbd1bacf4212ff48c20ef30d3b1d420?s=400&d=robohash&r=x',
             ),
           ),
-
-          /*Icon(
-            FeatherIcons.user,
-            color: Colors.white,
-          ),*/
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 40),
+          padding: const EdgeInsets.only(left: 50),
           child: TextField(
             maxLines: 100,
             controller: textEditingController,

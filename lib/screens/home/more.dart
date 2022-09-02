@@ -32,7 +32,7 @@ class _MorePageState extends State<MorePage> {
               height: 10,
             ),
             Text(
-              'Are you having out of creative story ideas for your social media accounts? We are here to help you to create content for your social media platforms. Pick a template, add image and text of your brand and share. Join us to get early bird access of premium features 100% free.',
+              'Pick a template, customize it and share it. Get suggested hashtags and caption for your photo. It\'s that easy to grow your followers.   \n\nJoin us to get early bird access of premium features 100% free.',
               style: Theme.of(context).textTheme.headline5?.copyWith(
                   height: 1.5,
                   color: Theme.of(context)
@@ -72,9 +72,7 @@ class _MorePageState extends State<MorePage> {
                       'assets/images/instagram.png',
                       height: 44,
                     ),
-                    onTap: (){
-
-                    },
+                    onTap: () {},
                   )
                 ],
               ),

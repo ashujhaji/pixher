@@ -46,8 +46,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme = true;
-    //await themeChangeProvider.darkThemePreference.getTheme();
+    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   @override
@@ -60,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, provider, child) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
-              theme: Styles.themeData(themeChangeProvider.darkTheme, context),
+              theme: Styles.themeData(provider.darkTheme, context),
               initialRoute: widget.initialRoute,
               title: 'Pixher',
               onGenerateRoute: (RouteSettings settings) {

@@ -26,8 +26,10 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         toolbarHeight: 40,
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(FeatherIcons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: Icon(FeatherIcons.menu,color: Theme.of(context).textSelectionTheme.selectionColor,),
         ),
         backgroundColor: Colors.transparent,
         title: Text(

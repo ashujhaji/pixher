@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/model/dashboard_model.dart';
 import 'package:pixer/screens/home/more.dart';
+import 'package:pixer/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
@@ -24,16 +28,28 @@ class _HomePageState extends State<HomePage>
   PageController? _pageController;
   int _currentPage = 0;
   late List<TabBarModel> bottomNavigationItems;
-  DashboardPage dashboardPage = const DashboardPage();
+  DashboardPage dashboardPage = DashboardPage();
   CreatePage createPage = CreatePage();
   MorePage morePage = MorePage();
   late StreamSubscription eventbus;
+  final GlobalKey _scaffoldKey = GlobalKey();
+  final drawerItems = [
+    'Support',
+    'Leave Rating',
+    'Terms of Use',
+    'Privacy Policy',
+    'Licenses'
+  ];
+  bool darkTheme = false;
 
   @override
   void initState() {
     bottomNavigationItems = [
       TabBarModel(
-          page: dashboardPage, title: 'Pick', icon: FeatherIcons.smartphone),
+        page: dashboardPage,
+        title: 'Pick',
+        icon: FeatherIcons.smartphone,
+      ),
       TabBarModel(
         page: Container(),
         title: '',
@@ -42,7 +58,11 @@ class _HomePageState extends State<HomePage>
           'assets/images/hashtag.png',
         ),
       ),
-      TabBarModel(page: morePage, title: 'About', icon: FeatherIcons.grid)
+      TabBarModel(
+        page: morePage,
+        title: 'Join',
+        icon: FeatherIcons.grid,
+      )
     ];
     _pageController = PageController(initialPage: 0, keepPage: true);
     eventbus = EventBusHelper.instance
@@ -50,12 +70,6 @@ class _HomePageState extends State<HomePage>
         .on<GenerateHashtagEvent>()
         .listen((event) {
       if (event.file != null) {
-        /*_pageController?.animateToPage(1,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut);
-        setState(() {
-          _currentPage = 1;
-        });*/
         Navigator.of(context).push(_openCreate());
         createPage.getLabels(event.file!);
       }
@@ -67,15 +81,10 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      key: _scaffoldKey,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      /*appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Pixher'),
-        toolbarHeight: 44,
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(FeatherIcons.menu)),
-      ),*/
+      drawer: _drawerWidget(context),
       body: SafeArea(
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
@@ -135,44 +144,18 @@ class _HomePageState extends State<HomePage>
           },
         ),
       ),
-
-      /* BottomNavigationBar(
-        elevation: 10,
-        type: BottomNavigationBarType.fixed,
-        items: bottomNavigationItems.map((item) {
-          final index = bottomNavigationItems.indexOf(item);
-          return BottomNavigationBarItem(
-            icon: Icon(
-              item.icon,
-              size: 20,
-            ),
-            label: item.title,
-          );
-        }).toList(),
-        currentIndex: _currentPage,
-        showUnselectedLabels: true,
-        onTap: (index) {
-          setState(() {
-            _currentPage = index;
-          });
-          _pageController?.animateToPage(index,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut);
-        },
-      ),*/
     );
   }
 
   Route _openCreate() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            createPage,
+        pageBuilder: (context, animation, secondaryAnimation) => createPage,
         transitionDuration: const Duration(milliseconds: 500),
         reverseTransitionDuration: const Duration(milliseconds: 500),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var screenSIze = MediaQuery.of(context).size;
           var centerCircleClipper =
-          Offset(screenSIze.width / 2, screenSIze.height - 60);
+              Offset(screenSIze.width / 2, screenSIze.height - 60);
 
           double beginRadius = 0.0;
           double endRadius = screenSIze.height * 1.2;
@@ -188,6 +171,98 @@ class _HomePageState extends State<HomePage>
             ),
           );
         });
+  }
+
+  Widget _drawerWidget(BuildContext context) {
+    return Container(
+      color: Theme.of(context).backgroundColor,
+      width: MediaQuery.of(context).size.width / 2,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(
+              FeatherIcons.x,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                drawerItems[index],
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              onTap: () {},
+            );
+          },
+          itemCount: drawerItems.length,
+        ),
+        bottomSheet: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Dark Mode',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              trailing: Transform.scale(
+                scale: 0.7,
+                child: FutureBuilder<bool>(
+                  future: Provider.of<DarkThemeProvider>(context)
+                      .darkThemePreference
+                      .getTheme(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      darkTheme = snapshot.data ?? false;
+                      return CupertinoSwitch(
+                        value: darkTheme,
+                        onChanged: (value) async {
+                          darkTheme = !darkTheme;
+                          Provider.of<DarkThemeProvider>(context, listen: false)
+                              .darkTheme = value;
+                        },
+                        activeColor:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        thumbColor: Theme.of(context).backgroundColor,
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(FeatherIcons.instagram),
+                  const SizedBox(width: 8,),
+                  Text(
+                    'pixher.app',
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.start,
+                  ),
+                ],
+              ),
+              onTap: (){
+
+              },
+            ),
+            const SizedBox(height: 20,),
+          ],
+          mainAxisSize: MainAxisSize.min,
+        ),
+      ),
+    );
   }
 
   @override
