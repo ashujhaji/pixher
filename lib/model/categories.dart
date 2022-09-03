@@ -24,6 +24,7 @@ class Category {
     this.parent,
     this.templates,
     this.templateDimension,
+    this.featured = false,
   });
 
   int? id;
@@ -35,6 +36,7 @@ class Category {
   int? parent;
   List<Template>? templates;
   TemplateDimension? templateDimension;
+  bool featured;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
       id: json["id"],
@@ -44,6 +46,7 @@ class Category {
       name: json["name"],
       slug: json["slug"],
       parent: json["parent"],
+      featured: json['parent']>0,
       templateDimension: TemplateDimension.fromName(json["description"]));
 
   Map<String, dynamic> toJson() => {

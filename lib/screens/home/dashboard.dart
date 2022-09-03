@@ -134,9 +134,27 @@ class _DashboardPageState extends State<DashboardPage> {
             horizontal: 20,
             vertical: 5,
           ),
-          title: Text(
-            list[index].name.toString(),
-            style: Theme.of(context).textTheme.headline6,
+          title: Row(
+            children: [
+              Text(
+                list[index].name.toString(),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              if(list[index].featured)
+              Container(
+                child: Text(
+                  'Featured',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Theme.of(context).highlightColor
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
           ),
           subtitle: SizedBox(
             height: 220,

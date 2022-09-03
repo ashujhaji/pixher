@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage>
   PageController? _pageController;
   int _currentPage = 0;
   late List<TabBarModel> bottomNavigationItems;
-  DashboardPage dashboardPage = DashboardPage();
+  DashboardPage dashboardPage = const DashboardPage();
   CreatePage createPage = CreatePage();
   MorePage morePage = MorePage();
   late StreamSubscription eventbus;

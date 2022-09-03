@@ -45,7 +45,7 @@ class Template {
         featuredMedia: json["jetpack_featured_media_url"],
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
         isNew:
-            DateTime.now().difference(DateTime.parse(json["date"])).inDays < 2,
+            DateTime.now().difference(DateTime.parse(json["date"])).inDays < 10,
         assetImage: _imageUrlFromHtml(json['content']['rendered']),
       );
 

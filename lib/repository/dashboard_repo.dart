@@ -14,12 +14,17 @@ class DashboardRepo {
   List<Category> categories = [];
 
   Future<List<Category>?> fetchCategories() async {
-    if(categories.isNotEmpty) return categories;
+    if (categories.isNotEmpty) return categories;
     http.Response response = await _apiProvider.getCategories();
     if (ResponseHandler.of(response) != null) {
-      return categoryFromJson(response.body)
-          .where((element) => element.id != 1)
+      final list = categoryFromJson(response.body)
+          .where((element) =>
+              element.id != 1 &&
+              element.parent != 1 &&
+              element.name != 'featured')
           .toList();
+      list.sort((b, a) => a.parent!.compareTo(b.parent ?? 0));
+      return list;
     }
     return null;
   }
