@@ -9,13 +9,14 @@ import '../widget/image_widget.dart';
 import '../widget/text_widget.dart';
 
 class Playground {
-  bool animated;
+  bool animated, available;
   AnimationController? animationController;
   List<Animation<double>>? animation;
 
   Playground({
     this.animationController,
     this.animated = false,
+    this.available = true,
     this.animation,
   });
 
@@ -151,7 +152,9 @@ class Playground {
         }
       default:
         {
-          return Playground();
+          return Playground(
+              //available: false,
+              );
         }
     }
   }
@@ -1130,7 +1133,7 @@ Widget playgroundWidget(BuildContext context, int templateId,
                       edgeInsetsGeometry: EdgeInsets.zero,
                     ),
                   ),
-                  padding: const EdgeInsets.only(bottom: 80,right: 50),
+                  padding: const EdgeInsets.only(bottom: 80, right: 50),
                 ),
               ),
               Align(
@@ -1161,16 +1164,16 @@ Widget playgroundWidget(BuildContext context, int templateId,
               Stack(
                 children: [
                   Positioned(
-                      top: 55.0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        alignment: Alignment.center,
-                        child: TextWidget(
-                          textStyle: GoogleFonts.slabo13px(
-                              color: Colors.black.withOpacity(0.7), fontSize: 16),
-                          hint: 'WE ARE GETTING MARRIED',
-                        ),
+                    top: 55.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: TextWidget(
+                        textStyle: GoogleFonts.slabo13px(
+                            color: Colors.black.withOpacity(0.7), fontSize: 16),
+                        hint: 'WE ARE GETTING MARRIED',
                       ),
+                    ),
                   ),
                   Positioned(
                     top: 345.0,
@@ -1194,22 +1197,23 @@ Widget playgroundWidget(BuildContext context, int templateId,
                       child: TextWidget(
                         textStyle: GoogleFonts.slabo13px(
                             color: Colors.black.withOpacity(0.8), fontSize: 16),
-                        hint: 'We\'d love your presence to be a part of our big day!',
+                        hint:
+                            'We\'d love your presence to be a part of our big day!',
                       ),
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.only(
-                          bottom: 45, right: 63, left: 67, top: 125),
-                      height: MediaQuery.of(context).size.width,
-                      child: RotationTransition(
-                        turns: const AlwaysStoppedAnimation(359 / 360),
-                        child: Container(
-                          color: Colors.white,
-                          child: ImageWidget(),
-                          //elevation: 5,
-                        ),
+                    padding: const EdgeInsets.only(
+                        bottom: 45, right: 63, left: 67, top: 125),
+                    height: MediaQuery.of(context).size.width,
+                    child: RotationTransition(
+                      turns: const AlwaysStoppedAnimation(359 / 360),
+                      child: Container(
+                        color: Colors.white,
+                        child: ImageWidget(),
+                        //elevation: 5,
                       ),
+                    ),
                   ),
                   Positioned(
                     top: 520,
@@ -1219,7 +1223,8 @@ Widget playgroundWidget(BuildContext context, int templateId,
                       child: TextWidget(
                         textStyle: GoogleFonts.slabo13px(
                             color: Colors.black, fontSize: 14),
-                        hint: 'FRIDAY, 09.09.2022\n123 Anywhere St. Any City, ST 12345',
+                        hint:
+                            'FRIDAY, 09.09.2022\n123 Anywhere St. Any City, ST 12345',
                       ),
                     ),
                   ),
@@ -1229,9 +1234,226 @@ Widget playgroundWidget(BuildContext context, int templateId,
           ),
         );
       }
+    case 152:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'Have a happy and safe Diwali.',
+                      textStyle: GoogleFonts.greatVibes(
+                          color: const Color(0xfffdc984),
+                          fontSize: 22,
+                          height: 1.5),
+                    ),
+                    TextWidget(
+                      hint: 'From Pixher & Family',
+                      textStyle: GoogleFonts.roboto(
+                          color: const Color(0xfffdc984),
+                          fontSize: 12,
+                          height: 1.5),
+                    )
+                  ],
+                ),
+                margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 2,
+                  bottom: 150,
+                  left: 20,
+                  top: 20,
+                ),
+              )
+            ],
+          ),
+        );
+      }
+    case 163:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                bottom: 75,
+                left: 200,
+                child: Column(
+                  children: [
+                    TextWidget(
+                      textStyle: GoogleFonts.allura(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700),
+                      hint: 'Happy',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      textStyle: GoogleFonts.allura(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600),
+                      hint: 'Diwali',
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 250,
+                right: 20,
+                child: TextWidget(
+                  textStyle: GoogleFonts.lato(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700),
+                  hint: 'From Pixher & Family',
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    case 167:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 85,
+                left: 125,
+                child: ClipRRect(
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: ImageWidget(
+                      filter: ColorFilter.mode(
+                        Colors.black.withOpacity(1),
+                        BlendMode.saturation,
+                      ),
+                    ),
+                  ),
+                  borderRadius: BorderRadius.circular(25),
+                )
+              ),
+            ],
+          ),
+        );
+      }
+    case 171:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                  top: 70,
+                  right: 40,
+                  child: ClipRRect(
+                    child: Container(
+                      width: 130,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: ImageWidget(
+                        filter: ColorFilter.mode(
+                          Colors.black.withOpacity(1),
+                          BlendMode.saturation,
+                        ),
+                      ),
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  )
+              ),
+            ],
+          ),
+        );
+      }
     default:
       {
-        return Container();
+        return _updateWidget(context);
       }
   }
+}
+
+Widget _updateWidget(BuildContext context) {
+  return Column(
+    children: [
+      Column(
+        children: [
+          Image.asset(
+            'assets/images/ic_update.png',
+            height: 200,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Hey! You loved this template?\n\nWe have designed lot of new templates and more amazing features for you.\nUpdate the app to avail it now.',
+            style: Theme.of(context).textTheme.headline6?.copyWith(height: 1.5),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          Text(
+            'Made with ❤ in  🇮🇳',
+            style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                  height: 1.5,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          InkWell(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              height: 44,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Theme.of(context)
+                      .floatingActionButtonTheme
+                      .backgroundColor),
+              child: Text(
+                'Update the app',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              alignment: Alignment.center,
+            ),
+            onTap: () {},
+          ),
+        ],
+      ),
+    ],
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  );
 }

@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
       ),
       TabBarModel(
         page: morePage,
-        title: 'Join',
+        title: 'About',
         icon: FeatherIcons.grid,
       )
     ];

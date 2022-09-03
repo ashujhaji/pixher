@@ -18,7 +18,7 @@ class _MorePageState extends State<MorePage> {
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
                 'assets/images/more.png',
-                height: 250,
+                height: 200,
               ),
             ),
             const SizedBox(
@@ -32,7 +32,7 @@ class _MorePageState extends State<MorePage> {
               height: 10,
             ),
             Text(
-              'Pick a template, customize it and share it. Get suggested hashtags and caption for your photo. It\'s that easy to grow your followers.   \n\nJoin us to get early bird access of premium features 100% free.',
+              'Hey fam! you are enjoying free version of pixher. We are going to launch lot of premium and interesting features (i.e. Plan your post, Schedule the post, more new templates) in coming days.\n\nJoin us now to avail early bird access of premium features 100% free.',
               style: Theme.of(context).textTheme.headline5?.copyWith(
                   height: 1.5,
                   color: Theme.of(context)

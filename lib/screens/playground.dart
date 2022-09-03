@@ -64,77 +64,92 @@ class _PlaygroundState extends State<PlaygroundPage>
             appBar: AppBar(
               toolbarHeight: 40,
               backgroundColor: Colors.transparent,
-              leading: Container(
-                margin: const EdgeInsets.only(left: 10),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black45,
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
+              automaticallyImplyLeading: false,
+              leading: playground.available
+                  ? Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black45,
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    )
+                  : null,
               actions: [
-                Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black45,
+                if (playground.available)
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black45,
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        final fileName =
+                            '${widget.template?.id.toString()}-${widget.template?.slug.toString()}';
+                        if (playground.animated) {
+                          BlocProvider.of<PlaygroundBloc>(context).add(
+                            StartRecordingEvent(controller, (value) {
+                              setState(() {
+                                controller.value = value;
+                              });
+                            }, _repaintKey, fileName: fileName),
+                          );
+                        } else {
+                          BlocProvider.of<PlaygroundBloc>(context).add(
+                            CaptureScreenEvent(_repaintKey, fileName: fileName),
+                          );
+                        }
+                      },
+                      icon: const Icon(FeatherIcons.share),
+                      iconSize: 18,
+                    ),
+                  )
+                else
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black45,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(FeatherIcons.x),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
-                  child: IconButton(
-                    onPressed: () {
-                      final fileName =
-                          '${widget.template?.id.toString()}-${widget.template?.slug.toString()}';
-                      if (playground.animated) {
-                        BlocProvider.of<PlaygroundBloc>(context).add(
-                          StartRecordingEvent(controller, (value) {
-                            setState(() {
-                              controller.value = value;
-                            });
-                          }, _repaintKey, fileName: fileName),
-                        );
-                      } else {
-                        BlocProvider.of<PlaygroundBloc>(context).add(
-                          CaptureScreenEvent(_repaintKey, fileName: fileName),
-                        );
-                      }
-                    },
-                    icon: const Icon(FeatherIcons.share),
-                    iconSize: 18,
-                  ),
-                ),
               ],
             ),
             body: file == null
-                ? playground != null
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: RepaintBoundary(
-                            child: AspectRatio(
-                              aspectRatio: widget.dimensions!.width! /
-                                  widget.dimensions!.height!,
-                              child: playgroundWidget(
-                                context,
-                                widget.template!.id!,
-                                animations:
-                                    playground.animated ? animation : null,
-                                assetUrl: widget.template?.assetImage,
-                                animated: playground.animated,
-                              ),
-                            ),
-                            key: _repaintKey,
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: RepaintBoundary(
+                        child: AspectRatio(
+                          aspectRatio: widget.dimensions!.width! /
+                              widget.dimensions!.height!,
+                          child: playgroundWidget(
+                            context,
+                            widget.template!.id!,
+                            animations: playground.animated ? animation : null,
+                            assetUrl: widget.template?.assetImage,
+                            animated: playground.animated,
                           ),
                         ),
-                      )
-                    : const CircularProgressIndicator()
+                        key: _repaintKey,
+                      ),
+                    ),
+                  )
                 : Center(
                     child: Image.file(file!),
                   ),
-            floatingActionButton: playground.animated
+            floatingActionButton: playground.animated || !playground.available
                 ? null
                 : FloatingActionButton(
                     onPressed: () {
