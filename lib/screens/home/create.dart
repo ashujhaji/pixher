@@ -100,12 +100,15 @@ class _CreatePageState extends State<CreatePage> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(FeatherIcons.x,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                    icon: Icon(
+                      FeatherIcons.x,
+                      color:
+                          Theme.of(context).textSelectionTheme.selectionColor,
+                    ),
                   ),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey.withOpacity(0.5)
-                  ),
+                      shape: BoxShape.circle,
+                      color: Colors.grey.withOpacity(0.5)),
                 ),
               ],
               backgroundColor: Colors.transparent,
@@ -273,12 +276,22 @@ class _CreatePageState extends State<CreatePage> {
             return InkWell(
               child: Container(
                 decoration: BoxDecoration(
-                  color: tags[item]! ? theme.primaryColor : Colors.transparent,
+                  //color: tags[item]! ? theme.primaryColor : Colors.transparent,
+                  gradient: tags[item]!
+                      ? LinearGradient(
+                          colors: [
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.secondary,
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        )
+                      : null,
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
                       color: tags[item]!
-                          ? theme.primaryColor
-                          : theme.primaryColor.withOpacity(0.4),
+                          ? Colors.transparent
+                          : theme.colorScheme.primary.withOpacity(0.4),
                       width: 2),
                 ),
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -291,7 +304,7 @@ class _CreatePageState extends State<CreatePage> {
                         fontWeight: FontWeight.w700,
                         color: tags[item]!
                             ? Colors.white
-                            : theme.bottomNavigationBarTheme.selectedItemColor),
+                            : theme.colorScheme.primary),
                   ),
                 ),
               ),
@@ -342,9 +355,16 @@ class _CreatePageState extends State<CreatePage> {
             horizontal: 10,
           ),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.5),
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Theme.of(context).primaryColor),
+            //border: Border.all(color: Theme.of(context).primaryColor),
           ),
           child: ListTile(
             dense: true,
@@ -354,7 +374,7 @@ class _CreatePageState extends State<CreatePage> {
             ),
             title: Text(
               editing
-                  ? 'Post it on instagram now'
+                  ? 'Download image and copy caption'
                   : 'Suggest me random caption',
               style: Theme.of(context)
                   .textTheme
@@ -373,7 +393,8 @@ class _CreatePageState extends State<CreatePage> {
                   ? IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        FeatherIcons.calendar,
+                        FeatherIcons.image,
+                        color: Colors.white,
                         key: ValueKey('calender'),
                         size: 22,
                       ),
@@ -382,17 +403,17 @@ class _CreatePageState extends State<CreatePage> {
                       scale: 0.7,
                       child: CupertinoSwitch(
                         value: switchState,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           setState(() {
                             switchState = value;
                           });
                           preferences?.setBool(
                               DarkThemePreference.CAPTION_ENABLE, value);
                         },
-                        activeColor: Theme.of(context).unselectedWidgetColor,
-                        thumbColor: switchState
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
+                        activeColor:
+                            Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                        thumbColor: Theme.of(context).colorScheme.secondary,
+                        trackColor: Colors.white.withOpacity(0.5),
                       ),
                     ),
             ),
@@ -418,10 +439,11 @@ class _CreatePageState extends State<CreatePage> {
                   editing = true;
                 });
               },
-              icon: const Icon(
-                Icons.chevron_right,
+              icon: Icon(
+                !editing ? Icons.chevron_right : FeatherIcons.download,
                 key: ValueKey('icon1'),
-                size: 28,
+                size: 25,
+                color: Colors.white,
               ),
             ),
           ),

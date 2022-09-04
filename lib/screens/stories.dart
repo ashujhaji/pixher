@@ -110,12 +110,19 @@ class _StoriesPageState extends State<StoriesPage>
       floatingActionButton: InkWell(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           height: 40,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Theme.of(context).primaryColor),
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),),
           child: Text(
             'Use this template',
             style: Theme.of(context).textTheme.headline6?.copyWith(

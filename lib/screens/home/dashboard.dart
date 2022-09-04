@@ -208,13 +208,21 @@ class _DashboardPageState extends State<DashboardPage> {
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1
-                              ?.copyWith(fontSize: 8),
+                              ?.copyWith(fontSize: 8,color: Colors.white,),
                         ),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            color: Theme.of(context)
+                            borderRadius: BorderRadius.circular(4),
+                            /*color: Theme.of(context)
                                 .primaryColor
-                                .withOpacity(0.7)),
+                                .withOpacity(0.7),*/
+                          gradient: LinearGradient(
+                            colors: [
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context).colorScheme.secondary,
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),),
                         margin: const EdgeInsets.all(2),
                         padding: const EdgeInsets.all(2),
                       )

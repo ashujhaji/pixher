@@ -18,6 +18,13 @@ class Styles {
         900: Color.fromRGBO(129, 30, 225, 1),
       }),
       primaryColor: const Color(0xff811eff),
+      colorScheme: isDarkTheme ? const ColorScheme.dark(
+        primary: Color(0xff8441AF),
+        secondary: Color(0xffff5894),
+      ) : const ColorScheme.light(
+        primary: Color(0xff8441AF),
+        secondary: Color(0xffff5894),
+      ),
       backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
       indicatorColor:
           isDarkTheme ? const Color(0xff0E1D36) : const Color(0xffCBDCF8),
