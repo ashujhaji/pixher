@@ -90,14 +90,20 @@ class _PlaygroundState extends State<PlaygroundPage>
                     ),
                     child: IconButton(
                       onPressed: () {
+                        if (isRendering) return;
+                        if (file != null) {
+                          debugPrint(file!.path);
+                          ShareExtend.share(file!.path, "file");
+                          return;
+                        }
                         final fileName =
                             '${widget.template?.id.toString()}-${widget.template?.slug.toString()}';
                         if (playground.animated) {
                           BlocProvider.of<PlaygroundBloc>(context).add(
                             StartRecordingEvent(controller, (value) {
-                              setState(() {
+                              //setState(() {
                                 controller.value = value;
-                              });
+                              //});
                             }, _repaintKey, fileName: fileName),
                           );
                         } else {
@@ -105,6 +111,9 @@ class _PlaygroundState extends State<PlaygroundPage>
                             CaptureScreenEvent(_repaintKey, fileName: fileName),
                           );
                         }
+                        setState(() {
+                          isRendering = true;
+                        });
                       },
                       icon: const Icon(Icons.share),
                       iconSize: 18,
@@ -126,54 +135,77 @@ class _PlaygroundState extends State<PlaygroundPage>
                   ),
               ],
             ),
-            body: SingleChildScrollView(
-              child: file == null
-                  ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: RepaintBoundary(
-                    child: AspectRatio(
-                      aspectRatio: widget.dimensions!.width! /
-                          widget.dimensions!.height!,
-                      child: playgroundWidget(
-                        context,
-                        widget.template!.id!,
-                            (available){
-                          if(!available){
-                            playground.available = available;
-                          }
-                        },
-                        animations: playground.animated ? animation : null,
-                        assetUrl: widget.template?.assetImage,
-                        animated: playground.animated,
-                      ),
-                    ),
-                    key: _repaintKey,
+            body: Container(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: file == null
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: RepaintBoundary(
+                                child: AspectRatio(
+                                  aspectRatio: widget.dimensions!.width! /
+                                      widget.dimensions!.height!,
+                                  child: playgroundWidget(
+                                    context,
+                                    widget.template!.id!,
+                                    (available) {
+                                      if (!available) {
+                                        playground.available = available;
+                                      }
+                                    },
+                                    animations:
+                                        playground.animated ? animation : null,
+                                    assetUrl: widget.template?.assetImage,
+                                    animated: playground.animated,
+                                  ),
+                                ),
+                                key: _repaintKey,
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: Image.file(file!),
+                          ),
                   ),
-                ),
-              )
-                  : Center(
-                child: Image.file(file!),
+                  if (isRendering)
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.black.withOpacity(0.6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 100,
+                        ),
+                        child: Center(
+                          child: ClipRRect(
+                            child: LinearProgressIndicator(
+                              backgroundColor: Colors.white,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        )),
+                ],
               ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 10),
             ),
             floatingActionButton: playground.animated || !playground.available
                 ? null
                 : FloatingActionButton(
                     onPressed: () {
-                      if (playground.animated) {
-                        BlocProvider.of<PlaygroundBloc>(context).add(
-                          StartRecordingEvent(controller, (value) {
-                            setState(() {
-                              controller.value = value;
-                            });
-                          }, _repaintKey, generateHashtag: true),
-                        );
-                      } else {
-                        BlocProvider.of<PlaygroundBloc>(context).add(
-                          CaptureScreenEvent(_repaintKey,
-                              generateHashtag: true),
-                        );
+                      if (isRendering) return;
+                      if (file != null) {
+                        ShareExtend.share(file!.path, "file");
+                        return;
                       }
+                      BlocProvider.of<PlaygroundBloc>(context).add(
+                        CaptureScreenEvent(_repaintKey, generateHashtag: true),
+                      );
+                      setState(() {
+                        isRendering = true;
+                      });
                     },
                     backgroundColor: const Color(0xff282828),
                     child: Image.asset(
@@ -185,6 +217,7 @@ class _PlaygroundState extends State<PlaygroundPage>
         },
         listener: (context, state) {
           if (state is FileSavedState) {
+            isRendering = false;
             if (state.file == null) return;
             file = state.file;
             _repo.uploadFile(file);

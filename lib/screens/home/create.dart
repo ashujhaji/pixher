@@ -391,12 +391,16 @@ class _CreatePageState extends State<CreatePage> {
               ),
               child: editing
                   ? IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          editing = false;
+                        });
+                      },
                       icon: const Icon(
-                        FeatherIcons.image,
+                        Icons.arrow_back,
                         color: Colors.white,
                         key: ValueKey('calender'),
-                        size: 22,
+                        size: 25,
                       ),
                     )
                   : Transform.scale(
@@ -461,6 +465,7 @@ class _CreatePageState extends State<CreatePage> {
   @override
   void dispose() {
     textEditingController?.dispose();
+    widget.file = null;
     super.dispose();
   }
 }

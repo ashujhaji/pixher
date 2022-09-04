@@ -42,21 +42,30 @@ class PlaygroundRepo {
     return file;
   }
 
+  RenderRepaintBoundary? boundary;
   Future<File?> captureScreen(GlobalKey repaintKey,
       {String fileName = 'img'}) async {
-    RenderRepaintBoundary boundary =
-        repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
-    final image = await boundary.toImage(pixelRatio: 3.0);
-    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    if (byteData == null) return null;
-    Uint8List pngBytes = byteData.buffer.asUint8List();
-    final Directory temp = await getTemporaryDirectory();
-    final file = File('${temp.path}/images/' + "$fileName.png");
-    if (!file.existsSync()) {
-      file.create(recursive: true);
-    }
-    file.writeAsBytes(pngBytes);
-    return file;
+   // try{
+      boundary ??=
+      repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+      if (boundary!.debugNeedsPaint) {
+        await Future.delayed(const Duration(milliseconds: 20));
+        return captureScreen(repaintKey,fileName: fileName);
+      }
+      final image = await boundary?.toImage();
+      final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+      if (byteData == null) return null;
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+      final Directory temp = await getTemporaryDirectory();
+      final file = File('${temp.path}/images/' + "$fileName.png");
+      if (!file.existsSync()) {
+        file.create(recursive: true);
+      }
+      file.writeAsBytes(pngBytes);
+      return file;
+    /*}catch(e){
+      return null;
+    }*/
   }
 
   List<int>? generateGIF(List<img.Image?> images) {
@@ -73,7 +82,7 @@ class PlaygroundRepo {
         repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
 
     // pixelratio allows you to render it at a higher resolution than the actual widget in the application.
-    ui.Image image = await boundary.toImage(pixelRatio: 2.0);
+    ui.Image image = await boundary.toImage();
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
 
