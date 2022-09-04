@@ -59,7 +59,7 @@ class _PlaygroundState extends State<PlaygroundPage>
       child: BlocConsumer<PlaygroundBloc, PlaygroundState>(
         builder: (context, state) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               toolbarHeight: 40,
@@ -106,7 +106,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                           );
                         }
                       },
-                      icon: const Icon(FeatherIcons.share),
+                      icon: const Icon(Icons.share),
                       iconSize: 18,
                     ),
                   )
@@ -126,29 +126,36 @@ class _PlaygroundState extends State<PlaygroundPage>
                   ),
               ],
             ),
-            body: file == null
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: RepaintBoundary(
-                        child: AspectRatio(
-                          aspectRatio: widget.dimensions!.width! /
-                              widget.dimensions!.height!,
-                          child: playgroundWidget(
-                            context,
-                            widget.template!.id!,
-                            animations: playground.animated ? animation : null,
-                            assetUrl: widget.template?.assetImage,
-                            animated: playground.animated,
-                          ),
-                        ),
-                        key: _repaintKey,
+            body: SingleChildScrollView(
+              child: file == null
+                  ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: RepaintBoundary(
+                    child: AspectRatio(
+                      aspectRatio: widget.dimensions!.width! /
+                          widget.dimensions!.height!,
+                      child: playgroundWidget(
+                        context,
+                        widget.template!.id!,
+                            (available){
+                          if(!available){
+                            playground.available = available;
+                          }
+                        },
+                        animations: playground.animated ? animation : null,
+                        assetUrl: widget.template?.assetImage,
+                        animated: playground.animated,
                       ),
                     ),
-                  )
-                : Center(
-                    child: Image.file(file!),
+                    key: _repaintKey,
                   ),
+                ),
+              )
+                  : Center(
+                child: Image.file(file!),
+              ),
+            ),
             floatingActionButton: playground.animated || !playground.available
                 ? null
                 : FloatingActionButton(

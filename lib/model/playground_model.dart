@@ -160,10 +160,14 @@ class Playground {
   }
 }
 
-Widget playgroundWidget(BuildContext context, int templateId,
-    {List<Animation<double>>? animations,
-    String? assetUrl,
-    bool animated = false}) {
+Widget playgroundWidget(
+  BuildContext context,
+  int templateId,
+  ValueChanged<bool> contentAvailable, {
+  List<Animation<double>>? animations,
+  String? assetUrl,
+  bool animated = false,
+}) {
   if (animations == null && animated) return Container();
   switch (templateId) {
     case 42:
@@ -2256,17 +2260,26 @@ Widget playgroundWidget(BuildContext context, int templateId,
                 mainAxisSize: MainAxisSize.min,
               ),
               Positioned(
-                child: Container(
-                  child: TextWidget(
-                    hint: 'UP TO 80% OFF',
-                    textStyle: GoogleFonts.lato(
-                        color: const Color(0xff72040e),
-                        fontSize: 16,
-                        letterSpacing: 1.2),
-                    edgeInsetsGeometry: EdgeInsets.zero,
+                child: SizedBox(
+                  child: Container(
+                    child: TextWidget(
+                      hint: 'UP TO 80% OFF',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xff72040e),
+                          fontSize: 16,
+                          letterSpacing: 1.2),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    //width: MediaQuery.of(context).size.width - 30,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: const Color(0xffffaf00),
+                        borderRadius: BorderRadius.circular(15)),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 100,
+                    ),
                   ),
-                  width: MediaQuery.of(context).size.width - 30,
-                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
                 ),
                 bottom: 275,
               )
@@ -2412,12 +2425,14 @@ Widget playgroundWidget(BuildContext context, int templateId,
       }
     default:
       {
-        return _updateWidget(context);
+        return _updateWidget(context, contentAvailable);
       }
   }
 }
 
-Widget _updateWidget(BuildContext context) {
+Widget _updateWidget(
+    BuildContext context, ValueChanged<bool> contentAvailable) {
+  contentAvailable(false);
   return Column(
     children: [
       Column(
