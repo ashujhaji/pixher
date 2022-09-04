@@ -1339,25 +1339,24 @@ Widget playgroundWidget(BuildContext context, int templateId,
                 fit: BoxFit.cover,
               ),
               Positioned(
-                top: 85,
-                left: 125,
-                child: ClipRRect(
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: ImageWidget(
-                      filter: ColorFilter.mode(
-                        Colors.black.withOpacity(1),
-                        BlendMode.saturation,
+                  top: 85,
+                  left: 125,
+                  child: ClipRRect(
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: ImageWidget(
+                        filter: ColorFilter.mode(
+                          Colors.black.withOpacity(1),
+                          BlendMode.saturation,
+                        ),
                       ),
                     ),
-                  ),
-                  borderRadius: BorderRadius.circular(25),
-                )
-              ),
+                    borderRadius: BorderRadius.circular(25),
+                  )),
             ],
           ),
         );
@@ -1374,14 +1373,144 @@ Widget playgroundWidget(BuildContext context, int templateId,
                 fit: BoxFit.cover,
               ),
               Positioned(
-                  top: 70,
-                  right: 40,
-                  child: ClipRRect(
-                    child: Container(
-                      width: 130,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
+                top: 70,
+                right: 40,
+                child: ClipRRect(
+                  child: Container(
+                    width: 130,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: ImageWidget(
+                      filter: ColorFilter.mode(
+                        Colors.black.withOpacity(1),
+                        BlendMode.saturation,
+                      ),
+                    ),
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    case 175:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  TextWidget(
+                    hint: 'VIRTUAL DIWALI EVENT',
+                    textStyle: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 14,
+                        height: 1.5,
+                        letterSpacing: 1.5),
+                  ),
+                  TextWidget(
+                    hint: 'OCT 22, 2022',
+                    textStyle: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 12,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'Light up the darkness',
+                    textStyle: GoogleFonts.lobsterTwo(
+                      color: const Color(0xffff7ebb),
+                      fontSize: 24,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: TextWidget(
+                      hint:
+                          'We will host performances, free dance, raffles and a special candle-lighting ceremony to unite with light.',
+                      textStyle: GoogleFonts.lato(
+                        color: Colors.white,
+                        fontSize: 12,
+                        height: 1.5,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                bottom: 35,
+                left: 20,
+                child: ClipRRect(
+                  child: Container(
+                    width: 130,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: TextWidget(
+                      hint: 'www.pixher.app',
+                      textStyle: GoogleFonts.lato(
+                        color: Colors.white,
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    case 179:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  TextWidget(
+                    hint: 'VIRTUAL DIWALI EVENT',
+                    textStyle: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 10,
+                        height: 1.5,
+                        letterSpacing: 1.5),
+                  ),
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(300),
+                        bottomLeft: Radius.circular(300),
                       ),
                       child: ImageWidget(
                         filter: ColorFilter.mode(
@@ -1390,8 +1519,892 @@ Widget playgroundWidget(BuildContext context, int templateId,
                         ),
                       ),
                     ),
+                    margin: const EdgeInsets.only(left: 150, top: 60),
+                    height: (MediaQuery.of(context).size.height * 2 / 3) - 100,
+                  ),
+                ],
+              ),
+              Positioned(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      hint: 'NOV 14, 2022',
+                      textStyle: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 12,
+                        height: 1.5,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.start,
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'A festival of lights, good over evil',
+                      textStyle: GoogleFonts.lobsterTwo(
+                        color: const Color(0xffff7ebb),
+                        fontSize: 24,
+                        height: 1.5,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    TextWidget(
+                      hint:
+                          'We will host performances, free dance, raffles and a special candle-lighting ceremony to unite with light.',
+                      textStyle: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 10,
+                        height: 1.7,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.start,
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
+                left: 20,
+                right: (MediaQuery.of(context).size.width / 2) + 10,
+                top: (MediaQuery.of(context).size.height / 2) - 60,
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: 'Please register in www.diwalilight.com',
+                  textStyle: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 10,
+                    height: 1.5,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                bottom: 30,
+                left: 20,
+              ),
+            ],
+          ),
+        );
+      }
+    case 188:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'BIGGEST DIWALI SALE',
+                      textStyle: GoogleFonts.lato(
+                          color: Colors.white,
+                          fontSize: 24,
+                          height: 1.1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: '80%',
+                      textStyle: GoogleFonts.oswald(
+                          color: Colors.white,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'OFF ON ENTIRE STORE',
+                      textStyle: GoogleFonts.lato(
+                          color: Colors.white,
+                          fontSize: 14,
+                          height: 1.1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                ),
+                left: 90,
+                right: 90,
+                top: 90,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint:
+                          'Wishing you light and joy. This diwali grab the biggest discount ever.',
+                      textStyle: GoogleFonts.openSans(
+                        color: const Color(0xff000000),
+                        fontSize: 12,
+                        height: 2,
+                        letterSpacing: 1,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    ClipRRect(
+                      child: ImageWidget(),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    TextWidget(
+                      hint: '@pixher.app',
+                      textStyle: GoogleFonts.lato(
+                        color: const Color(0xffff433b),
+                        fontSize: 14,
+                      ),
+                    ),
+                    Container(
+                      child: TextWidget(
+                        hint: 'Swipe Up',
+                        textStyle: GoogleFonts.lato(
+                            color: const Color(0xffff433b),
+                            fontSize: 14,
+                            height: 1.1,
+                            letterSpacing: 1.5,
+                            fontWeight: FontWeight.w700),
+                        edgeInsetsGeometry: EdgeInsets.zero,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: const Color(0x2fff433b),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                    )
+                  ],
+                ),
+                left: 90,
+                right: 90,
+                bottom: 5,
+              ),
+            ],
+          ),
+        );
+      }
+    case 192:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'HAPPY DIWALI',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffbf9e5d),
+                          fontSize: 12,
+                          height: 1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'OFFERS',
+                      textStyle: GoogleFonts.unicaOne(
+                        color: Colors.white,
+                        fontSize: 100,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'EXTRA CASHBACK ON PREPAID ORDERS',
+                      textStyle: GoogleFonts.poppins(
+                        color: const Color(0xffbf9e5d),
+                        fontSize: 14,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    Container(
+                      child: TextWidget(
+                        hint: 'SHOP NOW',
+                        textStyle: GoogleFonts.lato(
+                            color: Colors.white,
+                            fontSize: 14,
+                            height: 1.1,
+                            letterSpacing: 1.5,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      color: const Color(0xffbf9e5d),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                    )
+                  ],
+                ),
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
+            ],
+          ),
+        );
+      }
+    case 196:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: ClipOval(
+                      child: ImageWidget(
+                        filter: ColorFilter.mode(
+                          Colors.black.withOpacity(1),
+                          BlendMode.saturation,
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextWidget(
+                    hint: 'Wishing you light & joy',
+                    textStyle: GoogleFonts.lato(
+                      color: const Color(0xffffffff),
+                      fontSize: 12,
+                      height: 1,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  TextWidget(
+                    hint: 'Happy Diwali',
+                    textStyle: GoogleFonts.dancingScript(
+                      color: Colors.white,
+                      fontSize: 28,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                ],
+              ),
+              Positioned(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: TextWidget(
+                    hint: 'From Pixher App',
+                    textStyle: GoogleFonts.lato(
+                      color: const Color(0xffffffff),
+                      fontSize: 12,
+                      height: 1,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                bottom: 10,
+              ),
+            ],
+          ),
+        );
+      }
+    case 200:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  Container(
+                    width: 120,
+                    height: 180,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: ClipRRect(
+                      child: ImageWidget(
+                        filter: ColorFilter.mode(
+                          Colors.black.withOpacity(1),
+                          BlendMode.saturation,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }
+    case 206:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'FESTIVE SALE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffa84411),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: '80%',
+                      textStyle: GoogleFonts.oswald(
+                          color: const Color(0xffa84411),
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'OFF ON ENTIRE STORE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffa84411),
+                          fontSize: 14,
+                          height: 1.1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                left: 90,
+                right: 95,
+                top: 165,
+              ),
+              Positioned(
+                child: Container(
+                    width: MediaQuery.of(context).size.width - 35,
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        TextWidget(
+                          hint: 'Visit us on www.pixher.app',
+                          textStyle: GoogleFonts.lato(
+                            color: const Color(0xffa84411),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Container(
+                          child: TextWidget(
+                            hint: 'Swipe Up',
+                            textStyle: GoogleFonts.lato(
+                                color: Colors.white,
+                                fontSize: 14,
+                                height: 1.1,
+                                letterSpacing: 1.5,
+                                fontWeight: FontWeight.w700),
+                            edgeInsetsGeometry: EdgeInsets.zero,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffa84411),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 8),
+                        ),
+                      ],
+                    )),
+                bottom: 25,
+              ),
+            ],
+          ),
+        );
+      }
+    case 210:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: 'Happy Diwali',
+                  textStyle: GoogleFonts.satisfy(
+                    color: const Color(0xffffffff),
+                    fontSize: 28,
+                  ),
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                ),
+                left: 15,
+                top: 15,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'FESTIVE SALE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffa84411),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: '80%',
+                      textStyle: GoogleFonts.oswald(
+                          color: const Color(0xffa84411),
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'OFF ON ENTIRE STORE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffa84411),
+                          fontSize: 14,
+                          height: 1.1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                left: 90,
+                right: 95,
+                top: 125,
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: '@pixher.app',
+                  textStyle: GoogleFonts.lato(
+                      color: const Color(0xffffffff),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700),
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                ),
+                right: 15,
+                bottom: 15,
+              ),
+            ],
+          ),
+        );
+      }
+    case 214:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'Have a happy and safe Diwali.',
+                      textStyle: GoogleFonts.greatVibes(
+                          color: const Color(0xffff9d01),
+                          fontSize: 24,
+                          height: 1.5),
+                    ),
+                    TextWidget(
+                      hint: 'From Pixher & Family',
+                      textStyle: GoogleFonts.roboto(
+                          color: const Color(0xffff9d01),
+                          fontSize: 12,
+                          height: 1.5),
+                    )
+                  ],
+                ),
+                margin: EdgeInsets.only(
+                  right: (MediaQuery.of(context).size.width / 2) + 20,
+                  bottom: 150,
+                  top: 20,
+                ),
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: 'www.pixher.app',
+                  textStyle: GoogleFonts.roboto(
+                    color: const Color(0xff00264a),
+                    fontSize: 12,
+                    height: 1.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                right: 10,
+                bottom: 20,
+              ),
+            ],
+          ),
+        );
+      }
+    case 219:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Container(
+                child: TextWidget(
+                  hint: 'Wish you happiness & joy',
+                  textStyle: GoogleFonts.greatVibes(
+                      color: const Color(0xffd1ac3b),
+                      fontSize: 24,
+                      height: 1.5),
+                ),
+                margin: const EdgeInsets.only(right: 120, left: 120, top: 120),
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: 'www.pixher.app',
+                  textStyle: GoogleFonts.lato(
+                    color: const Color(0xffffffff),
+                    fontSize: 12,
+                    height: 1.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                right: 10,
+                bottom: 10,
+              ),
+            ],
+          ),
+        );
+      }
+    case 223:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  TextWidget(
+                    hint: 'Happy Diwali',
+                    textStyle: GoogleFonts.greatVibes(
+                      color: const Color(0xffe0948f),
+                      fontSize: 24,
+                      height: 1.5,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'Glowing Soul, Glowing Skin',
+                    textStyle: GoogleFonts.lato(
+                      color: const Color(0xff975c20),
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                  Container(
+                    width: 170,
+                    height: 170,
+                    child: ImageWidget(),
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(10),
+                  ),
+                  TextWidget(
+                    hint: 'Get special care for your skin here',
+                    textStyle: GoogleFonts.lato(
+                      color: const Color(0xffab7573),
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                  Container(
+                    child: TextWidget(
+                      hint: '@pixher.app',
+                      textStyle: GoogleFonts.lato(
+                        color: const Color(0xffe0948f),
+                        fontSize: 12,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ],
+          ),
+        );
+      }
+    case 228:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  TextWidget(
+                    hint: 'Diwali',
+                    textStyle: GoogleFonts.greatVibes(
+                      color: const Color(0xffffaf00),
+                      fontSize: 48,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'BIG SALE',
+                    textStyle: GoogleFonts.lato(
+                        color: const Color(0xffffffff),
+                        fontSize: 18,
+                        letterSpacing: 1.2),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 60,
+                      right: 60,
+                    ),
+                    child: TextWidget(
+                      hint:
+                          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+                      textStyle: GoogleFonts.lato(
+                        color: const Color(0x9fffffff),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  TextWidget(
+                    hint: 'www.pixher.app',
+                    textStyle: GoogleFonts.lato(
+                      color: const Color(0xffffaf00),
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 140,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+              ),
+              Positioned(
+                child: Container(
+                  child: TextWidget(
+                    hint: 'UP TO 80% OFF',
+                    textStyle: GoogleFonts.lato(
+                        color: const Color(0xff72040e),
+                        fontSize: 16,
+                        letterSpacing: 1.2),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  width: MediaQuery.of(context).size.width - 30,
+                  alignment: Alignment.center,
+                ),
+                bottom: 275,
+              )
+            ],
+          ),
+        );
+      }
+    case 232:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  ClipRRect(
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: ImageWidget(),
+                    ),
                     borderRadius: BorderRadius.circular(15),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 120,
+                      right: 120,
+                    ),
+                    child: TextWidget(
+                      hint:
+                          'Wishing you happiness and joy. This festive season get up to 80% off on each brand',
+                      textStyle: GoogleFonts.lato(
+                        color: const Color(0xffffe8b3),
+                        fontSize: 12,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }
+    case 237:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ClipRRect(
+                      child: SizedBox(
+                        width: 170,
+                        height: 350,
+                        child: ImageWidget(),
+                      ),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(100),
+                          topRight: Radius.circular(100)),
+                    ),
+                  ],
+                ),
+                bottom: 20,
+                left: 20,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'BIGGEST FESTIVAL SALE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffff7156),
+                          fontSize: 24,
+                          height: 1.2,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: '80%',
+                      textStyle: GoogleFonts.oswald(
+                          color: const Color(0xffff7156),
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'OFF ON ENTIRE STORE',
+                      textStyle: GoogleFonts.lato(
+                          color: const Color(0xffff7156),
+                          fontSize: 14,
+                          height: 1.1,
+                          letterSpacing: 1.5,
+                          fontWeight: FontWeight.w700),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                ),
+                right: 20,
+                bottom: 100,
+                left: MediaQuery.of(context).size.width / 2,
+              ),
+              Positioned(
+                child: TextWidget(
+                  hint: 'www.pixher.app',
+                  textStyle: GoogleFonts.lato(
+                      color: Colors.black45,
+                      fontSize: 12,
+                      height: 1.1,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.w700),
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                ),
+                right: 20,
+                bottom: 20,
+                left: (MediaQuery.of(context).size.width / 2) + 10,
               ),
             ],
           ),
