@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pixer/screens/stories.dart';
@@ -8,6 +8,7 @@ import 'screens/home/home.dart';
 import 'screens/playground.dart';
 import 'theme/theme.dart';
 import 'theme/theme_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ void main() async {
     initialRoute: HomePage.tag,
   );
 
-  Firebase.initializeApp();
+  //Firebase.initializeApp();
 
   runApp(myApp);
 }

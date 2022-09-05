@@ -62,7 +62,7 @@ class CreateBloc extends Bloc<CreateEvent, CreateState> {
   Stream<CreateState> mapEventToState(CreateEvent event) async* {
     if (event is GenerateLabelEvent) {
       final lables = await repo.getLabels(event.file);
-      print(lables);
+      //print(lables);
       yield LabelState(lables);
     } else if (event is FetchTagsEvent) {
       for (String label in event.labels) {

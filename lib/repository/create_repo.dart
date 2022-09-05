@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../data/api/api_provider.dart';
@@ -15,14 +15,16 @@ class CreateRepo {
   Future<List<String>> getLabels(File image) async {
     final List<String> list = [];
 
-    final ImageLabelerOptions options =
-        ImageLabelerOptions(confidenceThreshold: 0.7);
-    final imageLabeler = ImageLabeler(options: options);
-    final labels = await imageLabeler.processImage(InputImage.fromFile(image));
-
-    for (ImageLabel label in labels) {
-      final String text = label.label;
-      list.add(text);
+    MethodChannel _methodChannel = const MethodChannel('flutter.native/helper');
+    List<dynamic> documentList=[""];
+    try {
+      documentList = await _methodChannel.invokeMethod(
+          "fetchLabels",{"uri":image.uri.toString()});
+    } on PlatformException catch(e){
+      print("exceptiong");
+    }
+    for (var document in documentList) {
+      list.add(document);
     }
     return list;
   }

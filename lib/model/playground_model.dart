@@ -1516,12 +1516,7 @@ Widget playgroundWidget(
                         topLeft: Radius.circular(300),
                         bottomLeft: Radius.circular(300),
                       ),
-                      child: ImageWidget(
-                        filter: ColorFilter.mode(
-                          Colors.black.withOpacity(1),
-                          BlendMode.saturation,
-                        ),
-                      ),
+                      child: ImageWidget(),
                     ),
                     margin: const EdgeInsets.only(left: 150, top: 60),
                     height: (MediaQuery.of(context).size.height * 2 / 3) - 100,
@@ -1658,10 +1653,6 @@ Widget playgroundWidget(
                     const SizedBox(
                       height: 100,
                     ),
-                    ClipRRect(
-                      child: ImageWidget(),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
                     TextWidget(
                       hint: '@pixher.app',
                       textStyle: GoogleFonts.lato(
@@ -1786,12 +1777,7 @@ Widget playgroundWidget(
                       shape: BoxShape.circle,
                     ),
                     child: ClipOval(
-                      child: ImageWidget(
-                        filter: ColorFilter.mode(
-                          Colors.black.withOpacity(1),
-                          BlendMode.saturation,
-                        ),
-                      ),
+                      child: ImageWidget(),
                     ),
                   ),
                   TextWidget(
@@ -1858,12 +1844,7 @@ Widget playgroundWidget(
                       shape: BoxShape.circle,
                     ),
                     child: ClipRRect(
-                      child: ImageWidget(
-                        filter: ColorFilter.mode(
-                          Colors.black.withOpacity(1),
-                          BlendMode.saturation,
-                        ),
-                      ),
+                      child: ImageWidget(),
                       borderRadius: BorderRadius.circular(
                         15,
                       ),
@@ -2094,7 +2075,7 @@ Widget playgroundWidget(
     case 219:
       {
         return Container(
-          color: Colors.white,
+          color: Colors.transparent,
           child: Stack(
             fit: StackFit.expand,
             children: [

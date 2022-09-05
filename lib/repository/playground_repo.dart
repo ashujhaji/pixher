@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -52,7 +52,7 @@ class PlaygroundRepo {
         await Future.delayed(const Duration(milliseconds: 20));
         return captureScreen(repaintKey,fileName: fileName);
       }
-      final image = await boundary?.toImage();
+      final image = await boundary?.toImage(pixelRatio: 2);
       final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) return null;
       Uint8List pngBytes = byteData.buffer.asUint8List();
@@ -89,8 +89,8 @@ class PlaygroundRepo {
     return pngBytes;
   }
 
-  Future<UploadTask?> uploadFile(File? file) async {
-    return null;
+  /*Future<UploadTask?> uploadFile(File? file) async {
+    //return null;
     if (file == null) {
       return null;
     }
@@ -114,5 +114,5 @@ class PlaygroundRepo {
     }
 
     return Future.value(uploadTask);
-  }
+  }*/
 }
