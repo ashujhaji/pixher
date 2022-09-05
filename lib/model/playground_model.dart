@@ -322,7 +322,10 @@ Widget playgroundWidget(
                   height: MediaQuery.of(context).size.width,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(5 / 360),
-                    child: ImageWidget(),
+                    child: ImageWidget(
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ),
@@ -334,14 +337,17 @@ Widget playgroundWidget(
                     height: MediaQuery.of(context).size.width,
                     child: RotationTransition(
                       turns: const AlwaysStoppedAnimation(345 / 360),
-                      child: ImageWidget(),
+                      child: ImageWidget(
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.width,
+                      ),
                     )),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 145),
                 child: Align(
                   child: TextWidget(
-                    hint: 'Ashutosh Jha',
+                    hint: 'Olivia',
                     textStyle: GoogleFonts.gideonRoman(
                       color: Colors.black.withOpacity(0.7),
                       fontSize: 20,
@@ -474,7 +480,10 @@ Widget playgroundWidget(
                   height: 230,
                   width: 230,
                   alignment: Alignment.center,
-                  child: ImageWidget(),
+                  child: ImageWidget(
+                    width: 230,
+                    height: 230,
+                  ),
                   color: Colors.lightBlueAccent.withOpacity(0.4),
                   margin: const EdgeInsets.all(30),
                   padding: const EdgeInsets.all(10),
@@ -807,6 +816,7 @@ Widget playgroundWidget(
         );
       }
     case 110:
+    case 280:
       {
         return Container(
           color: Colors.white,
@@ -1035,6 +1045,7 @@ Widget playgroundWidget(
         );
       }
     case 128:
+    case 275:
       {
         return Container(
           color: const Color(0xfff2ead0),
@@ -1091,6 +1102,7 @@ Widget playgroundWidget(
         );
       }
     case 131:
+    case 271:
       {
         return Container(
           color: const Color(0xffebe6e0),
@@ -1129,7 +1141,7 @@ Widget playgroundWidget(
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(340 / 360),
                     child: TextWidget(
-                      textStyle: GoogleFonts.ruthie(
+                      textStyle: GoogleFonts.greatVibes(
                         color: Colors.black,
                         fontSize: 28,
                       ),
@@ -1353,10 +1365,8 @@ Widget playgroundWidget(
                         shape: BoxShape.circle,
                       ),
                       child: ImageWidget(
-                        filter: ColorFilter.mode(
-                          Colors.black.withOpacity(1),
-                          BlendMode.saturation,
-                        ),
+                        width: 150,
+                        height: 150,
                       ),
                     ),
                     borderRadius: BorderRadius.circular(25),
@@ -1387,10 +1397,8 @@ Widget playgroundWidget(
                       shape: BoxShape.circle,
                     ),
                     child: ImageWidget(
-                      filter: ColorFilter.mode(
-                        Colors.black.withOpacity(1),
-                        BlendMode.saturation,
-                      ),
+                      width: 130,
+                      height: 200,
                     ),
                   ),
                   borderRadius: BorderRadius.circular(15),
@@ -1516,7 +1524,9 @@ Widget playgroundWidget(
                         topLeft: Radius.circular(300),
                         bottomLeft: Radius.circular(300),
                       ),
-                      child: ImageWidget(),
+                      child: ImageWidget(
+                        height: (MediaQuery.of(context).size.height * 2 / 3) - 100,
+                      ),
                     ),
                     margin: const EdgeInsets.only(left: 150, top: 60),
                     height: (MediaQuery.of(context).size.height * 2 / 3) - 100,
@@ -1777,7 +1787,10 @@ Widget playgroundWidget(
                       shape: BoxShape.circle,
                     ),
                     child: ClipOval(
-                      child: ImageWidget(),
+                      child: ImageWidget(
+                        width: 120,
+                        height: 120,
+                      ),
                     ),
                   ),
                   TextWidget(
@@ -1844,7 +1857,10 @@ Widget playgroundWidget(
                       shape: BoxShape.circle,
                     ),
                     child: ClipRRect(
-                      child: ImageWidget(),
+                      child: ImageWidget(
+                        width: 120,
+                        height: 180,
+                      ),
                       borderRadius: BorderRadius.circular(
                         15,
                       ),
@@ -2144,7 +2160,10 @@ Widget playgroundWidget(
                   Container(
                     width: 170,
                     height: 170,
-                    child: ImageWidget(),
+                    child: ImageWidget(
+                      width: 170,
+                      height: 170,
+                    ),
                     color: Colors.white,
                     padding: const EdgeInsets.all(10),
                   ),
@@ -2288,7 +2307,10 @@ Widget playgroundWidget(
                     child: SizedBox(
                       width: 100,
                       height: 100,
-                      child: ImageWidget(),
+                      child: ImageWidget(
+                        height: 100,
+                        width: 100,
+                      ),
                     ),
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -2337,7 +2359,10 @@ Widget playgroundWidget(
                       child: SizedBox(
                         width: 170,
                         height: 350,
-                        child: ImageWidget(),
+                        child: ImageWidget(
+                          width: 170,
+                          height: 350,
+                        ),
                       ),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(100),

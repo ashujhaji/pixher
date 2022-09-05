@@ -5,10 +5,12 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pixer/widget/snackbar.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -374,7 +376,7 @@ class _CreatePageState extends State<CreatePage> {
             ),
             title: Text(
               editing
-                  ? 'Download image and copy caption'
+                  ? 'Copy your caption and hashtags'
                   : 'Suggest me random caption',
               style: Theme.of(context)
                   .textTheme
@@ -425,6 +427,12 @@ class _CreatePageState extends State<CreatePage> {
               onPressed: () {
                 if (editing) {
                   //Copy text on clipboard
+                  final text = '${textEditingController?.text.toString()}'
+                      '\n.'
+                      '\n.'
+                      '\n@pixher.app';
+                  Clipboard.setData(ClipboardData(text: text));
+                  showSuccessSnackbar(context, 'Copied to clipboard!');
                   return;
                 }
                 tags.removeWhere((key, value) => value == false);
@@ -444,7 +452,7 @@ class _CreatePageState extends State<CreatePage> {
                 });
               },
               icon: Icon(
-                !editing ? Icons.chevron_right : FeatherIcons.download,
+                !editing ? Icons.chevron_right : FeatherIcons.copy,
                 key: ValueKey('icon1'),
                 size: 25,
                 color: Colors.white,

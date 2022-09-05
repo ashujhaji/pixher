@@ -11,7 +11,7 @@ class ApiProvider {
   }
 
   Future<http.Response> getCategories() => http.get(
-        Uri.parse(ApiConstant.CATEGORIES),
+        Uri.parse(ApiConstant.CATEGORIES+'?per_page=100'),
         headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},
       );
 

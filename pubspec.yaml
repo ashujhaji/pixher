@@ -52,6 +52,9 @@ dependencies:
   event_bus: ^2.0.0
   rich_text_controller: ^1.4.0
   lottie: ^1.4.1
+  firebase_core: ^1.0.0
+  firebase_storage: ^10.3.6
+  another_flushbar:
 
 dev_dependencies:
   flutter_test:

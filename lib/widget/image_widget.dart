@@ -11,6 +11,7 @@ class ImageWidget extends StatefulWidget {
   ValueChanged<File>? onFileChanged;
   ColorFilter? filter;
   File? file;
+  double? height, width;
 
   ImageWidget(
       {Key? key,
@@ -18,7 +19,9 @@ class ImageWidget extends StatefulWidget {
       this.opacity,
       this.onFileChanged,
       this.filter,
-      this.file,})
+      this.file,
+      this.height,
+      this.width,})
       : super(key: key);
 
   @override
@@ -33,6 +36,10 @@ class _ImageWidgetState extends State<ImageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.width==null || widget.height==null){
+      widget.width = MediaQuery.of(context).size.width;
+      widget.height = MediaQuery.of(context).size.height;
+    }
     final theme = Theme.of(context);
     if (file != null) {
       return Stack(
@@ -48,8 +55,8 @@ class _ImageWidgetState extends State<ImageWidget> {
               child: Image.file(
                 file!,
                 fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: widget.width,
+                height: widget.height,
               ),
             ),
             constrained: false,

@@ -40,4 +40,4 @@ post_install do |installer|
   end
 end
 
-pod 'Firebase/MLVisionLabelModel'
+pod 'GoogleMLKit/ImageLabeling', '3.2.0'

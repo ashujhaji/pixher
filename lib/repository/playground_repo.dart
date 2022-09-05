@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 //import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -89,7 +90,7 @@ class PlaygroundRepo {
     return pngBytes;
   }
 
-  /*Future<UploadTask?> uploadFile(File? file) async {
+  Future<UploadTask?> uploadFile(File? file) async {
     //return null;
     if (file == null) {
       return null;
@@ -114,5 +115,5 @@ class PlaygroundRepo {
     }
 
     return Future.value(uploadTask);
-  }*/
+  }
 }
