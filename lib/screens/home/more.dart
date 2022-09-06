@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MorePage extends StatefulWidget {
   @override
@@ -72,7 +73,9 @@ class _MorePageState extends State<MorePage> {
                       'assets/images/instagram.png',
                       height: 44,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      _launchInBrowser(Uri.parse('https://www.instagram.com/pixher.app/'));
+                    },
                   )
                 ],
               ),
@@ -82,5 +85,14 @@ class _MorePageState extends State<MorePage> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }

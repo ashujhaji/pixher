@@ -4,10 +4,13 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:pixer/firebase/dynamic_link_creator.dart';
 import 'package:pixer/model/dashboard_model.dart';
 import 'package:pixer/screens/home/more.dart';
 import 'package:pixer/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_extend/share_extend.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
@@ -36,6 +39,7 @@ class _HomePageState extends State<HomePage>
   final drawerItems = [
     'Support',
     'Leave Rating',
+    'Share App',
     'Terms of Use',
     'Privacy Policy',
     'Licenses'
@@ -197,7 +201,18 @@ class _HomePageState extends State<HomePage>
                 drawerItems[index],
                 style: Theme.of(context).textTheme.headline6,
               ),
-              onTap: () {},
+              onTap: () async {
+                switch (index) {
+                  case 2:
+                    {
+                      final link = DynamicLinkCreator.instance.appLink();
+                      final message =
+                          'Hey! I found this awesome app for you. Let\'s make amazing stories and posts now with Pixher. Click here to download $link';
+                      ShareExtend.share(message, "text");
+                      break;
+                    }
+                }
+              },
             );
           },
           itemCount: drawerItems.length,
@@ -239,13 +254,17 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             InkWell(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(FeatherIcons.instagram),
-                  const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   Text(
                     'pixher.app',
                     style: Theme.of(context).textTheme.headline6,
@@ -253,16 +272,27 @@ class _HomePageState extends State<HomePage>
                   ),
                 ],
               ),
-              onTap: (){
-
+              onTap: () {
+                _launchInBrowser(Uri.parse('https://www.instagram.com/pixher.app/'));
               },
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
           ],
           mainAxisSize: MainAxisSize.min,
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 
   @override

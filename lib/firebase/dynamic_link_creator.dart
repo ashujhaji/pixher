@@ -12,6 +12,11 @@ class DynamicLinkCreator {
     return uri;
   }
 
+  Future<Uri> appLink() async {
+    final uri = await _createDynamicLink(Uri.parse('https://pixher.app/download'));
+    return uri;
+  }
+
   Future<Uri> _createDynamicLink(Uri uri) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://pixher.page.link',
