@@ -2,6 +2,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:pixer/firebase/dynamic_link_creator.dart';
 import 'package:pixer/model/playground_model.dart';
 import 'package:pixer/screens/home/home.dart';
 import 'package:pixer/util/events.dart';
@@ -92,8 +93,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                       onPressed: () {
                         if (isRendering) return;
                         if (file != null) {
-                          debugPrint(file!.path);
-                          ShareExtend.share(file!.path, "file");
+                          _shareImage(file!);
                           return;
                         }
                         final fileName =
@@ -102,7 +102,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                           BlocProvider.of<PlaygroundBloc>(context).add(
                             StartRecordingEvent(controller, (value) {
                               //setState(() {
-                                controller.value = value;
+                              controller.value = value;
                               //});
                             }, _repaintKey, fileName: fileName),
                           );
@@ -197,7 +197,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                     onPressed: () {
                       if (isRendering) return;
                       if (file != null) {
-                        ShareExtend.share(file!.path, "file");
+                        _shareImage(file!);
                         return;
                       }
                       BlocProvider.of<PlaygroundBloc>(context).add(
@@ -220,7 +220,7 @@ class _PlaygroundState extends State<PlaygroundPage>
             isRendering = false;
             if (state.file == null) return;
             file = state.file;
-           // _repo.uploadFile(file);
+            // _repo.uploadFile(file);
             if (state.generateHashtag) {
               EventBusHelper.instance
                   .getEventBus()
@@ -228,10 +228,24 @@ class _PlaygroundState extends State<PlaygroundPage>
               Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
               return;
             }
-            ShareExtend.share(file!.path, "file");
+            _shareImage(file!);
           }
         },
       ),
+    );
+  }
+
+  _shareImage(File file) async {
+    final link = DynamicLinkCreator.instance.createTemplateLink(
+        widget.template!.id.toString(),
+        widget.dimensions!.width!,
+        widget.dimensions!.height!);
+    final message =
+        'Hey! Try this awesome template to create your next post $link';
+    ShareExtend.share(
+      file.path,
+      "file",
+      extraText: message,
     );
   }
 }
