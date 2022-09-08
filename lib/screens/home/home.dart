@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage>
   late StreamSubscription eventbus;
   final GlobalKey _scaffoldKey = GlobalKey();
   final drawerItems = [
-    'Support',
+    'About us',
     'Leave Rating',
     'Share App',
     'Terms of Use',
@@ -204,6 +204,12 @@ class _HomePageState extends State<HomePage>
               ),
               onTap: () async {
                 switch (index) {
+                  case 0:
+                    {
+                      Uri link = Uri.parse('https://pixherapp.blogspot.com/2022/09/about-us.html');
+                      _launchInBrowser(link);
+                      break;
+                    }
                   case 1:
                     {
                       _openAppStore();
@@ -215,6 +221,24 @@ class _HomePageState extends State<HomePage>
                       final message =
                           'Hey! I found this awesome app for you. Let\'s make amazing stories and posts now with Pixher. Click here to download $link';
                       ShareExtend.share(message, "text");
+                      break;
+                    }
+                  case 3:
+                    {
+                      Uri link = Uri.parse('https://pixherapp.blogspot.com/2022/09/terms-of-use.html');
+                      _launchInBrowser(link);
+                      break;
+                    }
+                  case 4:
+                    {
+                      Uri link = Uri.parse('https://pixherapp.blogspot.com/2022/09/privacy-policy.html');
+                      _launchInBrowser(link);
+                      break;
+                    }
+                  case 5:
+                    {
+                      Uri link = Uri.parse('https://pixherapp.blogspot.com/2022/09/licenses.html');
+                      _launchInBrowser(link);
                       break;
                     }
                 }

@@ -38,7 +38,7 @@ class PlaygroundRepo {
 
     List<int>? gifData = generateGIF(images);
     final Directory temp = await getTemporaryDirectory();
-    final file = File('${temp.path}/images/' + "$fileName.gif");
+    final file = File('${temp.path}/images/' + "$fileName.mov");
     final status = await file.exists();
     if(!status){
       await file.create(recursive: true);
