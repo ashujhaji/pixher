@@ -12,9 +12,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pixer/widget/snackbar.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
+import 'package:share_extend/share_extend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/create_bloc.dart';
+import '../../firebase/dynamic_link_creator.dart';
 import '../../repository/create_repo.dart';
 import '../../widget/expanded_section.dart';
 import '../../theme/theme_preference.dart';
@@ -179,6 +181,27 @@ class _CreatePageState extends State<CreatePage> {
                                       ),
                                     ),
                                   ),
+                                  Align(
+                                    child: InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        alignment: Alignment.center,
+                                        color: Colors.black45,
+                                        child: Text(
+                                          'Click to Share',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        _shareImage(widget.file!);
+                                      },
+                                    ),
+                                    alignment: Alignment.bottomCenter,
+                                  )
                                 ],
                               ),
                               color: Colors.grey.withOpacity(0.4),
@@ -416,8 +439,10 @@ class _CreatePageState extends State<CreatePage> {
                           preferences?.setBool(
                               DarkThemePreference.CAPTION_ENABLE, value);
                         },
-                        activeColor:
-                            Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                        activeColor: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.5),
                         thumbColor: Theme.of(context).colorScheme.secondary,
                         trackColor: Colors.white.withOpacity(0.5),
                       ),
@@ -468,6 +493,17 @@ class _CreatePageState extends State<CreatePage> {
     XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 50);
     return image;
+  }
+
+  _shareImage(File file) async {
+    final link = DynamicLinkCreator.instance.appLink();
+    final message =
+        'Hey! I found this awesome app for you. Let\'s make amazing stories and posts now with Pixher. Click here to download $link';
+    ShareExtend.share(
+      file.path,
+      "file",
+      extraText: message,
+    );
   }
 
   @override

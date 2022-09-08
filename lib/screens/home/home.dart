@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -203,6 +204,11 @@ class _HomePageState extends State<HomePage>
               ),
               onTap: () async {
                 switch (index) {
+                  case 1:
+                    {
+                      _openAppStore();
+                      break;
+                    }
                   case 2:
                     {
                       final link = DynamicLinkCreator.instance.appLink();
@@ -292,6 +298,21 @@ class _HomePageState extends State<HomePage>
       mode: LaunchMode.externalApplication,
     )) {
       throw 'Could not launch $url';
+    }
+  }
+
+  _openAppStore(){
+    if (Platform.isAndroid || Platform.isIOS) {
+      final appId = Platform.isAndroid ? 'com.pixher.android' : 'com.pixher.pixher';
+      final url = Uri.parse(
+        Platform.isAndroid
+            ? "market://details?id=$appId"
+            : "https://apps.apple.com/app/id$appId",
+      );
+      launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
     }
   }
 

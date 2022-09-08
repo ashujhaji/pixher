@@ -171,10 +171,12 @@ Widget playgroundWidget(
   if (animations == null && animated) return Container();
   switch (templateId) {
     case 42:
+    case 320:
       {
         return Container(
           color: Colors.white,
-          child: ImageWidget(),
+          child: ImageWidget(
+          ),
           padding: EdgeInsets.all(animations![0].value),
         );
       }
@@ -773,7 +775,7 @@ Widget playgroundWidget(
       {
         return Container(
           color: Colors.white,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             //mainAxisAlignment: MainAxisAlignment.center,
@@ -815,7 +817,7 @@ Widget playgroundWidget(
           //padding: const EdgeInsets.all(20),
         );
       }
-    case 110:
+    case 360:
     case 280:
       {
         return Container(
@@ -943,6 +945,7 @@ Widget playgroundWidget(
         );
       }
     case 125:
+    case 327:
       {
         return Container(
           color: Colors.white,
@@ -1192,7 +1195,7 @@ Widget playgroundWidget(
                     ),
                   ),
                   Positioned(
-                    top: 345.0,
+                    top: 360.0,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.center,
@@ -1204,7 +1207,7 @@ Widget playgroundWidget(
                     ),
                   ),
                   Positioned(
-                    top: 415.0,
+                    top: 425.0,
                     left: 40,
                     right: 40,
                     child: Container(
@@ -1232,7 +1235,7 @@ Widget playgroundWidget(
                     ),
                   ),
                   Positioned(
-                    top: 520,
+                    bottom: 80,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.center,
@@ -1525,7 +1528,8 @@ Widget playgroundWidget(
                         bottomLeft: Radius.circular(300),
                       ),
                       child: ImageWidget(
-                        height: (MediaQuery.of(context).size.height * 2 / 3) - 100,
+                        height:
+                            (MediaQuery.of(context).size.height * 2 / 3) - 100,
                       ),
                     ),
                     margin: const EdgeInsets.only(left: 150, top: 60),
@@ -2424,6 +2428,256 @@ Widget playgroundWidget(
                 right: 20,
                 bottom: 20,
                 left: (MediaQuery.of(context).size.width / 2) + 10,
+              ),
+            ],
+          ),
+        );
+      }
+    case 288:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff9f7f43),
+                      fontSize: 18,
+                    ),
+                    hint: 'YOU ARE',
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff9f7f43),
+                      fontSize: 26,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'INVITED',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.greatVibes(
+                      color: const Color(0xff182e4e),
+                      fontSize: 80,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'Birthday',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.greatVibes(
+                      color: const Color(0xff182e4e),
+                      fontSize: 45,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'Party',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff182e4e),
+                      fontSize: 20,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'SATURDAY | AUGUST 17',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff9f7f43),
+                      fontSize: 16,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'START FROM 6PM',
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff182e4e),
+                      fontSize: 20,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'PLACE OF CELEBRATION',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff9f7f43),
+                      fontSize: 14,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'STREET NAME',
+                  ),
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xff9f7f43),
+                      fontSize: 16,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'CITY NAME, STATE, COUNTRY',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }
+    case 293:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: TextWidget(
+                  textStyle: GoogleFonts.ebGaramond(
+                    color: const Color(0xff4d260e),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  hint: 'Happy Birthday\nDarling!',
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                  textAlign: TextAlign.start,
+                ),
+                left: 50,
+                top: 50,
+              ),
+              Positioned(
+                child: SizedBox(
+                  width: 282,
+                  height: 371,
+                  child: ImageWidget(
+                      /*width: 170,
+                    height: 350,*/
+                      ),
+                ),
+                left: 54,
+                top: 145,
+              ),
+              Positioned(
+                child: TextWidget(
+                  textStyle: GoogleFonts.dancingScript(
+                    color: const Color(0xff4d260e),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  hint: 'I love you...',
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                  textAlign: TextAlign.start,
+                ),
+                right: 50,
+                bottom: 140,
+              )
+            ],
+          ),
+        );
+      }
+    case 298:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  TextWidget(
+                    textStyle: GoogleFonts.ebGaramond(
+                      color: const Color(0xffba8368),
+                      fontSize: 16,
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'UP TO',
+                  ),
+                  Row(
+                    children: [
+                      TextWidget(
+                        textStyle: GoogleFonts.merriweather(
+                          color: const Color(0xffba8368),
+                          fontSize: 96,
+                        ),
+                        edgeInsetsGeometry: EdgeInsets.zero,
+                        hint: '50',
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '%',
+                            style: GoogleFonts.merriweather(
+                              color: const Color(0xffba8368),
+                              fontSize: 36,
+                            ),
+                          ),
+                          Text(
+                            'OFF',
+                            style: GoogleFonts.merriweather(
+                              color: const Color(0xffba8368),
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                  ),
+                  Text(
+                    'Sale',
+                    style: GoogleFonts.qwitcherGrypen(
+                      color: const Color(0xff000000),
+                      fontSize: 76,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 10),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      height: 40,
+                      child: Text(
+                        'SHOP NOW',
+                        style: GoogleFonts.merriweather(
+                          color: const Color(0xffffffff),
+                          fontSize: 18,
+                        ),
+                      ),
+                      color: const Color(0xffba8368),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 50,),
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    height: 40,
+                    child: Text(
+                      'CODE : PIXHER50',
+                      style: GoogleFonts.merriweather(
+                        color: const Color(0xffba8368),
+                        fontSize: 18,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xffba8368))),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
               ),
             ],
           ),

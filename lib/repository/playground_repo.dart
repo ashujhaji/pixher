@@ -38,8 +38,12 @@ class PlaygroundRepo {
 
     List<int>? gifData = generateGIF(images);
     final Directory temp = await getTemporaryDirectory();
-    final file = await File('${temp.path}/images/' + "$fileName.mov")
-        .writeAsBytes(gifData!);
+    final file = File('${temp.path}/images/' + "$fileName.gif");
+    final status = await file.exists();
+    if(!status){
+      await file.create(recursive: true);
+    }
+    file.writeAsBytes(gifData!);
     return file;
   }
 
@@ -53,7 +57,7 @@ class PlaygroundRepo {
         await Future.delayed(const Duration(milliseconds: 20));
         return captureScreen(repaintKey,fileName: fileName);
       }
-      final image = await boundary?.toImage(pixelRatio: 2);
+      final image = await boundary?.toImage(pixelRatio: 1);
       final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) return null;
       Uint8List pngBytes = byteData.buffer.asUint8List();
