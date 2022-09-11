@@ -1,4 +1,5 @@
 import 'package:event_bus/event_bus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -220,7 +221,7 @@ class _PlaygroundState extends State<PlaygroundPage>
             isRendering = false;
             if (state.file == null) return;
             file = state.file;
-             _repo.uploadFile(file);
+            if (kDebugMode) _repo.uploadFile(file);
             if (state.generateHashtag) {
               EventBusHelper.instance
                   .getEventBus()

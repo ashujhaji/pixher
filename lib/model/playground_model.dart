@@ -175,8 +175,7 @@ Widget playgroundWidget(
       {
         return Container(
           color: Colors.white,
-          child: ImageWidget(
-          ),
+          child: ImageWidget(),
           padding: EdgeInsets.all(animations![0].value),
         );
       }
@@ -2636,12 +2635,13 @@ Widget playgroundWidget(
                     ],
                     mainAxisSize: MainAxisSize.min,
                   ),
-                  Text(
-                    'Sale',
-                    style: GoogleFonts.qwitcherGrypen(
+                  TextWidget(
+                    textStyle: GoogleFonts.qwitcherGrypen(
                       color: const Color(0xff000000),
                       fontSize: 76,
                     ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                    hint: 'Sale',
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -2650,27 +2650,31 @@ Widget playgroundWidget(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.center,
                       height: 40,
-                      child: Text(
-                        'SHOP NOW',
-                        style: GoogleFonts.merriweather(
+                      child: TextWidget(
+                        hint: 'SHOP NOW',
+                        textStyle: GoogleFonts.merriweather(
                           color: const Color(0xffffffff),
                           fontSize: 18,
                         ),
+                        edgeInsetsGeometry: EdgeInsets.zero,
                       ),
                       color: const Color(0xffba8368),
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 50,),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                    ),
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
                     height: 40,
-                    child: Text(
-                      'CODE : PIXHER50',
-                      style: GoogleFonts.merriweather(
+                    child: TextWidget(
+                      hint: 'CODE : PIXHER50',
+                      textStyle: GoogleFonts.merriweather(
                         color: const Color(0xffba8368),
                         fontSize: 18,
                       ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
                     ),
                     decoration: BoxDecoration(
                         border: Border.all(color: const Color(0xffba8368))),
@@ -2678,6 +2682,255 @@ Widget playgroundWidget(
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ],
+          ),
+        );
+      }
+    case 330:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(right: 80),
+                    child: ImageWidget(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width - 80,
+                    ),
+                    height: 250,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 80, left: 80),
+                    child: ImageWidget(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width - 160,
+                    ),
+                    height: 250,
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Center(
+                    child: TextWidget(
+                      hint: '04 Sep ${DateTime.now().year}',
+                      textStyle: GoogleFonts.merriweather(
+                        color: const Color(0xffba8368),
+                        fontSize: 18,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Center(
+                    child: TextWidget(
+                      hint: 'Robert & Danielle',
+                      textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 18,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                  Center(
+                    child: TextWidget(
+                      hint: 'Vigo, Spain',
+                      textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 14,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.start,
+              ),
+            ],
+          ),
+        );
+      }
+    case 337:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              CachedNetworkImage(
+                imageUrl: assetUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: 'Mary Dow',
+                      textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    Text(
+                      '&',
+                      style: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 16,
+                      ),
+                    ),
+                    TextWidget(
+                      hint: 'John Smith',
+                      textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                top: 260,
+                left: 135,
+              ),
+              Positioned(
+                child: Column(
+                  children: [
+                    TextWidget(
+                      hint: '04 Sep ${DateTime.now().year}',
+                      textStyle: GoogleFonts.merriweather(
+                        color: const Color(0xffba8368),
+                        fontSize: 14,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                    TextWidget(
+                      hint: 'Any city, Anywhere',
+                      textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xffba8368),
+                        fontSize: 16,
+                      ),
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                bottom: 50,
+                left: 20,
+              ),
+            ],
+          ),
+        );
+      }
+    case 342:
+      {
+        return Container(
+          color: Colors.white,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Container(
+                child: ImageWidget(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                margin: const EdgeInsets.only(bottom: 190),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: assetUrl.toString(),
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Text(
+                    'Save the date',
+                    style: GoogleFonts.greatVibes(
+                      color: const Color(0xff604434),
+                      fontSize: 32,
+                    ),
+                  ),
+                  TextWidget(
+                    hint: '♥ TOGETHER WITH THEIR FAMILY ♥',
+                    textStyle: GoogleFonts.merriweather(
+                      color: const Color(0xffc88c36),
+                      fontSize: 10,
+                      letterSpacing: 1.2
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'Maria & Daniel',
+                    textStyle: GoogleFonts.greatVibes(
+                        color: const Color(0xff604434),
+                        fontSize: 32,
+                        letterSpacing: 1.2
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'INVITE YOU TO CELEBRATE',
+                    textStyle: GoogleFonts.merriweather(
+                        color: const Color(0xffc88c36),
+                        fontSize: 10,
+                        letterSpacing: 1.2
+                    ),
+                  ),
+                  Text(
+                    '♥',
+                    style: GoogleFonts.merriweather(
+                        color: const Color(0xff604434),
+                        fontSize: 10,
+                        letterSpacing: 1.2
+                    ),
+                  ),
+                  TextWidget(
+                    hint: 'SATURDAY, 25th Dec 2022',
+                    textStyle: GoogleFonts.merriweather(
+                        color: const Color(0xffc88c36),
+                        fontSize: 10,
+                        letterSpacing: 1.2
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  TextWidget(
+                    hint: 'Any city, Anywhere',
+                    textStyle: GoogleFonts.merriweather(
+                        color: const Color(0xffc88c36),
+                        fontSize: 10,
+                        letterSpacing: 1.2
+                    ),
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  const SizedBox(height: 15,),
+                ],
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+
               ),
             ],
           ),

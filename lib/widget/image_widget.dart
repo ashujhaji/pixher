@@ -54,7 +54,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                   : widget.filter!,
               child: Image.file(
                 file!,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 width: widget.width,
                 height: widget.height,
               ),
