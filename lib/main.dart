@@ -28,15 +28,17 @@ void main() async {
     initialRoute: HomePage.tag,
   );
 
-  Firebase.initializeApp();
-  RemoteConfigService.getInstance().then((value) => value.initialize());
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  FirebaseMessaging.instance.setAutoInitEnabled(true);
-  if (Platform.isIOS) {
-    NotificationHandler.instance.requestForPermission();
-  } else {
-    NotificationHandler.instance.listenForMessages();
-  }
+  Firebase.initializeApp().then((value){
+    RemoteConfigService.getInstance().then((value) => value.initialize());
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    FirebaseMessaging.instance.setAutoInitEnabled(true);
+    if (Platform.isIOS) {
+      NotificationHandler.instance.requestForPermission();
+    } else {
+      NotificationHandler.instance.listenForMessages();
+    }
+  });
+
 
   runApp(myApp);
 }
