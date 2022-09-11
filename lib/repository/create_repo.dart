@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:pixer/firebase/remote_config_service.dart';
 
 import '../data/api/api_provider.dart';
 import '../data/api/response_handler.dart';
@@ -16,11 +17,11 @@ class CreateRepo {
     final List<String> list = [];
 
     MethodChannel _methodChannel = const MethodChannel('flutter.native/helper');
-    List<dynamic> documentList=[""];
+    List<dynamic> documentList = [""];
     try {
-      documentList = await _methodChannel.invokeMethod(
-          "fetchLabels",{"uri":image.uri.toString()});
-    } on PlatformException catch(e){
+      documentList = await _methodChannel
+          .invokeMethod("fetchLabels", {"uri": image.uri.toString()});
+    } on PlatformException catch (e) {
       print("exceptiong");
     }
     for (var document in documentList) {
@@ -30,8 +31,13 @@ class CreateRepo {
   }
 
   Future<Map<String, bool>> getTags(String tag) async {
+    final config = await RemoteConfigService.getInstance();
     Map<String, bool> res = {};
-    http.Response response = await _apiProvider.getRelevantTags(tag);
+    http.Response response = await _apiProvider.getRelevantTags(
+      tag,
+      config.getIgAppID,
+      config.getCookie,
+    );
     if (ResponseHandler.of(response) != null) {
       final sections = hashtagFromJson(response.body).data;
       if (sections == null) return {};
@@ -52,14 +58,13 @@ class CreateRepo {
   Future<String> getRandomCaption(List<String> tags) async {
     String query = '';
     String caption = '';
-    for(int i=0; i<tags.length ; i++){
-      query +='option$i=${tags[i]}';
+    for (int i = 0; i < tags.length; i++) {
+      query += 'option$i=${tags[i]}';
     }
-    http.Response response =
-        await _apiProvider.getRandomCaption(query);
+    http.Response response = await _apiProvider.getRandomCaption(query);
     if (ResponseHandler.of(response) != null) {
       final data = captionResponseFromJson(response.body);
-      if(data.isNotEmpty){
+      if (data.isNotEmpty) {
         caption += '${data[0].q.toString()}\n-${data[0].a.toString()}';
       }
     }

@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pixer/screens/stories.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase/notification_handler.dart';
+import 'firebase/remote_config_service.dart';
 import 'screens/home/home.dart';
 import 'screens/playground.dart';
 import 'theme/theme.dart';
 import 'theme/theme_provider.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +29,14 @@ void main() async {
   );
 
   Firebase.initializeApp();
+  RemoteConfigService.getInstance().then((value) => value.initialize());
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FirebaseMessaging.instance.setAutoInitEnabled(true);
+  if (Platform.isIOS) {
+    NotificationHandler.instance.requestForPermission();
+  } else {
+    NotificationHandler.instance.listenForMessages();
+  }
 
   runApp(myApp);
 }
@@ -47,7 +60,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+    themeChangeProvider.darkTheme =
+        await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   @override
@@ -88,9 +102,10 @@ class _MyAppState extends State<MyApp> {
                     {
                       return MaterialPageRoute(
                           builder: (context) => PlaygroundPage(
-                            dimensions: ((args.isNotEmpty) ? args[0] : null),
-                            template: (args.length >= 2) ? args[1] : null,
-                          ),
+                                dimensions:
+                                    ((args.isNotEmpty) ? args[0] : null),
+                                template: (args.length >= 2) ? args[1] : null,
+                              ),
                           settings: RouteSettings(name: settings.name));
                     }
                 }
