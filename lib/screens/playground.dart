@@ -102,9 +102,7 @@ class _PlaygroundState extends State<PlaygroundPage>
                         if (playground.animated) {
                           BlocProvider.of<PlaygroundBloc>(context).add(
                             StartRecordingEvent(controller, (value) {
-                              //setState(() {
                               controller.value = value;
-                              //});
                             }, _repaintKey, fileName: fileName),
                           );
                         } else {
@@ -140,8 +138,8 @@ class _PlaygroundState extends State<PlaygroundPage>
               child: Stack(
                 children: [
                   SingleChildScrollView(
-                    child: file == null
-                        ? Center(
+                    child: /*file == null
+                        ? */Center(
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: RepaintBoundary(
@@ -166,27 +164,45 @@ class _PlaygroundState extends State<PlaygroundPage>
                               ),
                             ),
                           )
-                        : Center(
+                        /*: Center(
                             child: Image.file(file!),
-                          ),
+                          )*/,
                   ),
                   if (isRendering)
                     Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black.withOpacity(0.6),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 100,
-                        ),
-                        child: Center(
-                          child: ClipRRect(
-                            child: LinearProgressIndicator(
-                              backgroundColor: Colors.white,
-                              color: Theme.of(context).colorScheme.secondary,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.black.withOpacity(0.6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 100,
+                      ),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: ClipRRect(
+                              child: LinearProgressIndicator(
+                                backgroundColor: Colors.white,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            borderRadius: BorderRadius.circular(20),
                           ),
-                        )),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'Creating your design...',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                      ),
+                    ),
                 ],
               ),
               alignment: Alignment.center,
@@ -198,7 +214,10 @@ class _PlaygroundState extends State<PlaygroundPage>
                     onPressed: () {
                       if (isRendering) return;
                       if (file != null) {
-                        _shareImage(file!);
+                        EventBusHelper.instance
+                            .getEventBus()
+                            .fire(GenerateHashtagEvent(file));
+                        Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
                         return;
                       }
                       BlocProvider.of<PlaygroundBloc>(context).add(
@@ -218,7 +237,7 @@ class _PlaygroundState extends State<PlaygroundPage>
         },
         listener: (context, state) {
           if (state is FileSavedState) {
-            isRendering = false;
+            //isRendering = false;
             if (state.file == null) return;
             file = state.file;
             if (kDebugMode) _repo.uploadFile(file);
@@ -229,15 +248,20 @@ class _PlaygroundState extends State<PlaygroundPage>
               Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
               return;
             }
-            _shareImage(file!);
+            _shareImage(file!,showProgress: false);
           }
         },
       ),
     );
   }
 
-  _shareImage(File file) async {
-    final link = DynamicLinkCreator.instance.createTemplateLink(
+  _shareImage(File file, {bool showProgress = false}) async {
+    if (showProgress) {
+      setState(() {
+        isRendering = true;
+      });
+    }
+    final link = await DynamicLinkCreator.instance.createTemplateLink(
         widget.template!.id.toString(),
         widget.dimensions!.width!,
         widget.dimensions!.height!);
@@ -248,5 +272,8 @@ class _PlaygroundState extends State<PlaygroundPage>
       "file",
       extraText: message,
     );
+    setState(() {
+      isRendering = false;
+    });
   }
 }

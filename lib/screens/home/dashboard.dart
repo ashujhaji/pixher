@@ -193,40 +193,43 @@ class _DashboardPageState extends State<DashboardPage> {
           child: InkWell(
             child: AspectRatio(
               child: ClipRRect(
-                child: Stack(
-                  children: [
-                    CachedNetworkImage(
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          category.templates![index].featuredMedia.toString(),
-                    ),
-                    if (category.templates![index].isNew)
-                      Container(
-                        child: Text(
-                          'New',
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1
-                              ?.copyWith(fontSize: 8,color: Colors.white,),
-                        ),
-                        decoration: BoxDecoration(
+                child: Container(
+                  child: Stack(
+                    children: [
+                      CachedNetworkImage(
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                        imageUrl:
+                        category.templates![index].featuredMedia.toString(),
+                      ),
+                      if (category.templates![index].isNew)
+                        Container(
+                          child: Text(
+                            'New',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontSize: 8,color: Colors.white,),
+                          ),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             /*color: Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.7),*/
-                          gradient: LinearGradient(
-                            colors: [
-                              Theme.of(context).colorScheme.primary,
-                              Theme.of(context).colorScheme.secondary,
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),),
-                        margin: const EdgeInsets.all(2),
-                        padding: const EdgeInsets.all(2),
-                      )
-                  ],
+                            gradient: LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.secondary,
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),),
+                          margin: const EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(2),
+                        )
+                    ],
+                  ),
+                  color: Colors.grey.withOpacity(0.2),
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),

@@ -63,8 +63,9 @@ class PlaygroundRepo {
       Uint8List pngBytes = byteData.buffer.asUint8List();
       final Directory temp = await getTemporaryDirectory();
       final file = File('${temp.path}/images/' + "$fileName.png");
-      if (!file.existsSync()) {
-        file.create(recursive: true);
+      final exist = await file.exists();
+      if (!exist) {
+        await file.create(recursive: true);
       }
       file.writeAsBytes(pngBytes);
       return file;
@@ -95,7 +96,7 @@ class PlaygroundRepo {
   }
 
   Future<UploadTask?> uploadFile(File? file) async {
-    //return null;
+    return null;
     if (file == null) {
       return null;
     }

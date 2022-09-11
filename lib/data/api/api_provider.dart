@@ -23,7 +23,7 @@ class ApiProvider {
 
   Future<http.Response> getTemplatesById(templateId) => http.get(
     Uri.parse(
-        '${ApiConstant.TEMPLATES}/posts?include[]=$templateId'),
+        '${ApiConstant.TEMPLATES}?include[]=$templateId'),
     headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},
   );
   

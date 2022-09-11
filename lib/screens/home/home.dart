@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../firebase/dynamic_link_handler.dart';
 import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
 import 'create.dart';
@@ -70,6 +71,9 @@ class _HomePageState extends State<HomePage>
       )
     ];
     _pageController = PageController(initialPage: 0, keepPage: true);
+    Future.delayed(Duration.zero, () {
+      DynamicLinkHandler.instance.retrieveDynamicLink(context);
+    });
     eventbus = EventBusHelper.instance
         .getEventBus()
         .on<GenerateHashtagEvent>()
