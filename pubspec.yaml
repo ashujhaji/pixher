@@ -59,7 +59,7 @@ dependencies:
   another_flushbar:
   firebase_remote_config: ^2.0.17
   firebase_crashlytics: ^2.8.10
-  flutter_local_notifications: ^6.0.0
+  flutter_local_notifications: ^9.1.2
   firebase_messaging: ^11.1.0
 
 dev_dependencies:
