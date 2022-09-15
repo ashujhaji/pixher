@@ -7,12 +7,15 @@ import 'package:pixer/firebase/dynamic_link_creator.dart';
 import 'package:pixer/model/playground_model.dart';
 import 'package:pixer/screens/home/home.dart';
 import 'package:pixer/util/events.dart';
+import 'package:pixer/widget/snackbar.dart';
 import 'package:share_extend/share_extend.dart';
 import '../bloc/playground_bloc.dart';
 import '../model/template.dart';
 import '../repository/playground_repo.dart';
 import '../util/dictionary.dart';
 import 'dart:io';
+
+import '../util/permission_handler.dart';
 
 class PlaygroundPage extends StatefulWidget {
   final TemplateDimension? dimensions;
@@ -139,34 +142,36 @@ class _PlaygroundState extends State<PlaygroundPage>
                 children: [
                   SingleChildScrollView(
                     child: /*file == null
-                        ? */Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: RepaintBoundary(
-                                child: AspectRatio(
-                                  aspectRatio: widget.dimensions!.width! /
-                                      widget.dimensions!.height!,
-                                  child: playgroundWidget(
-                                    context,
-                                    widget.template!.id!,
-                                    (available) {
-                                      if (!available) {
-                                        playground.available = available;
-                                      }
-                                    },
-                                    animations:
-                                        playground.animated ? animation : null,
-                                    assetUrl: widget.template?.assetImage,
-                                    animated: playground.animated,
-                                  ),
-                                ),
-                                key: _repaintKey,
-                              ),
+                        ? */
+                        Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: RepaintBoundary(
+                          child: AspectRatio(
+                            aspectRatio: widget.dimensions!.width! /
+                                widget.dimensions!.height!,
+                            child: playgroundWidget(
+                              context,
+                              widget.template!.id!,
+                              (available) {
+                                if (!available) {
+                                  playground.available = available;
+                                }
+                              },
+                              animations:
+                                  playground.animated ? animation : null,
+                              assetUrl: widget.template?.assetImage,
+                              animated: playground.animated,
                             ),
-                          )
-                        /*: Center(
+                          ),
+                          key: _repaintKey,
+                        ),
+                      ),
+                    )
+                    /*: Center(
                             child: Image.file(file!),
-                          )*/,
+                          )*/
+                    ,
                   ),
                   if (isRendering)
                     Container(
@@ -208,30 +213,63 @@ class _PlaygroundState extends State<PlaygroundPage>
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 10),
             ),
-            floatingActionButton: playground.animated || !playground.available
+            floatingActionButton: !playground.available
                 ? null
-                : FloatingActionButton(
+                : FloatingActionButton.extended(
                     onPressed: () {
-                      if (isRendering) return;
-                      if (file != null) {
-                        EventBusHelper.instance
-                            .getEventBus()
-                            .fire(GenerateHashtagEvent(file));
-                        Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
-                        return;
-                      }
-                      BlocProvider.of<PlaygroundBloc>(context).add(
-                        CaptureScreenEvent(_repaintKey, generateHashtag: true),
-                      );
-                      setState(() {
-                        isRendering = true;
+                      checkStoragePermission().then((value) {
+                        if (value) {
+                          if (isRendering) return;
+                          if (file != null) {
+                            BlocProvider.of<PlaygroundBloc>(context)
+                                .add(DownloadFileEvent(file!));
+                            return;
+                          }
+                          final fileName =
+                              '${widget.template?.id.toString()}-${widget.template?.slug.toString()}';
+                          if (playground.animated) {
+                            BlocProvider.of<PlaygroundBloc>(context).add(
+                              StartRecordingEvent(
+                                controller,
+                                (value) {
+                                  controller.value = value;
+                                },
+                                _repaintKey,
+                                fileName: fileName,
+                                download: true,
+                              ),
+                            );
+                          } else {
+                            BlocProvider.of<PlaygroundBloc>(context).add(
+                              CaptureScreenEvent(
+                                _repaintKey,
+                                fileName: fileName,
+                                download: true,
+                              ),
+                            );
+                          }
+                          setState(() {
+                            isRendering = true;
+                          });
+                        }
                       });
+                      return;
                     },
                     backgroundColor: const Color(0xff282828),
-                    child: Image.asset(
-                      'assets/images/hashtag.png',
-                      height: 35,
+                    label: Text(
+                      'Download',
+                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
+                    icon: const Icon(
+                      FeatherIcons.download,
+                      size: 20,
+                    ),
+                    /*Image.asset(
+                      'assets/images/hashtag.png',
+                      height: 25,
+                    ),*/
                   ),
           );
         },
@@ -241,14 +279,23 @@ class _PlaygroundState extends State<PlaygroundPage>
             if (state.file == null) return;
             file = state.file;
             if (kDebugMode) _repo.uploadFile(file);
-            if (state.generateHashtag) {
-              EventBusHelper.instance
+            if (state.download) {
+              BlocProvider.of<PlaygroundBloc>(context)
+                  .add(DownloadFileEvent(file!));
+              /*EventBusHelper.instance
                   .getEventBus()
                   .fire(GenerateHashtagEvent(state.file));
-              Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));
+              Navigator.of(context).popUntil(ModalRoute.withName(HomePage.tag));*/
               return;
             }
-            _shareImage(file!,showProgress: false);
+            _shareImage(file!, showProgress: false);
+          } else if (state is DownloadFileState) {
+            isRendering = false;
+            if (state.status == 'ok') {
+              showSuccessSnackbar(context, 'Design saved in your gallery');
+            } else {
+              showErrorSnackbar(context, state.status);
+            }
           }
         },
       ),

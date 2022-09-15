@@ -11,7 +11,7 @@ class PlaygroundEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class PlaygroundState extends Equatable {
+class PlaygroundState {
   @override
   List<Object?> get props => [];
 }
@@ -22,32 +22,42 @@ class StartRecordingEvent extends PlaygroundEvent {
   late ValueChanged<double> onAnimationChanged;
   late AnimationController controller;
   late GlobalKey repaintKey;
-  bool generateHashtag;
+  bool download;
   String fileName;
 
   StartRecordingEvent(
     this.controller,
     this.onAnimationChanged,
     this.repaintKey, {
-    this.generateHashtag = false,
+    this.download = false,
     this.fileName = 'img',
   });
 }
 
 class CaptureScreenEvent extends PlaygroundEvent {
   late GlobalKey repaintKey;
-  bool generateHashtag;
+  bool download;
   String fileName;
 
   CaptureScreenEvent(this.repaintKey,
-      {this.generateHashtag = false, this.fileName = 'img'});
+      {this.download = false, this.fileName = 'img'});
 }
 
 class FileSavedState extends PlaygroundState {
   late File? file;
-  bool generateHashtag;
+  bool download;
 
-  FileSavedState(this.file, this.generateHashtag);
+  FileSavedState(this.file, this.download);
+}
+
+class DownloadFileEvent extends PlaygroundEvent{
+  late File file;
+  DownloadFileEvent(this.file);
+}
+
+class DownloadFileState extends PlaygroundState{
+  String status = '';
+  DownloadFileState(this.status,);
 }
 
 class PlaygroundBloc extends Bloc<PlaygroundEvent, PlaygroundState> {
@@ -60,10 +70,13 @@ class PlaygroundBloc extends Bloc<PlaygroundEvent, PlaygroundState> {
     if (event is StartRecordingEvent) {
       final file = await repo.startRecording(
           event.controller, event.onAnimationChanged, event.repaintKey,fileName: event.fileName);
-      yield FileSavedState(file, event.generateHashtag);
+      yield FileSavedState(file, event.download);
     } else if (event is CaptureScreenEvent) {
       final file = await repo.captureScreen(event.repaintKey,fileName: event.fileName);
-      yield FileSavedState(file, event.generateHashtag);
+      yield FileSavedState(file, event.download);
+    }else if(event is DownloadFileEvent){
+      final status = await repo.downloadDesign(event.file);
+      yield DownloadFileState(status);
     }
   }
 }

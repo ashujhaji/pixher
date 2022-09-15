@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 //import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -40,7 +41,7 @@ class PlaygroundRepo {
     final Directory temp = await getTemporaryDirectory();
     final file = File('${temp.path}/images/' + "$fileName.mov");
     final status = await file.exists();
-    if(!status){
+    if (!status) {
       await file.create(recursive: true);
     }
     file.writeAsBytes(gifData!);
@@ -48,27 +49,28 @@ class PlaygroundRepo {
   }
 
   RenderRepaintBoundary? boundary;
+
   Future<File?> captureScreen(GlobalKey repaintKey,
       {String fileName = 'img'}) async {
-   // try{
-      boundary ??=
-      repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
-      if (boundary!.debugNeedsPaint) {
-        await Future.delayed(const Duration(milliseconds: 20));
-        return captureScreen(repaintKey,fileName: fileName);
-      }
-      final image = await boundary?.toImage(pixelRatio: 1);
-      final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
-      if (byteData == null) return null;
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-      final Directory temp = await getTemporaryDirectory();
-      final file = File('${temp.path}/images/' + "$fileName.png");
-      final exist = await file.exists();
-      if (!exist) {
-        await file.create(recursive: true);
-      }
-      file.writeAsBytes(pngBytes);
-      return file;
+    // try{
+    boundary ??=
+        repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    if (boundary!.debugNeedsPaint) {
+      await Future.delayed(const Duration(milliseconds: 20));
+      return captureScreen(repaintKey, fileName: fileName);
+    }
+    final image = await boundary?.toImage(pixelRatio: 1);
+    final byteData = await image?.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData == null) return null;
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    final Directory temp = await getTemporaryDirectory();
+    final file = File('${temp.path}/images/' + "$fileName.png");
+    final exist = await file.exists();
+    if (!exist) {
+      await file.create(recursive: true);
+    }
+    file.writeAsBytes(pngBytes);
+    return file;
     /*}catch(e){
       return null;
     }*/
@@ -93,6 +95,25 @@ class PlaygroundRepo {
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
 
     return pngBytes;
+  }
+
+  Future<String> downloadDesign(File file) async {
+    try {
+      final Directory? temp = await getExternalStorageDirectory();
+      if(temp==null) return 'No external storage found';
+      final File newImage = File('${temp.path}/images/' + file.path);
+      final exist = await newImage.exists();
+      if(!exist){
+        await newImage.create(recursive: true);
+      }
+      final copy = await file.copy(newImage.path);
+      debugPrint(copy.path);
+      return 'ok';
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
+    return 'Not able to save design';
   }
 
   Future<UploadTask?> uploadFile(File? file) async {
