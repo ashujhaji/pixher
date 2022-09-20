@@ -24,6 +24,7 @@ class Playground {
       int? templateId, TickerProvider tickerProvider) {
     switch (templateId) {
       case 42:
+      case 320:
         {
           AnimationController controller = AnimationController(
               duration: const Duration(milliseconds: 1000),

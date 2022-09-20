@@ -14,6 +14,7 @@ import 'package:share_extend/share_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../firebase/dynamic_link_handler.dart';
+import '../../firebase/in_app_update_helper.dart';
 import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
 import 'create.dart';
@@ -83,6 +84,7 @@ class _HomePageState extends State<HomePage>
         createPage.getLabels(event.file!);
       }
     });
+    InAppUpdateHelper.instance.checkForUpdate();
     super.initState();
   }
 
