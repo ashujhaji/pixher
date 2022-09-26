@@ -149,9 +149,13 @@ class _StoriesPageState extends State<StoriesPage>
       _animController?.stop();
       _animController?.reset();
       if (widget.currentPage > 0) {
-        widget.currentPage--;
+        setState(() {
+          widget.currentPage--;
+        });
       } else {
-        widget.currentPage = 0;
+        setState(() {
+          widget.currentPage = 0;
+        });
       }
       _pageController?.animateToPage(widget.currentPage,
           duration: const Duration(milliseconds: 200), curve: Curves.ease);
@@ -161,9 +165,13 @@ class _StoriesPageState extends State<StoriesPage>
       _animController?.stop();
       _animController?.reset();
       if (widget.category!.templates!.length - 1 > widget.currentPage) {
-        widget.currentPage++;
+        setState(() {
+          widget.currentPage++;
+        });
       } else {
-        widget.currentPage = 0;
+        setState(() {
+          widget.currentPage = 0;
+        });
       }
       _pageController?.animateToPage(widget.currentPage,
           duration: const Duration(milliseconds: 200), curve: Curves.ease);
