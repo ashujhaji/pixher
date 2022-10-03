@@ -285,10 +285,20 @@ class _CreatePageState extends State<CreatePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Pick from popular hashtags',
-          style: theme.textTheme.subtitle1?.copyWith(
-              color: theme.textTheme.subtitle1?.color?.withOpacity(0.7)),
+        Row(
+          children: [
+            Text(
+              'Pick from popular hashtags',
+              style: theme.textTheme.subtitle1?.copyWith(
+                  color: theme.textTheme.subtitle1?.color?.withOpacity(0.7)),
+            ),
+            Text(
+              '${_tagsLength()}/30',
+              style: theme.textTheme.subtitle1?.copyWith(
+                  color: theme.textTheme.subtitle1?.color?.withOpacity(0.7)),
+            ),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         const SizedBox(
           height: 14,
@@ -334,6 +344,10 @@ class _CreatePageState extends State<CreatePage> {
                 ),
               ),
               onTap: () {
+                if(_tagsLength()==30 && tags[item]==false){
+                  showErrorSnackbar(context, 'You have reached to the max limit');
+                  return;
+                }
                 setState(() {
                   tags[item] = !tags[item]!;
                 });
@@ -343,6 +357,10 @@ class _CreatePageState extends State<CreatePage> {
         )
       ],
     );
+  }
+
+  int _tagsLength(){
+    return tags.values.where((element) => element==true).length;
   }
 
   Widget _editorWidget(BuildContext context) {

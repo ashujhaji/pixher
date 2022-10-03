@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:pixer/screens/stories.dart';
 import 'package:provider/provider.dart';
 
-import 'firebase/notification_handler.dart';
+import 'firebase/notification_service.dart';
 import 'firebase/remote_config_service.dart';
 import 'screens/home/home.dart';
 import 'screens/playground.dart';
@@ -28,17 +28,11 @@ void main() async {
     initialRoute: HomePage.tag,
   );
 
-  Firebase.initializeApp().then((value){
-    RemoteConfigService.getInstance().then((value) => value.initialize());
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    FirebaseMessaging.instance.setAutoInitEnabled(true);
-    if (Platform.isIOS) {
-      NotificationHandler.instance.requestForPermission();
-    } else {
-      NotificationHandler.instance.listenForMessages();
-    }
-  });
-
+  await Firebase.initializeApp();
+  final remoteConfig = await RemoteConfigService.getInstance();
+  remoteConfig.initialize();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FirebaseMessaging.instance.setAutoInitEnabled(true);
 
   runApp(myApp);
 }
@@ -56,9 +50,16 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   @override
-  void initState() {
+  void initState() async{
     super.initState();
     getCurrentAppTheme();
+    if (Platform.isIOS) {
+      NotificationService.instance.requestForPermission().then((value){
+        NotificationService.instance.listenForMessages(context);
+      });
+    } else {
+      NotificationService.instance.listenForMessages(context);
+    }
   }
 
   void getCurrentAppTheme() async {
