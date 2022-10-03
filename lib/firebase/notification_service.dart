@@ -141,7 +141,12 @@ class NotificationService {
   void onNotificationClick(String? data, BuildContext? context){
     if(data==null) return;
     if(context==null) return;
-    final payload = json.decode(data);
+    List<String> str = data.replaceAll("{","").replaceAll("}","").split(",");
+    Map<String,dynamic> payload = {};
+    for(int i=0;i<str.length;i++){
+      List<String> s = str[i].split(":");
+      payload.putIfAbsent(s[0].trim(), () => s[1].trim());
+    }
     final todo = payload['TODO'];
     switch(todo){
       case _kOpenTemplateCategory:{

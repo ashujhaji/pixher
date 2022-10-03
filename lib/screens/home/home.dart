@@ -15,6 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../firebase/dynamic_link_handler.dart';
 import '../../firebase/in_app_update_helper.dart';
+import '../../firebase/notification_service.dart';
 import '../../util/circle_transition_clipper.dart';
 import '../../util/events.dart';
 import 'create.dart';
@@ -75,6 +76,13 @@ class _HomePageState extends State<HomePage>
     Future.delayed(Duration.zero, () {
       DynamicLinkHandler.instance.retrieveDynamicLink(context);
     });
+    if (Platform.isIOS) {
+      NotificationService.instance.requestForPermission().then((value){
+        NotificationService.instance.listenForMessages(context);
+      });
+    } else {
+      NotificationService.instance.listenForMessages(context);
+    }
     eventbus = EventBusHelper.instance
         .getEventBus()
         .on<GenerateHashtagEvent>()

@@ -50,16 +50,9 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   @override
-  void initState() async{
+  void initState(){
     super.initState();
     getCurrentAppTheme();
-    if (Platform.isIOS) {
-      NotificationService.instance.requestForPermission().then((value){
-        NotificationService.instance.listenForMessages(context);
-      });
-    } else {
-      NotificationService.instance.listenForMessages(context);
-    }
   }
 
   void getCurrentAppTheme() async {
