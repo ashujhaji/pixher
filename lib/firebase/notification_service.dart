@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pixer/util/dictionary.dart';
 
 import '../screens/home/home.dart';
 import '../util/navigation_helper.dart';
@@ -19,7 +20,6 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-
   /// Create a [AndroidNotificationChannel] for heads up notifications
   AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -34,7 +34,6 @@ class NotificationService {
   static const _kOpenHahstagSuggestion = 'OpenHahstagSuggestion';
   static const _kOpenWebInsideApp = 'OpenWebInsideApp';
   static const _kOpenWebOutsideApp = 'OpenWebOutsideApp';
-
 
   void listenForMessages(BuildContext? context) {
     InitializationSettings initializationSettings;
@@ -68,8 +67,8 @@ class NotificationService {
     }
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (payload) async {
-          onNotificationClick(payload, context);
-        });
+      onNotificationClick(payload, context);
+    });
     startListeningNotifications();
   }
 
@@ -138,46 +137,56 @@ class NotificationService {
     return settings.authorizationStatus == AuthorizationStatus.authorized;
   }
 
-  void onNotificationClick(String? data, BuildContext? context){
-    if(data==null) return;
-    if(context==null) return;
-    List<String> str = data.replaceAll("{","").replaceAll("}","").split(",");
-    Map<String,dynamic> payload = {};
-    for(int i=0;i<str.length;i++){
+  void onNotificationClick(String? data, BuildContext? context) {
+    if (data == null) return;
+    if (context == null) return;
+    List<String> str = data.replaceAll("{", "").replaceAll("}", "").split(",");
+    Map<String, dynamic> payload = {};
+    for (int i = 0; i < str.length; i++) {
       List<String> s = str[i].split(":");
       payload.putIfAbsent(s[0].trim(), () => s[1].trim());
     }
     final todo = payload['TODO'];
-    switch(todo){
-      case _kOpenTemplateCategory:{
-
-        break;
-      }
-      case _kOpenTemplate:{
-        final templateId = payload['template_id'];
-        final width = payload['width'];
-        final height = payload['height'];
-        if (width == null || height == null) return;
-        if(templateId==null) return;
-        NavigationHelper.instance.onOpenTemplate(context, width, height, templateId);
-        break;
-      }
-      case _kOpenHahstagSuggestion:{
-
-        break;
-      }
-      case _kOpenWebInsideApp:{
-
-        break;
-      }
-      case _kOpenWebOutsideApp:{
-
-        break;
-      }
-      default :{
-        Navigator.of(context).pushNamed(HomePage.tag);
-        break;
-      }
+    switch (todo) {
+      case _kOpenTemplateCategory:
+        {
+          final categoryId = payload['category_id'];
+          final templateType = payload['template_type'];
+          if (templateType == null) return;
+          final dimension = TemplateDimension.fromName(templateType);
+          if (categoryId == null) return;
+          NavigationHelper.instance
+              .onOpenCategory(context, dimension, categoryId);
+          break;
+        }
+      case _kOpenTemplate:
+        {
+          final templateId = payload['template_id'];
+          final templateType = payload['template_type'];
+          if (templateType == null) return;
+          if (templateId == null) return;
+          final dimension = TemplateDimension.fromName(templateType);
+          NavigationHelper.instance
+              .onOpenTemplate(context, dimension, templateId);
+          break;
+        }
+      case _kOpenHahstagSuggestion:
+        {
+          break;
+        }
+      case _kOpenWebInsideApp:
+        {
+          break;
+        }
+      case _kOpenWebOutsideApp:
+        {
+          break;
+        }
+      default:
+        {
+          Navigator.of(context).pushNamed(HomePage.tag);
+          break;
+        }
     }
   }
 }
