@@ -4,6 +4,16 @@ const Map<String, List<double>> templateDimensions = {
   'ig_square':[1080,1080]
 };
 
+const Map<String, int> localeTagId = {
+  'global':21656,
+  'en_US':699,
+  'en_IN':3054,
+};
+
+const Map<String, int> cost = {
+  'paid':29934
+};
+
 class TemplateDimension{
   double? width, height;
 

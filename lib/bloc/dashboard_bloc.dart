@@ -22,8 +22,9 @@ class FetchDashboardCategories extends DashboardEvent {}
 
 class FetchTemplatesByCategory extends DashboardEvent {
   final Category category;
+  BuildContext context;
 
-  FetchTemplatesByCategory(this.category);
+  FetchTemplatesByCategory(this.category, this.context);
 }
 
 class CategoriesFetchedState extends DashboardState {
@@ -57,7 +58,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       var data;
       if (event.category.templates == null) {
         data =
-            await repo.fetchTemplatesByCategory(event.category.id.toString());
+            await repo.fetchTemplatesByCategory(event.category.id.toString(),event.context);
       } else {
         data = event.category.templates;
       }

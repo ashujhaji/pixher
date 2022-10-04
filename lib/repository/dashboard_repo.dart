@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../data/api/api_provider.dart';
 import '../data/api/response_handler.dart';
 import '../model/categories.dart';
 import '../model/template.dart';
+import '../util/dictionary.dart';
 
 class DashboardRepo {
   DashboardRepo._privateConstructor();
@@ -29,9 +31,15 @@ class DashboardRepo {
     return null;
   }
 
-  Future<List<Template>?> fetchTemplatesByCategory(String categoryId) async {
-    http.Response response =
-        await _apiProvider.getTemplatesByCategory(categoryId);
+  Future<List<Template>?> fetchTemplatesByCategory(
+      String categoryId, BuildContext context) async {
+    final locale = localeTagId['${Localizations.localeOf(context).languageCode}_${Localizations.localeOf(context).countryCode}'];
+    final tags = [localeTagId['global']];
+    if(locale!=null){
+      tags.add(locale);
+    }
+    http.Response response = await _apiProvider
+        .getTemplatesByCategory(categoryId, tags: tags.join(','));
     if (ResponseHandler.of(response) != null) {
       return templateFromJson(response.body);
     }

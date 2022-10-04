@@ -28,10 +28,13 @@ class CustomShimmerWidget extends StatelessWidget {
     if (enable != null && !enable!) {
       return child!;
     } else {
-      return Shimmer.fromColors(
-        baseColor: enable! ? Colors.grey.shade300 : Colors.transparent,
-        highlightColor: enable! ? Colors.grey.shade100 : Colors.transparent,
-        child: _buildChild(),
+      return ClipRRect(
+        child: Shimmer.fromColors(
+          baseColor: enable! ? Colors.grey.shade300 : Colors.transparent,
+          highlightColor: enable! ? Colors.grey.shade100 : Colors.transparent,
+          child: _buildChild(),
+        ),
+        borderRadius: BorderRadius.circular(5),
       );
     }
   }

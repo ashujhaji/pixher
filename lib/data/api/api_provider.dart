@@ -15,9 +15,9 @@ class ApiProvider {
         headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},
       );
 
-  Future<http.Response> getTemplatesByCategory(categoryId) => http.get(
+  Future<http.Response> getTemplatesByCategory(categoryId,{String? tags}) => http.get(
         Uri.parse(
-            '${ApiConstant.TEMPLATES}?categories=$categoryId'),
+            '${ApiConstant.TEMPLATES}?categories=$categoryId&tags=$tags'),
         headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},
       );
 

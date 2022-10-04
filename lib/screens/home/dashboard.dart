@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pixer/bloc/dashboard_bloc.dart';
+import 'package:pixer/widget/expanded_section.dart';
 
 import '../../model/categories.dart';
 import '../../model/template.dart';
@@ -29,7 +30,10 @@ class _DashboardPageState extends State<DashboardPage> {
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
-          icon: Icon(FeatherIcons.menu,color: Theme.of(context).textSelectionTheme.selectionColor,),
+          icon: Icon(
+            FeatherIcons.menu,
+            color: Theme.of(context).textSelectionTheme.selectionColor,
+          ),
         ),
         backgroundColor: Colors.transparent,
         title: Text(
@@ -46,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
             if (_repo.categories != null) {
               return _categoriesList(context, _repo.categories, (category) {
                 BlocProvider.of<DashboardBloc>(context)
-                    .add(FetchTemplatesByCategory(category));
+                    .add(FetchTemplatesByCategory(category, context));
               });
             }
             return _placeholderWidget(context);
@@ -129,40 +133,46 @@ class _DashboardPageState extends State<DashboardPage> {
         if (list[index].templates == null) {
           callForTemplate(list[index]);
         }
-        return ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 5,
-          ),
-          title: Row(
-            children: [
-              Text(
-                list[index].name.toString(),
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              if(list[index].featured)
-              Container(
-                child: Text(
-                  'Featured',
-                  style: Theme.of(context).textTheme.subtitle1,
+        return (list[index].templates != null && list[index].templates!.isEmpty)
+            ? Container()
+            : ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 5,
                 ),
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Theme.of(context).highlightColor
+                title: Row(
+                  children: [
+                    CustomShimmerWidget(
+                      child: Text(
+                        list[index].name.toString(),
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      enable: list[index].templates == null,
+                      shimmerType: ShimmerType.longText,
+                    ),
+                    if (list[index].featured)
+                      Container(
+                        child: Text(
+                          'Featured',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Theme.of(context).highlightColor),
+                      ),
+                  ],
+                  mainAxisSize: MainAxisSize.min,
                 ),
-              ),
-            ],
-            mainAxisSize: MainAxisSize.min,
-          ),
-          subtitle: SizedBox(
-            height: 220,
-            child: list[index].templates == null
-                ? _templatePlaceholderWidget(context)
-                : _templateWidget(context, list[index]),
-          ),
-        );
+                subtitle: SizedBox(
+                  height: 220,
+                  child: list[index].templates == null
+                      ? _templatePlaceholderWidget(context)
+                      : _templateWidget(context, list[index]),
+                ),
+              );
       },
       itemCount: list.length,
       physics: const BouncingScrollPhysics(),
@@ -200,16 +210,17 @@ class _DashboardPageState extends State<DashboardPage> {
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,
                         imageUrl:
-                        category.templates![index].featuredMedia.toString(),
+                            category.templates![index].featuredMedia.toString(),
                       ),
                       if (category.templates![index].isNew)
                         Container(
                           child: Text(
                             'New',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                ?.copyWith(fontSize: 8,color: Colors.white,),
+                            style:
+                                Theme.of(context).textTheme.subtitle1?.copyWith(
+                                      fontSize: 8,
+                                      color: Colors.white,
+                                    ),
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -223,7 +234,8 @@ class _DashboardPageState extends State<DashboardPage> {
                               ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
-                            ),),
+                            ),
+                          ),
                           margin: const EdgeInsets.all(2),
                           padding: const EdgeInsets.all(2),
                         )
