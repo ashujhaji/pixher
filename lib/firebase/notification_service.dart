@@ -1,10 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pixer/util/dictionary.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../screens/home/home.dart';
 import '../util/navigation_helper.dart';
@@ -172,21 +172,41 @@ class NotificationService {
         }
       case _kOpenHahstagSuggestion:
         {
+          final caption = payload['caption'];
+          final metaImage = payload['meta_image'];
+          NavigationHelper.instance
+              .onOpenSuggestionPage(context, metaImage);
           break;
         }
       case _kOpenWebInsideApp:
         {
+          final url = payload['url'];
+          if(url==null) return;
+          _launchInBrowser(Uri.parse(url),outside: false);
           break;
         }
       case _kOpenWebOutsideApp:
         {
+          final url = payload['url'];
+          if(url==null) return;
+          _launchInBrowser(Uri.parse(url),outside: true);
           break;
         }
       default:
         {
-          Navigator.of(context).pushNamed(HomePage.tag);
+
           break;
         }
     }
   }
+
+  Future<void> _launchInBrowser(Uri url,{bool outside = false}) async {
+    if (!await launchUrl(
+      url,
+      mode: outside ? LaunchMode.externalApplication : LaunchMode.inAppWebView,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
 }
