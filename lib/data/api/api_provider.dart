@@ -10,6 +10,11 @@ class ApiProvider {
     return _provider!;
   }
 
+  Future<http.Response> getCountry() => http.get(
+    Uri.parse('http://ip-api.com/json'),
+    headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},
+  );
+
   Future<http.Response> getCategories() => http.get(
         Uri.parse(ApiConstant.CATEGORIES+'?per_page=100'),
         headers: {ApiConstant.CONTENT_TYPE: ApiConstant.APPLICATION_JSON},

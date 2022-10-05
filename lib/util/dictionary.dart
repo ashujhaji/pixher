@@ -6,8 +6,8 @@ const Map<String, List<double>> templateDimensions = {
 
 const Map<String, int> localeTagId = {
   'global':21656,
-  'en_US':699,
-  'en_IN':3054,
+  'US':699,
+  'IN':3054,
 };
 
 const Map<String, int> cost = {

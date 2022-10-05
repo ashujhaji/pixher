@@ -3,10 +3,13 @@ import 'dart:isolate';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pixer/model/template.dart';
 import 'dart:math' as math;
 
+import '../util/dictionary.dart';
 import '../widget/image_widget.dart';
 import '../widget/text_widget.dart';
+import 'categories.dart';
 
 class Playground {
   bool animated, available;
@@ -2999,3 +3002,17 @@ Widget _updateWidget(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
   );
 }
+
+final debugCategory = [
+  Category(
+      id: 1,
+      name: 'In-progress',
+      description: '',
+      templateDimension: TemplateDimension.fromName('ig_story'),
+      templates: [
+        Template(
+            id: 16778
+        )
+      ]
+  ),
+];

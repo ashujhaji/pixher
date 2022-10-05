@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:http/http.dart' as http;
+import 'package:pixer/widget/snackbar.dart';
 
 import '../data/api/api_provider.dart';
 import '../data/api/response_handler.dart';
 import '../model/categories.dart';
+import '../model/playground_model.dart';
 import '../model/template.dart';
 import '../util/dictionary.dart';
+import 'dart:io' show Platform;
 
 class DashboardRepo {
   DashboardRepo._privateConstructor();
@@ -14,8 +20,19 @@ class DashboardRepo {
 
   final _apiProvider = ApiProvider();
   List<Category> categories = [];
+  String? country;
 
   Future<List<Category>?> fetchCategories() async {
+    http.Response countryResp = await _apiProvider.getCountry();
+    if (ResponseHandler.of(countryResp) != null) {
+      Map data = json.decode(countryResp.body);
+      country = data['countryCode'];
+    }
+    //================For development only============
+    /*if(foundation.kDebugMode){
+      return debugCategory;
+    }*/
+    //================================================
     if (categories.isNotEmpty) return categories;
     http.Response response = await _apiProvider.getCategories();
     if (ResponseHandler.of(response) != null) {
@@ -33,10 +50,9 @@ class DashboardRepo {
 
   Future<List<Template>?> fetchTemplatesByCategory(
       String categoryId, BuildContext context) async {
-    final locale = localeTagId['${Localizations.localeOf(context).languageCode}_${Localizations.localeOf(context).countryCode}'];
     final tags = [localeTagId['global']];
-    if(locale!=null){
-      tags.add(locale);
+    if(country!=null){
+      tags.add(localeTagId[country]);
     }
     http.Response response = await _apiProvider
         .getTemplatesByCategory(categoryId, tags: tags.join(','));
