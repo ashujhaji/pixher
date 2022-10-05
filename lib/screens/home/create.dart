@@ -514,9 +514,9 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   _shareImage(File file) async {
-    final link = DynamicLinkCreator.instance.appLink();
-    final message =
-        'Hey! I found this awesome app for you. Let\'s make amazing stories and posts now with Pixher. Click here to download $link';
+    //final link = DynamicLinkCreator.instance.appLink();
+    const message =
+        'Hey! I found this awesome app for you. Let\'s make amazing stories and posts now with Pixher. Click here to download https://bit.ly/pixher';
     ShareExtend.share(
       file.path,
       "file",

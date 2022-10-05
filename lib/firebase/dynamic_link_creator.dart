@@ -1,4 +1,5 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/material.dart';
 
 class DynamicLinkCreator {
   DynamicLinkCreator._privateConstructor();
@@ -23,7 +24,7 @@ class DynamicLinkCreator {
       link: uri,
       androidParameters: AndroidParameters(
         packageName: 'com.pixher.android',
-        minimumVersion: 1,
+        minimumVersion: 0,
       ),
       dynamicLinkParametersOptions: DynamicLinkParametersOptions(
         shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,

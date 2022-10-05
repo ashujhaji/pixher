@@ -308,12 +308,12 @@ class _PlaygroundState extends State<PlaygroundPage>
         isRendering = true;
       });
     }
-    final link = await DynamicLinkCreator.instance.createTemplateLink(
+    /*final link = await DynamicLinkCreator.instance.createTemplateLink(
         widget.template!.id.toString(),
         widget.dimensions!.width!,
-        widget.dimensions!.height!);
-    final message =
-        'Hey! Try this awesome template to create your next post $link';
+        widget.dimensions!.height!);*/
+    const message =
+        'Hey! Try this awesome template to create your next post. Download the app now https://bit.ly/pixher';
     ShareExtend.share(
       file.path,
       "file",
