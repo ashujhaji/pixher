@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
+import 'package:pixer/widget/snackbar.dart';
 
 class PlaygroundRepo {
   Future<File> startRecording(
@@ -55,7 +56,7 @@ class PlaygroundRepo {
     // try{
     boundary ??=
         repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
-    if (boundary!.debugNeedsPaint) {
+    if (kDebugMode && boundary!.debugNeedsPaint) {
       await Future.delayed(const Duration(milliseconds: 20));
       return captureScreen(repaintKey, fileName: fileName);
     }
