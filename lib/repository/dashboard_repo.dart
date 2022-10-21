@@ -23,16 +23,18 @@ class DashboardRepo {
   String? country;
 
   Future<List<Category>?> fetchCategories() async {
-    http.Response countryResp = await _apiProvider.getCountry();
-    if (ResponseHandler.of(countryResp) != null) {
-      Map data = json.decode(countryResp.body);
-      country = data['countryCode'];
-    }
+
     //================For development only============
     /*if(foundation.kDebugMode){
       return debugCategory;
     }*/
     //================================================
+    
+    http.Response countryResp = await _apiProvider.getCountry();
+    if (ResponseHandler.of(countryResp) != null) {
+      Map data = json.decode(countryResp.body);
+      country = data['countryCode'];
+    }
     if (categories.isNotEmpty) return categories;
     http.Response response = await _apiProvider.getCategories();
     if (ResponseHandler.of(response) != null) {

@@ -11,6 +11,7 @@ import 'package:pixer/widget/snackbar.dart';
 import 'package:share_extend/share_extend.dart';
 import '../bloc/playground_bloc.dart';
 import '../model/template.dart';
+import '../model/widget_creator.dart';
 import '../repository/playground_repo.dart';
 import '../util/dictionary.dart';
 import 'dart:io';
@@ -150,19 +151,22 @@ class _PlaygroundState extends State<PlaygroundPage>
                           child: AspectRatio(
                             aspectRatio: widget.dimensions!.width! /
                                 widget.dimensions!.height!,
-                            child: playgroundWidget(
-                              context,
-                              widget.template!.id!,
-                              (available) {
-                                if (!available) {
-                                  playground.available = available;
-                                }
-                              },
-                              animations:
-                                  playground.animated ? animation : null,
-                              assetUrl: widget.template?.assetImage,
-                              animated: playground.animated,
-                            ),
+                            child: widget.template!.jsonBody != null
+                                ? getWidgetFromJson(
+                                    widget.template!.jsonBody!, context)
+                                : playgroundWidget(
+                                    context,
+                                    widget.template!.id!,
+                                    (available) {
+                                      if (!available) {
+                                        playground.available = available;
+                                      }
+                                    },
+                                    animations:
+                                        playground.animated ? animation : null,
+                                    assetUrl: widget.template?.assetImage,
+                                    animated: playground.animated,
+                                  ),
                           ),
                           key: _repaintKey,
                         ),
