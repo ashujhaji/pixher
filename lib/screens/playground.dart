@@ -151,10 +151,10 @@ class _PlaygroundState extends State<PlaygroundPage>
                           child: AspectRatio(
                             aspectRatio: widget.dimensions!.width! /
                                 widget.dimensions!.height!,
-                            child: /*widget.template!.jsonBody != null
+                            child: widget.template!.jsonBody != null
                                 ? getWidgetFromJson(
                                     widget.template!.jsonBody!, context)
-                                : */playgroundWidget(
+                                : playgroundWidget(
                                     context,
                                     widget.template!.id!,
                                     (available) {
