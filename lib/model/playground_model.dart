@@ -2881,10 +2881,9 @@ Widget playgroundWidget(
                   TextWidget(
                     hint: '♥ TOGETHER WITH THEIR FAMILY ♥',
                     textStyle: GoogleFonts.merriweather(
-                      color: const Color(0xffc88c36),
-                      fontSize: 10,
-                      letterSpacing: 1.2
-                    ),
+                        color: const Color(0xffc88c36),
+                        fontSize: 10,
+                        letterSpacing: 1.2),
                     edgeInsetsGeometry: EdgeInsets.zero,
                   ),
                   TextWidget(
@@ -2892,8 +2891,7 @@ Widget playgroundWidget(
                     textStyle: GoogleFonts.greatVibes(
                         color: const Color(0xff604434),
                         fontSize: 32,
-                        letterSpacing: 1.2
-                    ),
+                        letterSpacing: 1.2),
                     edgeInsetsGeometry: EdgeInsets.zero,
                   ),
                   TextWidget(
@@ -2901,24 +2899,21 @@ Widget playgroundWidget(
                     textStyle: GoogleFonts.merriweather(
                         color: const Color(0xffc88c36),
                         fontSize: 10,
-                        letterSpacing: 1.2
-                    ),
+                        letterSpacing: 1.2),
                   ),
                   Text(
                     '♥',
                     style: GoogleFonts.merriweather(
                         color: const Color(0xff604434),
                         fontSize: 10,
-                        letterSpacing: 1.2
-                    ),
+                        letterSpacing: 1.2),
                   ),
                   TextWidget(
                     hint: 'SATURDAY, 25th Dec 2022',
                     textStyle: GoogleFonts.merriweather(
                         color: const Color(0xffc88c36),
                         fontSize: 10,
-                        letterSpacing: 1.2
-                    ),
+                        letterSpacing: 1.2),
                     edgeInsetsGeometry: EdgeInsets.zero,
                   ),
                   TextWidget(
@@ -2926,15 +2921,15 @@ Widget playgroundWidget(
                     textStyle: GoogleFonts.merriweather(
                         color: const Color(0xffc88c36),
                         fontSize: 10,
-                        letterSpacing: 1.2
-                    ),
+                        letterSpacing: 1.2),
                     edgeInsetsGeometry: EdgeInsets.zero,
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                 ],
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
-
               ),
             ],
           ),
@@ -3005,14 +3000,42 @@ Widget _updateWidget(
 
 final debugCategory = [
   Category(
-      id: 1,
-      name: 'In-progress',
-      description: '',
-      templateDimension: TemplateDimension.fromName('ig_story'),
-      templates: [
-        Template(
-            id: 16778
-        )
-      ]
+    id: 1,
+    name: 'In-progress',
+    description: '',
+    templateDimension: TemplateDimension.fromName('ig_story'),
+    templates: [
+      Template(
+        id: 348,
+        featuredMedia: 'https://vidyaapp000webhostapp.files.wordpress.com/2022/10/mable1_thumbnail.png',
+        jsonBody: {
+          "type": "container",
+          "attributes": {"color": "0x9ffffffff"},
+          "child": {
+            "type" : "stack",
+            "children":[
+              {
+                "type":"cached_network_image",
+                "attributes":{
+                  "url": "https://vidyaapp000webhostapp.files.wordpress.com/2022/10/marbel1.png"
+                }
+              },
+              {
+                "type":"padding",
+                "attributes" :{
+                  "left" : 50.0,
+                  "right" : 50.0,
+                  "top" : 120.0,
+                  "bottom" : 100.0
+                },
+                "child":{
+                  "type" : "image_widget"
+                }
+              }
+            ]
+          }
+        },
+      ),
+    ],
   ),
 ];

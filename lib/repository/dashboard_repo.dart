@@ -25,7 +25,7 @@ class DashboardRepo {
   Future<List<Category>?> fetchCategories() async {
 
     //================For development only============
-    /*if(foundation.kDebugMode){
+/*    if(foundation.kDebugMode){
       return debugCategory;
     }*/
     //================================================

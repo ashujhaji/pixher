@@ -205,7 +205,6 @@ Padding _getPaddingFromJson(Map<String, dynamic> json, BuildContext context) {
   if (attributes == null) {
     return Padding(padding: edgeInsets);
   }
-
   edgeInsets = getEdgeInsets(attributes, context);
 
   Widget? child;
@@ -296,7 +295,7 @@ ImageWidget _getImageWidget(Map<String, dynamic> json, BuildContext context) {
   }
   double? height, width;
 
-  if (attributes['width'] != null) {
+  if (attributes!= null && attributes['width'] != null) {
     final operators = attributes['width'].split('/');
     width = MediaQuery.of(context).size.width;
     if (operators.length > 1) {
@@ -304,7 +303,7 @@ ImageWidget _getImageWidget(Map<String, dynamic> json, BuildContext context) {
     }
   }
 
-  if (attributes['height'] != null) {
+  if (attributes!= null && attributes['height'] != null) {
     final operators = attributes['height'].split('/');
     width = MediaQuery.of(context).size.width;
     if (operators.length > 1) {
@@ -313,7 +312,7 @@ ImageWidget _getImageWidget(Map<String, dynamic> json, BuildContext context) {
   }
 
   ColorFilter? filter;
-  if (attributes['filter'] != null) {
+  if (attributes!= null && attributes['filter'] != null) {
     Color color = Colors.transparent;
     if (attributes['filter']['color'] != null) {
       color = Color(int.parse(attributes['filter']['color'].toString()));
@@ -327,7 +326,6 @@ ImageWidget _getImageWidget(Map<String, dynamic> json, BuildContext context) {
       BlendMode.saturation,
     );
   }
-
   return ImageWidget(
     opacity: color,
     width: width,
@@ -1023,9 +1021,12 @@ EdgeInsets getEdgeInsets(
   }
 }
 
-double _dimensionExtractor(String data, BuildContext context,
+double _dimensionExtractor(dynamic data, BuildContext context,
     {List<Animation<double>>? animations}) {
   double dimen = 0;
+  if(data is double){
+    return data;
+  }
   try {
     if (data.contains('width')) {
       final operators = data.split('/');
@@ -1050,7 +1051,9 @@ double _dimensionExtractor(String data, BuildContext context,
         final animVal = animations[1].value;
       }
     }*/
-  } catch (e) {}
+  } catch (e) {
+    dimen = double.tryParse(data) ?? 0.0;
+  }
 
   return dimen;
 }
