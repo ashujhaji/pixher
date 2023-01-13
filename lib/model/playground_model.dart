@@ -3006,8 +3006,8 @@ final debugCategory = [
     templateDimension: TemplateDimension.fromName('ig_story'),
     templates: [
       Template(
-        id: 348,
-        featuredMedia: 'https://vidyaapp000webhostapp.files.wordpress.com/2022/10/mable1_thumbnail.png',
+        id: 366,
+        featuredMedia: 'https://vidyaapp000webhostapp.files.wordpress.com/2022/10/marble4thumbnail.png',
         jsonBody: {
           "type": "container",
           "attributes": {"color": "0x9ffffffff"},
@@ -3017,7 +3017,7 @@ final debugCategory = [
               {
                 "type":"cached_network_image",
                 "attributes":{
-                  "url": "https://vidyaapp000webhostapp.files.wordpress.com/2022/10/marbel1.png"
+                  "url": "https://vidyaapp000webhostapp.files.wordpress.com/2022/10/marble4.png"
                 }
               },
               {
@@ -3025,11 +3025,32 @@ final debugCategory = [
                 "attributes" :{
                   "left" : 50.0,
                   "right" : 50.0,
-                  "top" : 120.0,
-                  "bottom" : 100.0
+                  "top" : 245.0,
+                  "bottom" : 120.0
                 },
                 "child":{
                   "type" : "image_widget"
+                }
+              },
+              {
+                "type":"align",
+                "attributes" :{
+                  "alignment" : "bottomCenter"
+                },
+                "child" :{
+                  "type": "text_widget",
+                  "attributes": {
+                    "hint":
+                    "Text here",
+                    "text_style": {
+                      "font": "ebGaramond",
+                      "font_size": 16,
+                      "color": "0xFF3E2723"
+                    },
+                    "padding" :{
+                      "bottom" : 40.0
+                    }
+                  }
                 }
               }
             ]
